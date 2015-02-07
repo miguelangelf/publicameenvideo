@@ -1,0 +1,25 @@
+.adjusting-radio{margin-top: 7px !important;}
+.label-filter-template2{margin-top: -12px;}
+.contnav{border-bottom-width: 4px;}
+.caret{position:relative; top:20px;}
+.fieldmargin{margin-top: -2px;}
+.calendar-day, .calendar-day-np{
+    height: 42px !important;
+}
+.calendar-row{
+    height: 42px !important;
+}
+.day-number{
+    height: 42px !important;
+}
+#sac{
+    width:130px;
+}
+.snake-graph{
+    background-position: 192px 47px;
+    background-size: 217px 371px;
+}
+#snake-graph{
+    background-position: 171px 67px;
+    background-size: 258px 330px;
+}

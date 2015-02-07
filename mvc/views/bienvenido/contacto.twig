@@ -1,0 +1,65 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea">        
+        <div class="container">
+            <div class="section-title">
+                Contacto
+            </div>
+            <div class="row mtop">
+                <!--<div class="col-sm-6">
+                    <form>
+                            <div class="row">
+                                <div class="col-md-6 primerinput">
+                                    <input type="text" class="form-control" placeholder="Nombre(s)" name="" required="required">
+                                </div>
+                                <div class="col-md-6 segundoinput">
+                                    <input type="text" class="form-control" placeholder="Apellido(s)" name="" required="required">
+                                </div>
+                            </div>
+                            <div class="row mtoplogin">
+                                <div class="col-md-6 primerinput">
+                                    <input type="text" class="form-control" placeholder="Correo electr&oacute;nico" name="" required="required">
+                                </div>
+                                <div class="col-md-6 segundoinput">
+                                    <input type="text" class="form-control" placeholder="Asunto" name="" required="required">
+                                </div>
+                            </div>
+                            <textarea placeholder="Mensaje" class="form-control mtoplogin textareacontacto" name=""></textarea>
+                        </form>
+                    <div class="btnLogin">
+                        <button class="btn mtoplogin mbottom">Enviar Mensaje</button>
+                    </div>
+                </div>-->
+                <div class="col-sm-6">                	
+                    <div class="well well-sm">
+                        <address>
+                            <p>Para aclarar todas tus dudas, puedes enviarnos un correo electr&oacute;nico, o llamarnos a cualquiera de los siguientes tel&eacute;fonos</p>
+                            <h6 class="mtop"><i class="fa fa-phone contact_icons pink"></i> &nbsp;Tel&eacute;fonos:</h6>
+                            <div class="datoscontacto">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        53 45 82 39<br/>
+                                        53 45 82 66<br/>
+                                        53 45 82 59<br/>
+                                    </div>
+                                    <div class="col-md-3">
+                                        53 45 82 67<br/>
+                                        53 45 82 61<br/>
+                                        53 45 82 68<br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="mtop"><i class="fa fa-envelope contact_icons2 pink"></i> &nbsp;Correo electr&oacute;nico:</h6>
+                            <div class="datoscontacto">
+                                <a href="#">soporte.candidatos@superchamba.com</a>
+                            </div>
+                        </address>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include('logoslider.twig') %}
+{% endblock %}

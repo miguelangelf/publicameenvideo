@@ -1,0 +1,55 @@
+<div class="col-md-12" id="slider-languages">
+	{% for key,language in Data.languages %}
+	<div class="col-md-12">
+		<form class="form-inline" id="languagesForm" data-id="{{ key }}">
+			<div class="form-group">
+				<label for="languageName">Idioma:</label>
+				<select id="languageName" name="languageName" data-value="{{ language.languageName }}" onchange="updateDataSL(event, this, 2);">
+				</select>
+				<!-- <input type="text" class="form-control" id="languageName" name="languageName" value="{{ language.languageName }}" placeholder="Escibe una idioma" onblur="updateDataSL(event, this, 2);" onkeyup="skillUp(this);"> -->
+			</div>
+			<div class="form-group">
+				<label for="languageLevel">Nivel:</label>
+				<select class="form-control" name="languageLevel" id="languageLevel" onchange="updateDataSL(event, this, 2);">
+				  <option {% if language.languageLevel == 'Principiante' %} selected {% endif %}>Principiante</option>
+				  <option {% if language.languageLevel == 'Competencia básica limitada' %} selected {% endif %}>Competencia básica limitada</option>
+				  <option {% if language.languageLevel == 'Competencia intermedia' %} selected {% endif %}>Competencia intermedia</option>
+				  <option {% if language.languageLevel == 'Nivel avanzado' %} selected {% endif %}>Nivel avanzado</option>
+				  <option {% if language.languageLevel == 'Lengua materna o bilingüe' %} selected {% endif %}>Lengua materna o bilingüe</option>
+				</select>
+			</div>
+			<span>
+				<button class='btn btn-default btn-circle btn-lg click-element btn-theme fa fa-close' onclick='removeSL(event, this, 2);'></button>
+			</span>
+		</form>
+	</div>
+	{% endfor %}
+	<div class="col-md-12">
+		<form class="form-inline" id="languagesForm">
+			<div class="form-group">
+				<label>Idioma:</label>
+				<select id="languageName" name="languageName" onchange="skillUp(this);">
+					<option value="">Selecciona</option>
+				</select>
+				<!-- <input type="text" class="form-control" id="languageName" name="languageName" placeholder="Escibe una idioma" onkeyup="skillUp(this);"> -->
+			</div>
+			<div class="form-group disabled">
+				<label for="languageLevel">Nivel:</label>
+				<select class="form-control" name="languageLevel" disabled id="languageLevel" data-function>
+				  <option>Principiante</option>
+				  <option>Competencia básica limitada</option>
+				  <option>Competencia intermedia</option>
+				  <option>Nivel avanzado</option>
+				  <option>Lengua materna o bilingüe</option>
+				</select>
+			</div>
+			<span class="disabled">
+				<button type="submit" class="btn btn-default btn-circle btn-lg fa fa-plus" onclick="addSL(event, this, 2);"></button>
+			</span>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var theme_path = "{{ Core.Domains.theme }}";
+</script>

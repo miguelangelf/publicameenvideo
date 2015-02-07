@@ -1,0 +1,140 @@
+/* CSS Document */
+
+#companyForm{
+	height:350px;
+	padding: 0 10px;
+	overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.btns-area{
+	text-align:right;
+	margin:15px 0;
+}
+
+#companyForm label{
+	color:#666666;
+	font-weight:bold;
+	margin:0;
+}
+
+#conf-menu-wrapper h5{
+	cursor:pointer;
+}
+
+#generalTimeSlots{
+	height: 400px;
+	width: 400px;
+	margin: 10px 0;
+	overflow-y: auto;
+	overflow-x: hidden; 
+}
+
+.deleteTimeSlot{
+    cursor: pointer;
+}
+
+.delete-disabled{
+    color: #CCC;
+}
+
+.user_picture > input[type="file"],
+.user_picture > label{
+	display:none;
+}
+
+.user_picture:hover > label{
+	display:block;
+	width: 150px;
+	height:30px;
+	background-color:#000;
+	opacity: 0.7;
+    filter: alpha(opacity=70); /* For IE8 and earlier */
+	position:absolute;
+	top:50%;
+	margin:-15px 12px 0 !important;
+	text-align:center;
+	cursor:pointer;
+	margin:0 auto;
+	border-radius:4px;
+}
+
+.user_picture:hover > label span{
+	color:#FFF;
+	opacity: 1;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+.user_picture{
+	position:relative;
+}
+
+/*.imageBox
+{
+    position: relative;
+    height: 400px;
+    width: 558px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: -75px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+	border-radius:100%;	
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}*/
+
+#btnZoomIn,
+#btnZoomOut{
+	background-color: #eeeeee;
+    border: 1px solid #666;
+    color: #666;
+    font-size: 12px;
+    height: 20px;
+    padding: 1px;
+    width: 20px;
+}
+
+/*.zoom-section{
+	padding:5px;
+	border: 1px solid #e0e0e0;
+	width: 100%;
+}*/
+
+label[for="user_picture"]{
+	cursor:pointer;
+}
+
+
+#cropModal .thumbBox{
+	width:202px;
+	height:82px;
+	border-radius:0;
+	margin-left: -101px;
+    margin-top: -41px;
+}

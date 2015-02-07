@@ -1,0 +1,57 @@
+<div class="col-md-12" id="slider-education">
+	<div class="row">
+		<div class="list-edus">
+			<div class="media curriculums click-element add-sign" id="addEduBtn">
+			  	<a class="pull-left" href="#">
+			    	<div class="job-template tbriefcase"><h5 class="glyphicon glyphicon-plus"></h5></div>
+			  	</a>
+			  	<div class="media-body">
+			    	<h4 class="media-heading" style="line-height: 30pt;">Agregar Nuevo Hist&oacute;rico</h4>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-md-12">
+			<div class="edu-container">
+				<form id="educationForm" class="form-horizontal" role="form" method="post">
+				  <div class="form-group" style="margin-top: 30px;">
+				  	<label for="company" class="col-sm-4 control-label">T&iacute;tulo o Grado:</label>
+				  	<div class="col-sm-6">
+				    	<input type="text" class="form-control" name="degree" id="degree" placeholder="Grado">
+				    </div>
+				  </div>
+				  <div class="form-group" style="margin-top: 20px;">
+				  	<label for="candidate[school]" class="col-sm-4 control-label">Escuela</label>
+				  	<div class="col-sm-6">
+				    	<input type="text" class="form-control" id="school" name="name" placeholder="Escuela">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<div class="col-md-4 mrg-10">
+				  		<label for="company_size" class="control-label">Inicio:</label>
+				  	</div>
+				  	<div class="col-md-2">
+						<select class="form-control" name="startYear" id="startYearSchool"></select>
+						<!-- <input type="text" class="form-control" id="startYearSchool" name="startYear" placeholder="año" maxlength="4" /> -->
+				  	</div>
+				  	<div class="col-md-2 column-fix">
+				  		<label for="company_size" class="control-label" style="float: left;">T&eacute;rmino:</label>
+				  	</div>
+				  	<div class="col-md-2">
+						<select class="form-control" name="endYear" id="endYearSchool"></select>
+						<!-- <input type="text" class="form-control" id="endYearSchool" name="endYear" style="float: left;" placeholder="año" maxlength="4"/> -->
+				  	</div>
+					
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-exp col-sm-6">
+				      <button id="eduBtn" data-loading-text="Guardando..." onclick="saveEducation(event, this);" class="btn btn-theme" style="float: right;">Guardar</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

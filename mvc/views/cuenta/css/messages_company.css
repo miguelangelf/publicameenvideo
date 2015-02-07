@@ -1,0 +1,296 @@
+/* CSS Document */
+$text-color: rgb(77, 77, 77);
+$bg-entry: rgb(80,80,80);
+
+.section-title-candidate {
+	font-size: 36px;
+	padding-top: 10px;
+	margin-left: 15px;
+}
+
+.panel-heading {
+	background-color: #006b78 !important;
+	border-bottom: none;
+}
+
+.list-group {
+	margin-bottom: 20px;
+	width: 280px;
+}
+
+.list-group-item {
+	height: auto;
+}
+
+.list-group-item-text {
+	padding-bottom: 10px;
+	height: 2.7em;
+	overflow: hidden;
+}
+
+a.list-group-item .list-group-item-heading {
+	margin-left: 5px;
+}
+
+.message-body {
+	border: none;
+	/*border-right: 3px solid #006b78;*/
+	border-radius: 0px;
+	width: 103%;
+}
+
+.message-body h4,
+.message-body p {
+	padding-top: 10px;
+}
+
+a.list-group-item,
+a.list-group-item.active-list{
+	border-radius: 0;
+	border-top: 1px solid #ccc;
+}
+
+a.list-group-item.active-list, 
+a.list-group-item.active-list:hover, 
+a.list-group-item.active-list:focus {
+	border-left: 3px solid #006b78;
+	/*background: #fff;*/
+}
+
+.list-group-item-heading {
+	display: inline;
+	font-size: 15px;
+}
+
+.list-group-item h6 {
+	font-weight: 600;
+}
+
+.profile-message {
+	margin-top: -6px;
+}
+
+.message-header {
+	margin-top: 10px;
+}
+
+.message-title.active {
+	color: #fff;
+	margin-top: 10px;
+}
+
+.message-title {
+	color: #333;
+	margin-top: 10px;
+	font-size: 12px;
+}
+
+.info-time {
+	font-size: 11px;
+	float: right;
+	margin-top: 4px;
+}
+
+.avb-background {
+	background: #006b78;
+	width: 50px;
+	height: 50px;
+	border-radius: 100px;
+}
+
+.avb-background h4 {
+	color: #fff;
+	padding: 0px;
+	text-align: center;
+	line-height: 37pt;
+}
+
+.message-general-data p {
+	padding: 0;
+	line-height: 10pt;
+	margin-bottom: 8px;
+}
+
+.message-body .panel-heading {
+	background: none !important;
+}
+
+#messagePool {
+	margin-left: -10px;
+	/*border-top: 2px solid #006b78;*/
+	border-left: 3px solid #006b78;
+	max-height: 450px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	box-shadow: 0px 1px 5px #888888;
+	margin-left: -15px;
+}
+
+.message-pbody {
+	border-top: 1px solid #ccc;
+	margin: 12% 30px;
+	/*height: 363px;*/
+	width: 90%;
+}
+
+.no-padding {
+	padding: 0 !important;
+	font-size: 12px;
+}
+
+.list-group {
+	max-height: 453px;
+	overflow-y: scroll;
+}
+
+.progress-bar-theme {
+	background-color: #006b78;
+}
+
+#snake-graph {
+	margin-bottom: 20px;
+}
+
+.left-data {
+	margin-top: 20px;
+}
+
+.btn-theme,
+.btn-theme:focus {
+	background-color: #006b78;
+	border: 0 !important;
+	outline: 0;
+	color: #fff;
+}
+
+.btn-theme:hover {
+	background-color: #006b78;
+	opacity: 0.7;
+}
+
+.document-background {
+	background-color: #ccc;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 90pt;
+	border-radius: 100px;
+	margin-top: 10px;
+	border: 2px dashed #aaa;
+}
+
+.document-background p {
+	line-height: inherit;
+}
+
+.document-background a,
+.document-background a:focus {
+	line-height: inherit;
+	font-size: 24px;
+	color: #333;
+}
+
+.document-background:hover {
+	cursor: default;
+}
+
+.available {
+	background-color: #006b78 !important;
+	border: none;
+}
+
+.available:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.available p {
+	color: #fff;
+	font-size: 14px;
+}
+
+.unread {
+	background: #e8e8e8;
+}
+
+.badge {
+	background: #006b78 !important;
+	color: #fff !important;
+	margin-left: 10px;
+	width: 30px !important;
+	height: 20px !important;
+	line-height: 15px !important;
+}
+
+.unread .message-header h5 {
+	font-weight: bolder;
+}
+
+.unread h6 {
+	font-weight: bold;
+}
+
+.unread:hover,
+.unread:focus {
+	background: #e8e8e8 !important;
+}
+
+.message-header h5{
+	font-weight: 600;
+}
+
+
+.tool-bar-messages {
+	margin-bottom: 10px;
+}
+
+.tool-bar-messages button:last-child {
+	margin-left: 15px;
+}
+
+#sendMessageForm label {
+	font-size: 16px;
+	color: #333;
+	margin-top: -6px;
+	margin-left: 30px;
+}
+
+#sendMessageForm input {
+	width: 95%;
+}
+
+.body-text {
+	margin-left: 7%;
+	width: 86.5%;
+}
+
+.send-message .modal-dialog .modal-footer button:last-child {
+	margin-right: 5%;
+}
+
+a.list-group-item .col-md-8 h5 {
+	line-height: 23pt;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+
+.badge-icon::before {
+	line-height: 25pt;
+	text-align: center;
+	margin-left: 10px;
+}
+
+.badge-icon {
+	width: 32px;
+	height: 32px;
+	background: #ff7900;
+	border-radius: 20px;
+	color: #fff;
+	font-size: 16px;
+}
+
+.list-group-item span {
+	margin-left: 10px;
+}

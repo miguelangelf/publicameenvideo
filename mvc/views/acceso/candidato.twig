@@ -1,0 +1,113 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea">
+        <div class="container">
+            <div class="row mtop">
+                <div class="col-md-4">
+                        <div class="row mtoploginarea">
+                            <div class="col-sm-1">
+                            </div>
+                            <div class="col-sm-10">
+                                <i class="fa fa-user fa-2x orange"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="subtitles-home">Acceso a candidatos</span>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-10">
+                            <div id="login-register">
+                                <div class="mtoplogin">
+                                    <form action="" id="UserLoginForm" method="POST">
+                                        <input type="hidden" id="UserType" value="1"/>
+                                        <input type="email" required="required" class="form-control inputlogin" placeholder="Correo electr&oacute;nico" name="data[User][email]" id="UserEmail"/>
+                                        <input type="password" required="required" class="form-control inputlogin" placeholder="Contrase&ntilde;a" name="data[User][password]" id="UserPassword"/>
+                                    </form>
+                                    <div class="btnLogin">
+                                        <input type="button" class="buttonlogin logintxt" value="Ingresa" id="btnLogin"/>
+                                    </div>
+                                    <span class="pwdforgot"><a class="adepriv" href="#" data-toggle="modal" data-target="#resetpwd">No recuerdo mi contraseña</a></span>
+                                </div>
+                                <div class="alert alert-danger" id="failLogin" style="display:none">
+                                    Los datos de acceso son incorrectos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <img class="separacion" id="separacion" src="{{ Core.Domains.theme }}images/barra.png"/>
+                </div>
+                <div class="col-md-6 mbottom">
+                    <div class="row mtoploginarea">
+                        <div class="col-sm-10">
+                            <span class="subtitles-home">Crear una cuenta</span>
+                        </div>
+                    </div>
+                    <div id="registerform">
+                        <form action="" id="registerCandidateForm" type="POST">
+                            <div class="row">
+                                <div class="col-md-6 primerinput">
+                                    <input type="text" class="form-control inputlogin" placeholder="Nombre(s)" name="User[name]" required="required">
+                                </div>
+                                <div class="col-md-6 segundoinput">
+                                    <input type="text" class="form-control inputlogin" placeholder="Apellido(s)" name="User[last_name]" required="required">
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-6 primerinput">
+                                    <input type="email" class="form-control inputlogin" placeholder="Correo electrónico" name="User[email]" required="required" id="userMail">
+                                </div>
+                                <div class="col-md-6 segundoinput">
+                                    <input type="email" class="form-control inputlogin" placeholder="Confirmar correo electrónico" name="User[confirm_mail]" required="required">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 primerinput">
+                                    <input type="password" class="form-control inputlogin" placeholder="Crear contraseña" name="User[password]" required="required" id="userPassword">
+                                </div>
+                                <div class="col-md-6 segundoinput">
+                                    <input type="password" class="form-control inputlogin" placeholder="Confirmar contraseña" name="User[confirm_password]" required="required">
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ Data.module.capcha.capcha|raw }}
+                            </div>
+                            <!-- <div class="row mtop">
+                                <div class="col-md-1">
+                                    <i class="fa fa-square-o fa-2x privacy_check pointer"></i>
+                                </div>
+                                <div class="col-md-11 acepto">
+                                    <span>He le&iacute;do y acepto los <a class="adepriv" href="#" data-toggle="modal" data-target="#tyc">T&eacute;rminos y Condiciones</a> y el <a class="adepriv" href="#" data-toggle="modal" data-target="#adp">Aviso de Privacidad</a></span>
+                                </div>
+                            </div>
+                            -->
+                        </form>
+                        <div class="alert" id="responseRegister" style="display: none;"></div>
+                    </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6 segundoinput">
+                                    <div class="btnLogin mtoplogin">
+                                        <input type="button" class="btnRegister candidate buttonlogin logintxt" id="btnLogin" value="Registrarme"/>
+                                    </div>
+                                </div>
+                            </div>
+
+						 			
+                    </div>                                       
+                </div>
+            </div>
+                                
+    </section>
+    <!-- end main area -->
+    <!-- Modales -->
+    {% include 'resetpassword.twig' %}
+    {% include 'terminosycondiciones.twig' %}
+    {% include 'avisodeprivacidad.twig' %}
+    <!-- Terminan modales -->
+{% endblock %}

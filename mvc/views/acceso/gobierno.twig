@@ -1,0 +1,31 @@
+{% extends 'default.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea">
+        <div class="panel panel-default" id="loginForm">
+            <div class="panel-heading">
+                <h2 class="panel-title ptheading">Soy Enlace</h2>
+            </div>
+            <div class="panel-body">
+                <form action="" id="UserLoginForm" method="POST">
+                    <input type="hidden" id="UserType" value="0"/>
+                    <input type="email" required="required" class="form-control" placeholder="Correo electr&oacute;nico" name="data[User][email]" id="UserEmail"/>
+                    <input type="password" required="required" class="form-control mtoplogin" placeholder="Contrase&ntilde;a" name="data[User][password]" id="UserPassword"/>
+                    <span class="pwdforgot"><a class="adepriv" href="#" data-toggle="modal" data-target="#resetpwd">No recuerdo mi contraseña</a></span>
+                </form>
+                <div class="btnLogin">
+                <input type="button" class="btn mtoplogin" value="Ingresar" id="btnLogin"/>
+                </div>
+            </div>
+            <div class="alert alert-danger" id="failLogin" style="display:none">
+                Los datos de acceso son incorrectos
+            </div>
+        </div>
+                    <div class="alert alert-danger" id="failLogin" style="display:none">
+                        Los datos de acceso son incorrectos
+                    </div>
+        </div>               
+    </section>
+    {% include 'resetpassword.twig' %}
+    <!-- end main area -->
+{% endblock %}

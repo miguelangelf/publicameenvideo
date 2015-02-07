@@ -1,0 +1,28 @@
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+        <div class="panel panel-default" id="loginForm">
+            <div class="panel-heading">
+                <h2 class="panel-title ptheading">Crear tu cuenta</h2>
+            </div>
+            <div class="panel-body">
+            <form action="" id="registerCandidateForm" type="POST">
+                <input type="text" class="form-control" placeholder="Nombre(s)" name="User[name]" required="required">
+                <input type="text" class="form-control mtoplogin" placeholder="Apellido(s)" name="User[last_name]" required="required">
+                <input type="email" class="form-control mtoplogin" placeholder="Correo electrónico" name="User[email]" required="required">
+                <input type="password" class="form-control mtoplogin" placeholder="Crear contraseña" name="User[password]" required="required" id="userPassword">
+                <input type="password" class="form-control mtoplogin" placeholder="Confirmar " name="User[confirm_password]" required="required">
+                <div class="clearfix"></div>
+                <button class="btn mtoplogin" id="btnLogin">Enviar</button>
+            </form>
+            </div>
+        </div>
+        <div class="alert " id="responseRegister">            
+        </div>
+
+    <div class="col-md-4">
+    </div>    
+</section>
+<!-- end main area -->
+{% endblock %}

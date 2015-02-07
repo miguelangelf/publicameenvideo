@@ -1,0 +1,59 @@
+<form id="companyForm">
+	<div class="row">
+		{% set user_picture = Data.picture ? Core.Domains.core ~ 'empresa/admin/companyUserPicture/' ~ Data.uid : Core.Domains.theme ~ "images/default-user-picture.png" %}
+		<div class="col-xs-4">
+			<div class="user_picture text-center">
+				<img src="{{user_picture}}" width="150" height="150" class="img-circle img-thumbnail" id="user_picture_id">
+				<label for="user_picture"><span><i class="fa fa-pencil"></i> Cambiar</span></label>
+				<input type="file" id="user_picture" name="files[]">
+			</div>
+			<div class="text-center">
+				<label for="user_picture"><i class="fa fa-pencil"></i> Cambiar</label>
+			</div>			
+		</div>		
+		<div class="col-xs-8">
+			<label>Nombre:</label>
+			<input type="text" value="{{Data.name}}" class="form-control" name="User[name]">
+			<label>Apellidos:</label>
+			<input type="text" value="{{Data.last_name}}" class="form-control" name="User[last_name]">
+			<label>Posición:</label>
+			<input type="text" value="{{Data.position}}" class="form-control" name="User[position]">
+			<label>Teléfono:</label>
+			<input type="text" value="{{Data.phone_number}}" class="form-control" name="User[phone_number]">
+			<label>Celular:</label>
+			<input type="text" value="{{Data.cell_number}}" class="form-control" name="User[cell_number]">						
+		</div>
+	</div>
+	<input type="hidden" value="{{Data.uid}}" name="User[uid]">
+	<input type="hidden" name="User[picture_base64]" id="user_picture_base64">
+</form>
+<br>
+<p class="text-right">
+	<button class="btn" id="saveCompanyUser" type="button">Guardar</button>
+</p>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <div class="modal-body">
+        <div class="text-center">
+			<div class="zoom-section text-right">
+				Zoom: 
+				<button type="button" id="btnZoomIn" class="btn"><i class="fa fa-plus"></i></button>
+				<button type="button" id="btnZoomOut" class="btn"><i class="fa fa-minus"></i></button>
+			</div>
+			<div class="imageBox">
+				<div class="thumbBox"></div>
+				<div class="spinner" style="display: none">Loading...</div>
+			</div>						
+		</div>
+      </div>
+      <div class="modal-footer">	  	  
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnCrop">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

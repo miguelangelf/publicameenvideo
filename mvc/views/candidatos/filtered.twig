@@ -1,0 +1,240 @@
+{# <?php ?> #}
+<section class="content">
+	{% if Data.type != 'testCandidates' %}
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="candidate_actions">
+                <span class="btn btn-xs">					
+					<input type="checkbox" class="check_all"/>					                        
+                </span>	
+                {% if Data.type == 'hiredCandidates' %}
+                    <a class="btn btn-default btn-xs dismiss_selected delete-modal" href="#"><i class="fa fa-times fa-fw"></i> Dar de baja</a>
+                {% endif %}				
+				  {% if Data.type == 'talentDatabase' or Data.type == 'inviteCandidates'%}            
+				    <a class="btn btn-default btn-xs discard_selected delete-modal" href="#"><i class="fa fa-times fa-fw"></i> Descartar</a>
+          {% endif %}    	
+          {% if Data.type == 'inviteCandidates' %}
+            <a class="btn btn-alert btn-xs test_selected test-modal" href="#"><i class="fa fa-check fa-fw"></i> Practicas</a>
+          {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-7 filter-tags">
+              {{Data.tags|raw}}
+        </div>
+    </div>
+	{% endif %}                        
+<div class="tableminheight"> 
+  <table class="table" id="talent_database">
+   <thead class="white">
+    <tr>
+      <th></th>
+      <th>Nombre del candidato</th>
+	  {% if Data.type == 'hiredCandidates' %}
+	  <th>Contratado</th>
+	  {% else %}
+		  {% if Data.type == 'testCandidates' %}
+		  <th>En Prácticas Laborales</th>
+		  {% else %}	  
+		  <th style="padding-left:0;">Afinidad de perfil</th>
+		  {% endif %}
+	  {% endif %}
+      <th>Acciones</th>
+   </tr>
+ </thead>
+ <tbody>
+   {% for key, item in Data.candidates %}
+   <tr candidate-id="{{item.uid}}">
+    <td width="3%">
+      <input type="checkbox" candidate-id="{{item.uid}}"/>
+      {% if item.with_interview > 0 %}
+      <span class="show-interviews-tooltip" candidate-id="{{item.uid}}"><i class="fa fa-calendar"></i></span>
+      {% endif %}
+    </td>
+    <td width="30%">
+        <a href="#" class="details nombrecandidato" candidate-id="{{item.uid}}" candidate-name="{{item.name}} {{item.last_name}}">{{item.name}} {{item.last_name}} ({{item.age}} años)</a>
+        <div class="infobdt"><strong><span class="orange">{{item.degree_title}}({{item.degree}})</span></strong>
+        <br/>{{item.address}} #{{item.outside_number}}, Col. {{item.colony}}
+        <br/>{{item.delegation}}, C.P. {{item.zip_code}}
+      </div>
+      {% for search in item.searches %}
+        <span class="label label-default">{{search}}</span>
+      {% endfor %}
+    </td>
+	{% set month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] %}
+    {% if Data.type == 'hiredCandidates' %}    
+    <td width="32%">	
+    {{item.hired_date|date("j")}} de {{month[item.hired_date|date("n")-1]}} del {{item.hired_date|date("Y")}}
+	<br/>
+	{% if item.hired_days > 0 %}
+	Contratado hace {{item.hired_days}} días.
+	{% else %}
+	Contratado hoy.
+	{% endif %}
+    </td>
+    <td>                  
+      <div class="btn-talentbase dismiss" candidate-id="{{item.uid}}">
+        Dar de baja                 
+      </div>
+    </td>
+	{% endif %}
+	{% if Data.type == 'testCandidates' %}	
+	<td width="40%">
+		{{item.test_date|date("j")}} de {{month[item.test_date|date("n")-1]}} del {{item.test_date|date("Y")}}
+		<br/>
+		{% if item.test_days > 0 %}
+		En Practicas Laborales desde {{item.test_days}} días.
+		{% else %}
+		Comenzando periodo de prueba hoy.
+		{% endif %}
+	</td>
+	<td>
+		<div class="list-group">
+			<a class="list-group-item {% if item.test_days > 30 %}hire{% else %}no-action{% endif %}" href="#" candidate-id="{{item.uid}}"><i class="fa fa-check fa-fw"></i>&nbsp; Contratar</a>
+			<a class="list-group-item {% if item.test_days > 30 %}nohire{% else %}no-action{% endif %}" href="#" candidate-id="{{item.uid}}"><i class="fa fa-times fa-fw"></i>&nbsp; No contratar</a>                    
+      	</div>
+	</td>
+	{% endif %}	
+    {% if Data.type == 'talentDatabase' or Data.type == 'inviteCandidates' %}
+    <td width="35%">      
+        <div candidate-id="{{item.uid}}" class="profiling_graph" data-profiling-graph="[[0, {{item.f1}}],[1, {{item.f2}}],[2, {{item.f3}}],[3, {{item.f4}}],[4, {{item.f5}}],[5, {{item.f6}}],[6, {{item.f7}}],[7, {{item.f8}}],[8, {{item.f9}}],[9, {{item.f10}}],[10, {{item.f11}}],[11, {{item.f12}}],[12, {{item.f13}}],[13, {{item.f14}}],[14, {{item.f15}}],[15, {{item.f16}}]]">
+            <div class="col-xs-3">
+                <div class="circliful" data-dimension="55" data-text="{{item.administrativo|round}}%" data-width="7" data-fontsize="12" data-percent="{{item.administrativo|round}}" data-fgcolor="#8c295c" data-bgcolor="#ddd"></div>
+                <div class="text-center">
+                    Admin.
+                </div>                
+            </div>            
+            <div class="col-xs-3">
+                <div class="circliful" data-dimension="55" data-text="{{item.comercial|round}}%" data-width="7" data-fontsize="12" data-percent="{{item.comercial|round}}" data-fgcolor="#11715b" data-bgcolor="#ddd"></div>                
+                <div class="text-center">
+                    Comercial
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="circliful" data-dimension="55" data-text="{{item.servicio|round}}%" data-width="7" data-fontsize="12" data-percent="{{item.servicio|round}}" data-fgcolor="#176a98" data-bgcolor="#ddd"></div>
+                <div class="text-center">
+                   Servicio
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="circliful" data-dimension="55" data-text="{{item.operativo|round}}%" data-width="7" data-fontsize="12" data-percent="{{item.operativo|round}}" data-fgcolor="#c02c36" data-bgcolor="#ddd"></div>                
+                <div class="text-center">
+                    Operativo
+                </div>
+            </div>
+        </div>
+        <!--
+	<div candidate-id="{{item.uid}}" class="profiling_graph" data-profiling-graph="[[0, {{item.f1}}],[1, {{item.f2}}],[2, {{item.f3}}],[3, {{item.f4}}],[4, {{item.f5}}],[5, {{item.f6}}],[6, {{item.f7}}],[7, {{item.f8}}],[8, {{item.f9}}],[9, {{item.f10}}],[10, {{item.f11}}],[11, {{item.f12}}],[12, {{item.f13}}],[13, {{item.f14}}],[14, {{item.f15}}],[15, {{item.f16}}]]">
+      <div class="progress barras-progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{item.administrativo|round}}%" >
+        </div>
+      </div><span class="areas">{{item.administrativo|round}}% Administrativo</span><br/>
+      <div class="progress barras-progress">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{item.comercial|round}}%">
+        </div>
+      </div>
+      <span class="areas">{{item.comercial|round}}% Comercial</span><br/>
+      <div class="progress barras-progress">
+        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{item.servicio|round}}%">
+        </div>
+      </div>
+      <span class="areas">{{item.servicio|round}}% Servicio al cliente</span><br/>
+      <div class="progress barras-progress">
+        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{item.operativo|round}}%">
+        </div>
+      </div>
+      <span class="areas">{{item.operativo|round}}% Operativo</span>
+	</div>
+    </td>
+    -->
+    <td width="20%" class="tdactions">
+        <div candidate-id="{{item.uid}}" candidate-name="{{item.name}} {{item.last_name}}" class="btn-talentbase contact">
+            Programar entrevista
+        </div>
+        <div candidate-id="{{item.uid}}" class="btn-talentbase hire">
+            Contratar
+        </div>
+        <div candidate-id="{{item.uid}}" class="btn-talentbase discard">
+            Descartar
+        </div>
+        <!--
+      <div class="list-group">
+	  	{% set label_interview = Data.type == 'inviteCandidates' ? 'Reagendar entrevista' : 'Programar entrevista' %}
+        <a candidate-id="{{item.uid}}" candidate-name="{{item.name}} {{item.last_name}}" class="list-group-item contact" href="#"><i class="fa fa-calendar fa-fw"></i>&nbsp; {{label_interview}}</a>
+        {% if Data.type == 'inviteCandidates' %}        		  
+        <a class="list-group-item test" href="#" candidate-id="{{item.uid}}"><i class="fa fa-check fa-fw"></i>&nbsp; Prácticas Laborales</a>  
+        {% endif %}
+        <a class="list-group-item hire" href="#" candidate-id="{{item.uid}}"><i class="fa fa-check fa-fw"></i>&nbsp; Contratar</a>
+        <a class="list-group-item discard" href="#" candidate-id="{{item.uid}}"><i class="fa fa-times fa-fw"></i>&nbsp; Descartar</a>                    
+      </div>
+        -->
+    </td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+</div>
+<div class="panel-footer">{% include('pagination.twig') %}</div>
+</section>
+
+{#
+
+<div class="wrapper">
+  <div class="pie spinner"></div>
+  <div class="pie filler"></div>
+  <div class="mask"></div>
+</div>
+
+<style>
+
+    .wrapper {
+    position: relative;
+    margin: 40px auto;
+    background: white;
+  }
+
+
+  .wrapper, .wrapper * {  box-sizing: border-box; }
+
+  .wrapper { 
+    width: 250px;
+    height: 250px;
+  }
+
+  .wrapper .pie {
+    width: 50%;
+    height: 100%;
+    transform-origin: 100% 50%;
+    position: absolute;
+    background: #fff;
+    border: 15px solid rgba(0,0,0,0.5);
+  }
+
+  .wrapper .spinner {
+    border-radius: 100% 0 0 100% / 50% 0 0 50%;
+    z-index: 200;
+    border-right: none;
+    transform: rotate(300deg);
+  }
+
+  .wrapper .filler {
+    border-radius: 0 100% 100% 0 / 0 50% 50% 0; 
+    left: 50%;
+    opacity: 0;
+    z-index: 100;
+    opacity: 1;
+    border-left: none;
+  }
+
+  .wrapper .mask {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    opacity: 0;
+    z-index: 300;
+  }
+
+  </style>
+
+#}

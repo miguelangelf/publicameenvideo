@@ -1,0 +1,174 @@
+<div id="systemWorks" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body"><h3> <i class="fa fa-cog fa-5 fa-spin"></i> Procesando</h3></div>
+        </div>
+    </div>
+</div>
+<!-- start header -->
+<header>
+    <div class="top_links">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 text-left">                        
+                    {% if Data.roles == 6 %}							
+                        <ul class="links">
+                            <li>Oficina: <strong>{{Data.office.access_code}}</strong></li>
+                        </ul>
+                    {% else %}
+                        <ul class="links">
+                            <li><a href="#" class="register-top-links"><i class="fa fa-phone"></i>5345-8239</a></li>
+                                {% if Data.roles == 5 or Data.roles == 8 %}
+                                <li><a href="mailto:soporte.empresas@superchamba.com"><i class="fa fa-envelope"></i>soporte.empresas@superchamba.com</a></li>
+                                {% endif %}
+                                {% if Data.roles == 4 %}
+                                <li><a href="mailto:soporte.candidatos@superchamba.com" class="login-top-links"><i class="fa fa-envelope"></i>soporte.candidatos@superchamba.com</a></li>
+                                {% endif %}                            
+                        </ul>    
+                    {% endif %}                 
+                </div>                    
+                <div class="col-sm-6">
+                    <ul class="pull-right links">
+                        
+                        {% if Session._SDFGA_5739_AUKK_REFER_ %}
+							{% if Data.roles == 4 %}
+                            <li><a href="{{ Core.Domains.core }}web/configuracion/editar"><i class="fa fa-cogs cogssettings"></i><span class="settings">Configuraci&oacute;n</span></a> | </li>
+							{% endif %}
+							{% if Data.roles == 5 or  Data.roles == 8 %}
+							<li><a href="{{ Core.Domains.core }}web/configuracion"><i class="fa fa-cogs cogssettings"></i><span class="settings">Configuraci&oacute;n</span></a> | </li>
+							{% endif %}
+                            <li><a href="{{ Core.Domains.core }}system/logout.php"><i class="fa fa-sign-out cogssettings"></i><span class="settings">Cerrar sesi&oacute;n</span></a></li>
+                        {% else %}
+                            <li>
+                                <a href="{{ Core.Domains.core }}web/acceso/para/candidatos">
+                                    <div class="login-top-links"><i class="fa fa-user"></i>Candidatos</div>
+                                </a>
+                                    |
+                            </li>
+                            <li>
+                                <a href="{{ Core.Domains.core }}web/acceso/para/empresas">
+                                    <div class="login-top-links"><i class="fa fa-building-o"></i>Empresas</div>
+                                </a>                                    
+                            </li>							
+                        {% endif %}
+                    </ul>                                        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mid_search">
+        <div onclick="_Sidemenu.toggle('menu1');" id="menu-filters">
+            <i class="fa fa-filter ulfeatures"></i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 logosheader">
+                    <a href="{{ Core.Domains.core }}web/acceso/redirect"><img id="img-logo" src="{{ Core.Domains.theme }}images/logohorizontal.png" class="logo"/></a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-7">
+                    <div class="navbar-header">
+                        <button id="btntoggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <nav class="navbar-collapse pull-right collapse" role="navigation">
+                        <ul class="nav navbar-nav">                                
+                            <!-- begin menu public -->								
+                            {% if not Session._SDFGA_5739_AUKK_REFER_%}
+                            <li class="{{Data.home}}">
+                                <a href="{{ Core.Domains.core }}web/acceso/redirect">
+                                    <i class="fa fa-caret-down"></i>
+                                    Home
+                                </a>
+                            </li>
+                            {% endif %}                             
+                            <!-- end menu public -->
+                            {% if (Data.roles == 4 or Session._SDFGA_5739_AUKK_REFER_) and Data.roles != 5 %}
+                                <li>
+                                    <a href="{{ Core.Domains.core }}web/acceso/redirect" id="perfil_link">
+                                        <i class="fa fa-caret-down"></i>
+                                        Mi perfil    
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ Core.Domains.core }}web/bienvenido/ofertas" id="ofertas_link">
+                                        <i class="fa fa-caret-down"></i>
+                                        Buscar Chamba    
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if Data.roles == 5 %}
+                                <li>
+                                    <a href="{{ Core.Domains.core }}empresa/candidatos/todos">
+                                        <i class="fa fa-caret-down"></i>
+                                        Mi Perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ Core.Domains.core }}empresa/equipo" id="companyTeam">
+                                        <i class="fa fa-caret-down"></i>
+                                        Equipo
+                                    </a>
+                                </li>
+                            {% endif %}						
+                            {% if Data.roles == 8 %}
+                                <li class="{{Data.candidatos}}">
+                                    <a href="{{ Core.Domains.core }}empresa/candidatos/todos">
+                                        <i class="fa fa-caret-down"></i>
+                                        Base de Talento 
+                                    </a>
+                                </li>
+                                <li class="{{Data.searches}}">
+                                    <a href="{{ Core.Domains.core }}empresa/busquedas">
+                                        <i class="fa fa-caret-down"></i>
+                                        Administrar b&uacute;squedas
+                                    </a>
+                                </li>
+								<li class="{{Data.team}}">
+                                    <a href="{{ Core.Domains.core }}empresa/equipo" id="companyTeam">
+                                        <i class="fa fa-caret-down"></i>
+                                        Equipo
+                                    </a>
+                                </li>
+                            {% endif %}                                            
+                            {% if Data.roles == 6 %}
+                                <li class="{{Data.agenda}}">
+                                    <a href="{{ Core.Domains.core }}gobierno/agendar">
+                                        <i class="fa fa-caret-down"></i>
+                                        Agenda    
+                                    </a>
+                                </li>                                
+                            {% endif %}
+                            {% if Data.roles == 7 %}
+                                <li class="{{Data.users}}">
+                                    <a href="{{ Core.Domains.core }}web/admin/users">
+                                        <i class="fa fa-caret-down"></i>
+                                        Usuarios
+                                    </a>
+                                </li>                                
+                                <li class="{{Data.empresa}}">
+                                    <a href="{{ Core.Domains.core }}web/admin/empresa">
+                                        <i class="fa fa-caret-down"></i>
+                                        Empresa
+                                    </a>
+                                </li>
+                                <li class="{{Data.reportes}}">
+                                    <a href="{{ Core.Domains.core }}web/admin/reportes">
+                                        <i class="fa fa-caret-down"></i>
+                                        Reportes
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>                    
+                </div>
+            </div>
+        </div>
+    </div>        
+</header>
+<!-- end header -->

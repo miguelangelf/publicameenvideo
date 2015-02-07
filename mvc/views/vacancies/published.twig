@@ -1,0 +1,77 @@
+{% extends 'vacancies.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea" class="container">
+        <div class="row header">
+            <div class="col-md-3 col-xs-12 center-img">
+			{% set company_picture = Data.company.logo ? Core.Domains.core ~ 'empresa/admin/companyPicture/' ~ Data.company.id : Core.Domains.theme ~ "images/logo_default.png" %}
+                <a href=""><img alt="" src="{{company_picture}}" class="img-logo" width="200" height="80"></a>
+            </div>
+            <div class="col-md-9 col-md-offset-0 col-xs-12">
+                <div class="short-text">
+                    {{Data.company.career_site_title}}
+                </div>
+                <div class="long-text">
+                    {{Data.company.career_site_description}}
+                </div>
+            </div>		
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-return return" style="display:none">
+                    <i class="fa fa-chevron-left icon-return-position"></i><i class="fa fa-list-ul"></i>&nbsp;&nbsp;&nbsp;Regresar al listado de vacantes
+                </div>
+                <!--<div class="return" style="display:none"><i class="fa fa-list-ul orange"></i>&nbsp;&nbsp;&nbsp;Regresar al listado de vacantes</div>-->
+            </div>	
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="vacancyDetail" style="display:none"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-return return" style="display:none">
+                    <i class="fa fa-chevron-left icon-return-position"></i><i class="fa fa-list-ul"></i>&nbsp;&nbsp;&nbsp;Regresar al listado de vacantes
+                </div>
+                <!--<div class="return" style="display:none"><i class="fa fa-list-ul orange"></i>&nbsp;&nbsp;&nbsp;Regresar al listado de vacantes</div>-->
+            </div>	
+        </div>
+        <div class="row" id="vacancies">	
+            <div class="col-md-3 col-xs-6">
+                <div class="left-section">
+                    <div class="row">
+                        <div class="col-md-12">				
+                            <div class="vacancies-number"><span id="total">0</span> Vacantes</div>
+                            <input type="hidden" value="{{Data.company.id}}" id="CompanyId">
+                            <hr>													
+                            <div class="btn-talentbase btn-trabaja" id="btnApply" data-toggle="modal" data-target="#applyModal" {% if Session._SDFGA_5739_AUKK_REFER_ %}style="display:none"{% endif %}>
+                                <div class="row">
+                                    <div class="col-sm-12 mbottom">
+                                        <i class="fa fa-file fa-5x" id="cv-icon"></i>
+                                        <span id="cvcv">CV</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 tacenter">
+                                        <span class="btn-trabaja-text">Trabaja con nosotros</span>
+                                    </div>
+                                </div>
+                            </div>							
+							<div id="loggedUser" {% if not Session._SDFGA_5739_AUKK_REFER_ %}style="display:none"{% endif %}>
+								Bienvenido 
+								<br>
+								<strong id="CandidateName"></strong>
+								<br>
+								<span id="logout"><i class="fa fa-sign-out"></i> Cerrar sesión</span>
+							</div>
+                        </div>
+                    </div>							
+                </div>
+            </div>		
+            <div class="col-md-9 col-xs-12" id="vacancies-list">				
+            </div>
+        </div> 
+    </section>
+    {% include('modal_register.twig') %}
+{% endblock %}

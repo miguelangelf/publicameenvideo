@@ -1,0 +1,59 @@
+<form id="companyForm" class="career_site">
+	<input type="hidden" name="company[id]" value="1" class="inputs">
+	<input type="hidden" name="company[picture_base64]" id="company_picture_base64">
+	<div class="row">
+	{% set company_picture = Data.logo ? Core.Domains.core ~ 'empresa/admin/companyPicture/' ~ Data.id : Core.Domains.theme ~ "images/logo_default.png" %}
+		<div class="col-xs-4">
+			<div class="user_picture text-center">
+				<img src="{{company_picture}}" width="200" height="80" id="company_picture_id">
+				<label for="company_picture"><span><i class="fa fa-pencil"></i> Cambiar</span></label>
+				<input type="file" id="company_picture" name="files[]">
+			</div>
+			<div class="text-center">
+				<label for="company_picture"><i class="fa fa-pencil"></i> Cambiar</label>
+			</div>			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<label>Titulo</label>
+			<textarea class="form-control" name="company[career_site_title]">{{Data.career_site_title}}</textarea>
+		</div>
+	</div>			
+	<div class="row">
+		<div class="col-md-12">
+			<label>Descripción</label>
+			<textarea class="form-control" name="company[career_site_description]">{{Data.career_site_description}}</textarea>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-xs-12 btns-area">
+		<button id="updateDataCompany" class="btn">Guardar</button>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <div class="modal-body">
+        <div class="text-center">
+			<div class="zoom-section text-right">
+				Zoom: 
+				<button type="button" id="btnZoomIn" class="btn"><i class="fa fa-plus"></i></button>
+				<button type="button" id="btnZoomOut" class="btn"><i class="fa fa-minus"></i></button>
+			</div>
+			<div class="imageBox">
+				<div class="thumbBox"></div>
+				<div class="spinner" style="display: none">Loading...</div>
+			</div>						
+		</div>
+      </div>
+      <div class="modal-footer">	  	  
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnCrop">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

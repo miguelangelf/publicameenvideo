@@ -1,0 +1,251 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    
+<!-- start main area -->
+<section id="mainArea">
+    <div class="section-title">
+        Registra tu Empresa
+    </div>
+    <h6 class="mtop">Ingresa la siguiente información para completar tu registro</h6>
+	<form id="questionary">
+		<input type="hidden" name="user[token]" value="{{Data.token}}">
+		
+                <div class="container">
+			<div class="subtitle"><span class="fasize"><i class="fa fa-cogs"></i></span> &nbsp;Datos de la empresa</div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">R&eacute;gimen Fiscal<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="firstselectcuestionarios" name="company[tax_regime]">
+                                        <option value="1">Persona F&iacute;sica</option>
+                                        <option value="2">Persona Moral</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Sector<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="selectcuestionarios" name="company[id_sector]" id="sectorId">
+										<option value="">Selecciona el sector</option>
+										{% for key, item in Data.sectors %}
+                                        <option value="{{key}}">{{item}}</option>
+										{% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Subsector<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="selectcuestionarios" disabled="disabled" name="company[id_subsector]" id="subSectorId">
+                                        <option value="1">Subsector</option>
+                                    </select>
+                                </div>
+                            </div>
+			</div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">Raz&oacute;n Social<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="firstinputcuestionarios required" name="company[register_name]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Nombre del comercio<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput required" name="company[name]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">RFC<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="inputinput required" id="rfc_segment_1" name="rfc_segment_1">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="inputinput required" id="rfc_segment_2" name="rfc_segment_2">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="inputinput required" id="rfc_segment_3" name="rfc_segment_3">
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+			</div>
+                </div>
+			<div class="container">
+			<div class="subtitle"><span class="fasize"><i class="fa fa-building-o"></i></span> &nbsp;Domicilio del Negocio</div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">Calle<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="firstinputcuestionarios required" name="company[street]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">C&oacute;digo Postal<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput required" id="zip_code" maxlength="5" name="company[zip_code]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Delegaci&oacute;n<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="selectcuestionarios required" id="delegations" disabled="disabled" name="company[id_delegation]">
+                                        <option value="">Delegaci&oacute;n</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Colonia<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="selectcuestionarios" id="colonies" disabled="disabled" name="company[id_colony]">
+                                        <option value="">Colonia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">N&uacute;mero<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-md-6 primerinput">
+                                            <input type="text" class="firstinputcuestionarios required" placeholder="Exterior" name="company[outside_number]">
+                                        </div>
+                                        <div class="col-md-6 segundoinput">
+                                            <input type="text" class="firstinputcuestionarios" placeholder="Interior" name="company[internal_number]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Entre calles</div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-md-5 primerinputec">
+                                            <input type="text" class="inputsreg inputinput" placeholder="Calle 1" id="streat_1">
+                                        </div>
+                                        <div class="col-md-2"><div class="inputinput">y</div></div>
+                                        <div class="col-md-5 segundoinputec">
+                                            <input type="text" class="inputsreg inputinput" placeholder="Calle 2"  id="streat_2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldsinput taright">Tel&eacute;fono fijo</div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputcuestionarios number" name="company[phone_number]" alt="Por favor introduce solo n&uacute;meros" title="Por favor introduce solo n&uacute;meros">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Tel&eacute;fono m&oacute;vil</div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput number" name="company[cell_number]" alt="Por favor introduce solo n&uacute;meros" title="Por favor introduce solo n&uacute;meros">
+                                </div>
+                            </div>
+                        </div>
+			</div>
+			</div>
+			<div class="container">
+			<div class="subtitle"><span class="fasize"><i class="fa fa-user"></i></span> &nbsp;Informaci&oacute;n del Director de Recursos Humanos</div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">Nombre<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="firstinputcuestionarios required" name="company[director_name]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Email<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput required email" name="company[director_email]">
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldsinput taright">Sexo<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="selectcuestionarios mtopinput" name="company[director_gender]">
+                                            <option value="1">Hombre</option>
+                                            <option value="0">Mujer</option>
+                                    </select>
+                                </div>
+                            </div>
+			</div>
+			<div class="col-md-6 mtop">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="firstfieldscuestionarios taright">Apellidos<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="firstinputcuestionarios required" name="company[director_last_name]">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Tel&eacute;fono fijo<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput required number" name="company[director_phone_number]" alt="Por favor introduce solo n&uacute;meros" title="Por favor introduce solo n&uacute;meros">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="fieldscuestionarios taright">Tel&eacute;fono m&oacute;vil<span class="requeridos">*</span></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="inputinput required number" name="company[director_cell_number]" alt="Por favor introduce solo n&uacute;meros" title="Por favor introduce solo n&uacute;meros">
+                                </div>
+                            </div>
+			</div>
+			</div>
+			<div class="subtitle"></div>
+		</form>
+    <div class="container mtop mbottom">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2 mtop">
+                <div align="center"><div class="btn btnreg" id="btnQuestionary">Registrarme</div></div>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% endblock %}

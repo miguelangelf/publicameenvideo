@@ -1,0 +1,88 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea">
+        <div class="container">
+            <div class="section-title">
+                Gestionar Empresas
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input id="companiesSearch" class="form-control" placeholder=" Buscar" type="text">
+                                    </div>
+                                </div>
+								<div class="col-md-5 select-status">
+								<select class="form-control" id="selectCompanyStatus">
+									<option value="">Todas</option>
+									<option value="1">Activas</option>
+									<option value="0">Inactivas</option>
+								</select>  
+								</div>                              
+                            </div>
+                        </div>
+                        <div class="panel-body busquedas-panel">
+                            <div id="busquedas-results">
+                                
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                    <div class="panel-heading" id="panel-heading-adjust">
+						<div class="row">
+							<div class="col-md-7">
+								<h3 class="panel-title" id="panel_title">Registrar nueva empresa</h3>
+							</div>
+							<div class="col-md-5 right-oriented">
+								<button type="button" class="btn btn-default" onclick="" id="newCompany">
+									<i class="fa fa-plus-square"></i>
+									<span class="txt-inside-button">Nueva empresa</span>
+								</button>
+							</div>
+						</div>
+                    </div>
+                    <div class="panel-body busquedas-panel" id="form_company">
+                        <div class="nocandidates">
+                            <i class="fa fa-arrow-down fa-3x"></i>
+                            <br/>
+                            <div class="txtgris"> Selecciona o agrega una empresa</div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" id="panel-footer-adjust"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end main area -->
+	<div id="modalDelete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">
+			<span aria-hidden="true">&times;</span>
+			<span class="sr-only">Close</span></button>
+		  <h4 class="modal-title" id="myModalLabel">Eliminar Empresa</h4>
+			</div>
+		  <div class="modal-body">
+			<p>¿Desea eliminar la Empresa?</p>
+			<div ID="msgDismiss" class="alert alert-danger" style="display:none"></div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn delete-modal" id="btnDelete" data-dismiss="modal">Eliminar</button>
+			<button type="button" class="btn cancel-modal" data-dismiss="modal">Cancelar</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+{% endblock %}

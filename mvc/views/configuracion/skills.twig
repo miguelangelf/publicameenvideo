@@ -1,0 +1,42 @@
+<div class="col-md-12" id="slider-skills">
+	{% for key, skill in Data.skills %}
+	<div class="col-md-6">
+		<form class="form-inline" id="skillsForm" data-id="{{ key }}">
+			<div class="form-group">
+				<label for="skillName">Habilidad:</label>
+				<input type="text" class="form-control" id="skillName" name="skillName" value="{{ skill.skillName }}" placeholder="Escibe una habilidad" onblur="updateDataSL(event, this, 1);" onkeyup="skillUp(this);">
+			</div>
+			<div class="form-group">
+				<label for="skillLevel">Nivel:</label>
+				<select class="form-control" name="skillLevel" id="skillLevel" onchange="updateDataSL(event, this, 1);">
+				  <option {% if skill.skillLevel == 'Principiante' %} selected {% endif %}>Principiante</option>
+				  <option {% if skill.skillLevel == 'Intermedio' %} selected {% endif %}>Intermedio</option>
+				  <option {% if skill.skillLevel == 'Avanzado' %} selected {% endif %}>Avanzado</option>
+				</select>
+			</div>
+			<span>
+				<button class='btn btn-default btn-circle btn-lg click-element btn-theme fa fa-close' onclick='removeSL(event, this, 1);'><!-- <i class='fa fa-close'></i> --></button>
+			</span>
+		</form>
+	</div>
+	{% endfor %}
+	<div class="col-md-6">
+		<form class="form-inline" id="skillsForm">
+			<div class="form-group">
+				<label for="skillName">Habilidad:</label>
+				<input type="text" class="form-control" id="skillName" name="skillName" value="{{ skill.skillName }}" placeholder="Escibe una habilidad" onkeyup="skillUp(this);">
+			</div>
+			<div class="form-group disabled">
+				<label for="skillLevel">Nivel:</label>
+				<select class="form-control" name="skillLevel" id="skillLevel" disabled>
+				  <option>Principiante</option>
+				  <option>Intermedio</option>
+				  <option>Avanzado</option>
+				</select>
+			</div>
+			<span class="disabled">
+				<button type="submit" class="btn btn-default btn-circle btn-lg fa fa-plus" onclick="addSL(event, this, 1);"></button>
+			</span>
+		</form>
+	</div>
+</div>

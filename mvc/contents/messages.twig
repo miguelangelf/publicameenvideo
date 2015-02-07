@@ -1,0 +1,193 @@
+
+    <div class="row" {% if not view %} style="padding: 10px 0 0 15px;" {% endif %}>
+        <div class="col-md-12 navbar-default">
+            <ul class="nav navbar-nav">
+                <li {% if messages.type == 'inbox' %} class="active" {% endif %}>
+                    <a href="#" onclick="return false;" role="tab" {% if messages.type != 'inbox' %} class="link-disabled" {% endif %}>
+                        Inbox
+                    </a>
+                </li>
+                <li class="sent {% if messages.type == 'outbox' %} active-sent {% endif %}">
+                    <a href="#" onclick="return false;" role="tab" {% if messages.type != 'outbox' %} class="link-disabled" {% else %} style="background: #ff7900 !important;" {% endif %}>Enviados</a>
+                </li>
+                <li>
+                    <a href="#" onclick="return false;" role="tab" class="link-disabled">Eliminados</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr style="width: 96.5%; margin-left: 15px; margin-top: 0px; border-color: #ccc;" />
+    <div class="row" {% if not view %} style="padding: 0 15px 10px 15px;" {% endif %}>
+        <div class="col-md-4">
+            <div class="list-group">
+                {% if Data.messages.messages %}
+                    {% for key,message in Data.messages.messages %}
+                        {% if key == 0 %}
+                        {% set messageActual = message %}
+                        <a href="#" class="list-group-item {% if messages.type != 'outbox' and message.leido == 0 %} unread {% endif %} active-list" data-read="{{ message.leido }}" data-toggle="true" onclick='showMessageBody(event, this, {{ Data.messages.javascript[key]|raw }} {% if messages.type != "outbox" %} , {{ message.id }} {% endif %});'>
+                            <div class="message-header">
+                                {% if messages.type == 'inbox' %} 
+                                    <img width="27px" height="27px" class="profile-message" src="{{ Core.Domains.theme }}/images/circle1.png" />
+                                    <h5 class="list-group-item-heading">{% if message.company %} {{ message.company }} {% else %} {{ message.envia }} {% endif %}</h5>
+                                {% else %}
+                                    <h5 class="list-group-item-heading" style="margin-left: 0px;">Para: {{ message.recibe }}</h5>
+                                {% endif %}
+                                <span class="info-time">{{ message.time_diff }}</span>
+                            </div>
+                            <h6 class="message-title">{{ message.subject }}</h6>
+                            <p class="list-group-item-text">{{ message.body|striptags }}</p>
+                        </a>
+                        {% else %}
+                        <a href="#" class="list-group-item {% if messages.type != 'outbox' and message.leido == 0 %} unread {% endif %}" data-read="{{ message.leido }}" onclick='showMessageBody(event, this, {{ Data.messages.javascript[key]|raw }} {% if messages.type != "outbox" %} , {{ message.id }} {% endif %});'>
+                            <div class="message-header">
+                                {% if messages.type == 'inbox' %} 
+                                    <img width="27px" height="27px" class="profile-message" src="{{ Core.Domains.theme }}/images/circle1.png" />
+                                    <h5 class="list-group-item-heading">{% if message.company %} {{ message.company }} {% else %} {{ message.envia }} {% endif %}</h5>
+                                {% else %}
+                                    <h5 class="list-group-item-heading" style="margin-left: 0px;">Para: {{ message.recibe }}</h5>
+                                {% endif %}
+                                <span class="info-time">{{ message.time_diff }}</span>
+                            </div>
+                            <h6 class="message-title">{{ message.subject }}</h6>
+                            <p class="list-group-item-text">{{ message.body|striptags }}</p>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% if messages.type == 'outbox' %}
+                    <a href="#" class="list-group-item active-list">
+                        <div class="message-header">
+                            <h5 class="list-group-item-heading" style="margin-left: 0px;">Bandeja de Salida Vac&iacute;a</h5>
+                            <span class="info-time"></span>
+                        </div>
+                        <h6 class="message-title">Informaci&oacute;n</h6>
+                        <p class="list-group-item-text"></p>
+                    </a>
+                    {% else %}
+                    <a href="#" class="list-group-item active-list" onclick="return false;">
+                        <div class="message-header">
+                            <img width="27px" height="27px" class="profile-message" src="{{ Core.Domains.theme }}/images/circle1.png">
+                            <h5 class="list-group-item-heading">Superchamba</h5>
+                            <span class="info-time">Hace 1 hora</span>
+                        </div>
+                        <h6 class="message-title">Bienvenido!</h6>
+                        <p class="list-group-item-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                    </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-8" id="messagePool">
+            {% if Data.messages.messages %}
+            <div class="panel panel-default message-body" id="message">
+                <div class="panel-heading">
+                    <div class="col-md-5 message-general-data">
+                        <h5></h5>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="col-md-5">
+                        <p class="no-padding"></p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="avb-background">
+                            <h4>D</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body message-pbody">
+                    <!-- <h4></h4> -->
+                    <p></p>
+                    <p style="color: #ccc;"></p>
+                </div>
+            </div>
+            {% else %}
+                {% if messages.type == 'outbox' %}
+                <div class="panel panel-default message-body" id="message">
+                    <div class="panel-heading">
+                        <div class="col-md-5 message-general-data">
+                            <h5>Superchamba Team</h5>
+                            <p>Para: Usuario</p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="no-padding">Hoy</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="avb-background">
+                                <h4>U</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body message-pbody">
+                        <h4>Informaci&oacute;n</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        <p style="color: #ccc;">Powered by Superchamba</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="panel panel-default message-body" id="message">
+                    <div class="panel-heading">
+                        <div class="col-md-5 message-general-data">
+                            <h5>Superchamba Team</h5>
+                            <p>Para: Usuario</p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="no-padding">Hoy</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="avb-background">
+                                <h4>U</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body message-pbody">
+                        <h4>Te damos la Bienvenida</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        <p style="color: #ccc;">Powered by Superchamba</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+<!-- <div class="modal fade send-message" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Remitente</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" id="sendMessageForm">
+              <div class="form-group">
+                <div class="col-md-2">
+                    <label for="receiver" class="control-label">Para: </label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="receiver" name="receiver">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-2">
+                    <label for="subject" class="control-label">T&iacute;tulo:</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Ej. Oferta de Trabajo">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="body-text">
+                    <textarea class="form-control" rows="10" name="body">Escribe tu mensaje aqui</textarea>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-theme" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-theme" id="sendMessageBtn">Enviar Mensaje</button>
+        </div>
+    </div>
+  </div>
+</div> -->

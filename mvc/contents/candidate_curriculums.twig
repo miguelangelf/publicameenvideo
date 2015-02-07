@@ -1,0 +1,23 @@
+<div role="tabpanel" class="tab-pane" id="curriculum">
+    <div class="col-md-4">
+        <div class="list-group">
+          {% for curriculum in Data.curriculums %}
+              {% if curriculum.extension == 'doc' or curriculum.extension == 'docx' %}
+              <a href="#" id="{{ curriculum.name }}" class="list-group-item padd-10-px no-radius" onclick="setEmbed(event, '{{ Core.Domains.core }}empresa/candidatos/showFile/{{ curriculum.name }}', this, '{{ curriculum.extension }}');">
+                <i class="{{ extensiones[curriculum.extension] }} badge-icon"></i>
+                <span>{{ curriculum.description }}</span>
+              </a>
+              {% else %}
+              <a href="#" id="{{ curriculum.name }}" class="list-group-item padd-10-px no-radius" onclick="setEmbed(event, '{{ Core.Domains.core }}empresa/candidatos/showFile/{{ curriculum.name }}', this, '{{ curriculum.extension }}');">
+                <i class="{{ extensiones[curriculum.extension] }} badge-icon"></i>
+                <span>{{ curriculum.description }}</span>
+                <i class="fa fa-download click-element download" onclick="downloadCurriculum({{ curriculum.name }});"></i>
+              </a>
+              {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-8" id="display">
+        <embed src="" style="display: none;" id="dataPreview" width="580px" height="600px" />
+    </div>
+</div>

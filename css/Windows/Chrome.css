@@ -1,0 +1,17 @@
+.snake-graph {
+    background-position: 190px 49px;
+    background-size:222px 370px;
+}
+#snake-graph {
+    background-position: 169px 77px;
+    background-size: 263px 320px;
+}
+.adjusting-radio{
+    margin-top: 8px !important;
+}
+.label-filter-template2{
+    margin-top: -13px;
+}
+.contnav{border-bottom-width: 4px;}
+.caret{position:relative; top:20px;}
+.fieldmargin{margin-top: -2px;}

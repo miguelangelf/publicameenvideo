@@ -1,0 +1,32 @@
+{# <?php ?> #}
+<table align="center" cellpadding="0px" cellspacing="0px" style="width:700px; border:solid 1px #999999; font-family: Arial, Helvetica, sans-serif;">
+    <tr style="height:100px; background-color: #eaeaea;">
+        <td style="border-bottom:solid 3px #006b78;">
+            <img style="margin-left: 30px;" src="{{ Core.Domains.theme }}images/logohorizontal.png" />
+        </td>
+    </tr>
+    <tr height="500px">
+        <td style="padding:30px;">
+            <p>Estimado(a) <b>{{Data.full_name}}</b></p>
+            <br/>
+            <p>Has sido invitado(a) a participar en una entrevista de trabajo con el(la) Sr(a). <b>{{Data.interviewer}}</b>, de la empresa:<br/><br/><br/><b>{{Data.company}}</b><br/><br/><br/>
+            <br/>
+            Fecha: <b>{{Data.Date}} a las {{Data.Hour}}:{{Data.Minute}} Hrs.</b><br/>
+            Direcci&oacute;n: <b>{{Data.Place}}</b><br/>
+			</b><br/>          
+			{{Data.Message}}
+        </td>
+    </tr>
+    <tr>
+        <td align="center" valign="middle" style="background-color:#006b78; padding:10px; color:#fff;">
+            <img src="{{ Core.Domains.theme }}images//mail.png" style="margin-right:5px;" />
+            <span>
+                <a href="mailto:{{ Theme.Globals.candidateSupport }}" style="color: #FFF;text-decoration: none;">{{ Theme.Globals.candidateSupport }}</a>
+            </span>
+        </td>
+    </tr>
+</table>
+
+            <!-- <div style="margin:5px;">Lugar: {{Data.Place}}</div>
+            <div style="margin:5px;">Fecha: {{Data.Date}} {{Data.Hour}}:{{Data.Minute}} Hrs</div>
+            <div style="margin:5px;">{{Data.Message}}</div> -->

@@ -1,0 +1,238 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <section id="map-section">
+        <div class="side-list" id="ex3">            
+        </div>
+        <div class="totals">
+            <span class="white">Hemos encontrado</span>
+            <br/>
+            <span>en tu &aacute;rea</span>
+            <span class="vacantes-map">30,388 vacantes</span>
+            <!-- <br/>
+            <span class="white">en tu &aacute;rea</span> -->
+        </div>
+        <div class="clearfix">
+            <div id="map_canvas" class="map-area-click" style="height: 500px; position:absolute; width:100%;"></div>
+        </div>
+        <div class="container">       
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="conthome" style="margin-top:100px;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="contsearch">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <span class="ulfeatures">Deja que el trabajo <span class="orange"><strong>te encuentre a ti</strong></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mtoplogin">
+                                        <div class="col-sm-12">
+											
+											<form id="searchForm" action="{{ Core.Domains.core }}web/bienvenido/ofertas" method="post">																								
+												{#<!--<input id="locationSearch" type="text" class="main-search-location" name="jobs-location"/>-->#}																									
+												<input id="searchBy" name="search-by" class="main-search form-control" placeholder="¿Donde buscas?, ¿Que buscas?"/>																								
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="row mtoplogin">
+                                        <div class="col-sm-12">
+                                            <span id="geolocation" class="white"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mtoplogin">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-4 pfirstbutton">
+                                            <a href="{{ Core.Domains.core }}web/bienvenido/ofertas" id="searchByWord">
+                                                <div class="btn-search-home">
+                                                    <span>Buscar</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 psecondbutton">
+                                            <a href="#">
+                                                <div class="btn-search-home">
+                                                    <span>Ver en mapa</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <a href="#"><span class="mas">Quiero saber m&aacute;s</span></a>
+                                        </div>
+                                        <div class="col-sm-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="contfeatures taleft">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <ul class="ulfeatures">
+                                                <li><i class="fa fa-check"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <ul class="ulfeatures">
+                                                <li>M&aacute;s de <span class="orange"><strong>4.5 millones</strong></span> de usuarios registrados</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <ul class="ulfeatures">
+                                                <li><i class="fa fa-check"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <ul class="ulfeatures">
+                                                <li>Encuentra ofertas de trabajo personalizadas <span class="orange"><strong>en tu &aacute;rea</strong></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <ul class="ulfeatures">
+                                                <li><i class="fa fa-check"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <ul class="ulfeatures">
+                                                <li class="third-check">Contamos con m&aacute;s de <span class="orange"><strong>2.5 millones</strong></span> de vacantes activas</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <ul class="ulfeatures">
+                                                <li class="fourth-check"><i class="fa fa-check"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-11">
+                                            <ul class="ulfeatures">
+                                                <li class="fourth-check">M&aacute;s de <span class="orange"><strong>999</strong></span> empresas</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div id="login-conthome">
+                            <div class="row mtoplogin">
+                                <a href="{{ Core.Domains.core }}web/acceso/para/candidatos">
+                                    <div class="col-sm-6">
+                                        <div class="btn-login-c" style="float:right;">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <div class="iconbtn">
+                                                        <i class="fa fa-user fa-2x"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4" style="padding-top:13px;">
+                                                    <span class="login-conthome">Candidatos</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="{{ Core.Domains.core }}web/acceso/para/empresas">
+                                <div class="col-sm-6">
+                                    <div class="btn-login-c">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="iconbtn">
+                                                    <i class="fa fa-building-o fa-2x"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4" style="padding-top:13px;">
+                                                <span class="login-conthome">Empresa</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="control-panel-button">
+                            <i class="fa fa-angle-up" style="position: relative; top: -8px;"></i>
+                        </div>
+                    </div>
+                    <div class="conthome-down">
+                        <div class="control-panel-button-down">
+                            <i class="fa fa-angle-down" style="position: relative; top: -8px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN Buscar y features FIN -->
+        </div>
+    </section>    
+    <section id="infoarea">
+        <div class="container">
+            <div class="row mtop">
+                <div class="col-sm-12 text-center">
+                    <div class="subtitles-home" href="#">Ofertas destacadas</div>
+					<br> 					                   
+				</div>
+				{% set for_col = 2 %}
+				{% set count_col = 0 %}
+				{% for item in Data.vacancies %}					
+					{% if count_col == 0 %}																
+				<div class="col-sm-4">
+					<hr class="hrhome"/>	
+					{% endif %}
+					<a href="{{ Core.Domains.core }}web/bienvenido/detalle_oferta/{{item.id}}/{{item.position_full|replace({' ': '_'})}}">
+						<div class="{% if count_col == 1 %}oferta2{% else %}oferta1{% endif %}">
+							<span class="position-title">{{item.position}}</span>
+							<p class="position-posted">
+							{{item.created|date('d/m/Y')}}
+							{% if item.city != '' %}
+								, <strong>{{item.city}}</strong>							
+							{% endif %}
+							{% if item.state != '' %}						
+								, {{item.state}}
+							{% endif %}						
+							</p>
+							<p class="description">{{item.job_description|raw}}</p>
+						</div>
+					</a>								
+					{% if count_col == for_col %}
+						{% set count_col = 0 %}
+				</div>
+					{% else %}
+						{% set count_col = count_col + 1 %}
+					{% endif %}
+				{% endfor %}                                                   
+            </div>
+            <div class="row mtop mbottom">
+                <div class="col-sm-12">
+                    <a href="{{ Core.Domains.core }}web/bienvenido/ofertas">
+                        <div class="buttonlogin">
+                            <span class="logintxt">Ver m&aacute;s ofertas</span>
+                        </div>
+                    </a>
+                </div>
+            </div>          
+        </div>
+    </section>
+       
+    <script src="{{ Core.Domains.core }}js/geo-min.js"></script>
+    <script>
+        var infowindow = new google.maps.InfoWindow();
+        $(document).ready(function() {
+            initialize_map();
+            initialize()
+        });
+    </script>
+    
+{{Data.Sidemenu1 | raw}}
+{% endblock %}

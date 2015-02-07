@@ -1,0 +1,10 @@
+{% extends 'default.twig' %}
+
+{% block content %}
+    <section id="mainArea">
+        <div class="container">
+            <div class="section-title"> Filters manager</div>
+            {{ Data.ModuleFilters.Admin | raw }}
+        </div>
+    </section>
+{% endblock %}

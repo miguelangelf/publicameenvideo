@@ -1,0 +1,101 @@
+<section class="content team-users-content">
+	<div class="row">
+		<div class="col-xs-10 team-users-number">
+			{% for u in 1..(Data.available_users) %}			
+			<i class="fa fa-male {% if Data.total_rows >= u %}active{% endif %}"></i>
+			{% endfor %}									
+			&nbsp;&nbsp;&nbsp;<span>{{Data.total_rows}}</span> Usuarios {% if Data.role == 8 %}de <span>{{Data.available_users}}</span> disponibles{% endif %}						
+		</div>
+		<div class="col-xs-2 text-right">
+		{% if Data.role == 8 %}
+			{% if Data.available_users > Data.total_rows %}				
+				<div data-url="{{ Core.Domains.core }}empresa/equipo/manager" class="btn-talentbase" id="addUser" > Agregar </div>				
+			{% else %}
+				<p class="btn-talentbase" data-toggle="modal" data-target="#msg_available_users" id="msgAddUsers"> Agregar </p>				
+			{% endif %}			
+		{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table" id="list-team-users">
+				<thead class="white">
+					<tr>
+						<th colspan="2">Nombre</th>
+						<th>Contacto</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in Data.users %}			
+					<tr>
+						<td class="rec-picture">
+							{% set user_picture = item.picture ? Core.Domains.core ~ 'empresa/admin/companyUserPicture/' ~ item.uid : Core.Domains.theme ~ "images/default-user-picture.png" %}
+							<img src="{{user_picture}}" class="img-thumbnail img-circle rec-picture" title="{{ item.name ~ ' ' ~ item.last_name}}">
+						</td>
+						<td>
+							<strong>{{item.name}} {{item.last_name}}</strong>
+							<br>
+							{{item.position}}
+						</td>
+						<td>
+							{{item.email}}
+							<br>
+							{% if item.phone_number %}
+							<strong>Tel.</strong> {{item.phone_number}}
+							<br>
+							{% endif %}
+							{% if item.cell_number %}
+							<strong>Cel.</strong> {{item.cell_number}}
+							{% endif %}
+						</td>
+						<td class="actions">
+							{% if Data.logged_user != item.uid and Data.role == 8 %}
+							<div class="btn delete-user" data-uid="{{item.uid}}"> <i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar </div>
+							{% else %}
+							<div class="btn disabled"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar </div>
+							{% endif %}
+						</td>
+					</tr>	
+					{% endfor %}	
+				</tbody>
+			</table>
+		</div>	
+	</div>
+	<div class="panel-footer">{% include('pagination.twig') %}</div>
+</section>
+
+<div class="modal fade" id="msg_available_users" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{Theme.Web.site_name}}</h4>
+      </div>
+      <div class="modal-body">
+        ¡No puedes crear mas usuarios!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{Theme.Web.site_name}}</h4>
+      </div>
+      <div class="modal-body">
+       	
+      </div>
+      <div class="modal-footer">	  	
+        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>        
+		<button type="button" class="btn" id="btnDeleteUser">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

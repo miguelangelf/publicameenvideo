@@ -1,0 +1,88 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container">
+        <div class="section-title">
+                Configuraci&oacute;n
+        </div>
+        <div class="row mtop">
+            <div class="col-md-4 mn-left mtop">
+                <div id="conf-menu-wrapper">
+                    <a href=""><h5 class="pink change-pass"><i class="fa fa-lock"></i> Cambiar contrase&ntilde;a</h5></a><br/>
+					{% if Data.roles == 4 %}
+                    <a href="{{ Core.Domains.core }}candidato/configuracion/editar"><h5 class=""><i class="fa fa-pencil-square-o"></i> Editar informaci&oacute;n</h5></a>
+					{% endif %}	
+					{% if Data.roles == 5 or Data.roles == 8 %}
+                    <h5 class=" edit-company" section="userProfile"><i class="fa fa-user"></i> Perfil</h5>
+					<br/>
+					{% endif %}
+					{% if Data.roles == 8 %}
+					<h5 class=" edit-company" section="companyGeneralData"><i class="fa fa-cogs"></i> Datos generales de la empresa</h5>
+					<br/>
+					<h5 class=" edit-company" section="companyAddressData"><i class="fa fa-building-o"></i> Domicilio de la empresa</h5>
+					<br/>
+					<h5 class=" edit-company" section="companyDirectorData"><i class="fa fa-briefcase"></i> Informaci&oacute;n del Director de Recursos Humanos</h5>
+					<br/>
+					<h5 class=" edit-company" section="companyProfileData"><i class="fa fa-users"></i> Perfil de la empresa</h5>
+					<br/>
+					<h5 class=" edit-company" section="companyCareerSite"><i class="fa fa-clipboard"></i> Sitio de empleos</h5>
+					{% endif %}
+                    {% if Data.roles == 7 %}
+                    <h5 class=" manager-time-slots" section=""><i class="fa fa-clock-o"></i> Catálogo de Horarios</h5>
+                    {% endif %}	
+                </div>
+            </div>
+            <div class="col-md-8" id="slider-wrapper">
+                <form id="changePass" method="post">
+				<div class="row mtop">
+                    <div class="col-md-4 taright" id="fieldsconfig">
+                        <span class="fieldscuestionarios">Contrase&ntilde;a actual:</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="conf-content-wrapper">
+                            
+                                <input class="inputssettings required" type="password" name="password[current]"/>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row mtop">
+                    <div class="col-md-4 taright" id="fieldsconfig">
+                        <span class="fieldscuestionarios">Nueva contrase&ntilde;a:</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="conf-content-wrapper">
+                            
+                                <input class="inputssettings required" type="password" name="password[new]" id="newPassword"/>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row mtop">
+                    <div class="col-md-4 taright" id="fieldsconfig">
+                        <span class="fieldscuestionarios">Confirmar contrase&ntilde;a:</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="conf-content-wrapper">
+                            
+                                <input class="inputssettings required" type="password" name="password[confirm_new]"/>
+                            
+                        </div>
+                    </div>
+                </div>
+				<div class="row mtop">
+					<div class="col-md-10" id="msgUpdatePass">
+					</div>
+				</div>
+                <div class="btnLogin" id="divbtnsettings">
+                    <button class="btn mtop btnpassword" id="changePassBtn" type="button">Cambiar contrase&ntilde;a</button>
+                </div>
+			</form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% endblock %}

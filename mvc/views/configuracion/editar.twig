@@ -1,0 +1,331 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<section id="mainArea">
+        <div class="container">
+            <div class="row">
+                <div class="board">
+                  <!-- <h2>Configuraci&oacute;n</h2> -->
+                    <div class="board-inner">
+                      <ul class="nav nav-tabs configuration" id="myTab">
+                        <div class="liner"></div>
+                        <li class="active">
+                          <a href="#general_info" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="glyphicon glyphicon-user"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Informacion General</p>
+                        </li>
+
+                        <li>
+                          <a href="#profile_experience" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="glyphicon glyphicon-briefcase"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Experiencia Profesional</p>
+                        </li>
+                        
+                        <li>
+                          <a href="#education" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="fa fa-graduation-cap"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Educacion</p>
+                        </li>
+
+                        <li>
+                          <a href="#languages" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="fa fa-language"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Habilidades e Idiomas</p>
+                        </li>
+
+                        <li>
+                          <a href="#psicometrico" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="fa fa-cubes"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Examen Psicom&eacute;trico</p>
+                        </li>
+
+                         <li>
+                          <a href="#curriculums" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="fa fa-file"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Curriculums</p>
+                         </li>
+
+                         <li>
+                          <a href="#settings" data-toggle="tab">
+                            <span class="round-tabs">
+                              <i class="fa fa-wrench"></i>
+                            </span> 
+                          </a>
+                          <p style="margin-top: -15px; text-align: center;">Ajustes</p>
+                         </li>
+                       
+                       </ul>
+                  </div>
+
+                  <div class="tab-content">
+                      <div class="tab-pane fade in active" id="general_info">
+                        <h4 class="head text-left">Informacion General</h4>
+                        <form id="candidateProfileForm" method="post">
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[name]">Nombre:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text" value="{{Data.candidato.name}}" name="candidate[name]" class="form-control" placeholder="Nombre">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[last_name]">Apellidos:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" placeholder="Apellidos" value="{{Data.candidato.last_name}}" name="candidate[last_name]">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[email]">Email:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="email" class="form-control" placeholder="Email" value="{{Data.candidato.email}}" name="candidate[email]">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="exampleInputEmail1">Telefono Fijo:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" placeholder="Telefono Fijo" value="{{Data.candidato.phone_number}}" name="candidate[phone_number]">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[cell_number]">Telefono M&oacute;vil:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" placeholder="Telefono Movil" name="candidate[cell_number]" value="{{Data.candidato.cell_number}}">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[day]">Fecha de Nacimiento:</label>
+                            </div>
+                            <div class="col-md-2">
+                              <input type="hidden" value="{{Data.candidato.birthdate}}" id="birthdate"/>
+                              <select class="form-control margin-1" name="candidate[day]" id="day">
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                {% for i in 10..31 %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                            <div class="col-md-2">
+                              <select class="form-control margin-1" name="candidate[month]" id="month">
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                              </select>
+                            </div>
+                            <div class="col-md-2">
+                              <select class="form-control margin-1" name="candidate[year]" id="year">
+                                {% set year = "now"|date("Y") %}
+                                {% for i in (year-100)..year %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[gender]">Sexo:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="hidden" class="inputs" value="{{Data.candidato.gender}}" id="gender_id"/>
+                              <select class="form-control margin-1" name="candidate[gender]" id="gender">
+                                <option value="1">Hombre</option>
+                                <option value="0">Mujer</option>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[id_country]">País:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <select name="candidate[id_country]" id="selectCountry" onchange="changeCountry(event, this);">
+                                {% for key, country in Data.countries %}
+                                  <option value="{{ key }}" {% if Data.candidato.id_country == key %} selected {% endif %}>{{ country }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[id_state]">Estado:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <select name="candidate[id_state]" id="selectState" onchange="changeState(event, this);">
+                                {% for key, item in Data.states %}
+                                <option value="{{key}}" {% if Data.candidato.id_state == key %} selected {% endif %} >{{item}}</option>                  
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[id_city]">Ciudad:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <select name="candidate[id_city]" id="selectCity">
+                                {% for key, item in Data.cities %}
+                                <option value="{{key}}" {% if Data.candidato.id_city == key %} selected {% endif %}>{{item}}</option>                   
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[address]">Direcci&oacute;n:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <textarea class="form-control" name="candidate[address]" rows="3">{{Data.candidato.address}}</textarea>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-4">
+                              <label for="candidate[zip_code]">Codigo Postal:</label>
+                            </div>
+                            <div class="col-md-8">
+                              <input type="number" class="form-control" placeholder="Codigo Postal" value="{{Data.candidato.zip_code}}" name="candidate[zip_code]">
+                            </div>
+                          </div>
+
+                          <div class="row mtop">
+                            <div class="col-md-10" id="msgUpdateInfo">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <button id="updateCandidateProfile" data-loading-text="Guardando..." class="btn btn-theme" style="float: right;">Guardar</button>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+                      <div class="tab-pane fade" id="profile_experience">
+                          <h3 class="head text-left">Experiencia Profesional</h3>
+                          {% include 'experience.twig' %}
+                      </div>
+                      <div class="tab-pane fade" id="education">
+                          <h3 class="head text-left">Educacion</h3>
+                          {% include 'education.twig' %}
+                      </div>
+                      <div class="tab-pane fade" id="languages">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h3 class="head text-left">Habilidades</h3>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 mrg-top-10">
+                            <h3 class="head text-left">Idiomas</h3>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="curriculums">
+                          <h3 class="head text-left">Curriculums</h3>
+                          <div id="slider-curriculum">
+                          </div>
+                      </div>
+                      <div class="tab-pane fade" id="settings">
+                          <h3 class="head text-left">Ajustes</h3>
+                          <div class="col-md-12" id="slider-wrapper">
+                            <form id="changePass" method="post">
+                              <div class="row mtop">
+                                  <div class="col-md-4 taright" id="fieldsconfig">
+                                      <span class="fieldscuestionarios">Contrase&ntilde;a actual:</span>
+                                  </div>
+                                  <div class="col-md-8">
+                                      <div id="conf-content-wrapper">
+                                        <input class="inputssettings required" type="password" name="password[current]"/>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mtop">
+                                  <div class="col-md-4 taright" id="fieldsconfig">
+                                      <span class="fieldscuestionarios">Nueva contrase&ntilde;a:</span>
+                                  </div>
+                                  <div class="col-md-8">
+                                      <div id="conf-content-wrapper">
+                                              <input class="inputssettings required" type="password" name="password[new]" id="newPassword"/>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mtop">
+                                  <div class="col-md-4 taright" id="fieldsconfig">
+                                      <span class="fieldscuestionarios">Confirmar contrase&ntilde;a:</span>
+                                  </div>
+                                  <div class="col-md-8">
+                                      <div id="conf-content-wrapper">
+                                          
+                                              <input class="inputssettings required" type="password" name="password[confirm_new]"/>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mtop">
+                                <div class="col-md-10" id="msgUpdatePass">
+                                </div>
+                              </div>
+                              <div class="btnLogin" id="divbtnsettings">
+                                  <button class="btn mtop btnpassword btn-theme" id="changePassBtn" type="button">Cambiar contrase&ntilde;a</button>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="psicometrico">
+                        <h3 class="head text-left">Examen Psicom&eacute;trico</h3>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+
+              </div>
+          </div>
+        </div>
+</section>
+{% endblock %}

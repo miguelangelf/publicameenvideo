@@ -1,0 +1,23 @@
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container mrgntop" align="center">
+        <div class="row">
+			<div class="col-md-4">
+				<a href="{{ Core.Domains.core }}web/admin/users"><div class="usersimg" style="width: 100px; height:100px;"></div></a>
+				<div class="spradmin">Gestionar Usuarios</div>
+			</div>        
+			<div class="col-md-4">
+				<a href="{{ Core.Domains.core }}web/admin/empresa"><div class="altaempresa" style="width: 100px; height:100px;"></div></a>
+				<div class="spradmin">Gestionar Empresas</div>
+			</div>
+			<div class="col-md-4">
+				<a href="{{ Core.Domains.core }}web/admin/reportes"><div class="reportsimg" style="width: 100px; height:100px;"></div></a>
+				<div class="spradmin">Reportes</div>
+			</div>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% endblock %}

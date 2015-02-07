@@ -1,0 +1,60 @@
+{# <?php ?> #}
+		<form id="companyForm">
+			<input type="hidden" class="inputs" value="{{Data.id}}" name="company[id]"/>			
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Website<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" name="company[website]" value="{{Data.website}}">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Sitio de empleos</label>
+				
+					<input type="text" class="form-control" name="company[career_site]" value="{{Data.career_site}}">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Descripción<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" name="company[description]" value="{{Data.description}}">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>No. de empleados<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" name="company[company_size]" value="{{Data.company_size}}">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Sucursales<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" name="company[subsidiaries]" value="{{Data.subsidiaries}}">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Presencia<span class="requeridos">*</span></label>
+				
+					<textarea type="text" class="form-control required" name="company[presence]">{{Data.presence}}</textarea>
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>A que se dedica<span class="requeridos">*</span></label>
+				
+					<textarea type="text" class="form-control required" name="company[mission]">{{Data.mission}}</textarea>
+				</div>
+			</div>
+			
+		</form>
+		<div class="row">
+			<div class="col-xs-12 btns-area">
+				<button class="btn" id="updateDataCompany">Guardar</button>
+			</div>
+		</div>
+		

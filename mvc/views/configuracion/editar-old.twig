@@ -1,0 +1,530 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea" class="{{ Data.menu }}">
+    <div class="container">
+        <div class="section-title">
+                Configuraci&oacute;n
+        </div>
+        <br />
+        <div class="row" id="content-edit">
+
+            <div class="col-md-4 mn-left mtop">
+                <div id="conf-menu-wrapper">
+                    <a href="{{ Core.Domains.core }}candidato/configuracion"><h5 class=""><i class="fa fa-lock"></i> Cambiar contrase&ntilde;a</h5></a>
+					<br/>
+                    <h5 class="pink " section-name="Personal">
+						<i class="fa fa-user"></i>
+						 Información Personal
+					</h5>
+					<br/>
+					<h5 class=" " section-name="Contacto">						
+						<i class="fa fa-phone"></i>
+						 Contacto
+					</h5>
+					<br/>
+					<h5 class=" " section-name="Estudios">						
+						<i class="fa fa-book" ></i>
+						 Estudios
+					</h5>
+					<br/>
+					<h5 class=" " section-name="Profesional">					
+						<i class="fa fa-suitcase" ></i>
+						 Interés profesional
+					</h5>
+					<br />
+					<h5 class=" " id="experienceBtn">					
+						<i class="fa fa-desktop" ></i>
+						 Experiencia Profesional
+					</h5>
+					<br />
+					<h5 class=" " id="uploadCurriculum">					
+						<i class="fa fa-cloud-upload" ></i>
+						 Subir Curriculum
+					</h5>
+					<br />
+					<h5 class=" " id="generatePdf" onclick="event.preventDefault(); window.open('{{ Core.Domains.theme }}images/cv2.pdf', '_blank');">	
+						<i class="fa fa-plus"></i>
+						 Generar CV
+					</h5>
+                </div>
+            </div>
+
+            <!-- <div class="col-md-1">
+                <img id="separacion" src="{{ Core.Domains.theme }}images/barra.png"/>
+            </div> -->
+
+            <div class="col-md-8" id="slider-experience">
+            	<div class="list-jobs">
+            	</div>
+            	<hr />
+            </div>
+
+            <div class="col-md-8" id="slider-curriculum">
+            </div>
+
+            <form id="candidateProfileForm" method="post">												
+			<div class="col-md-8" id="slider-wrapper">
+				<section id="Personal">
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Nombre(s):</span>
+						</div>
+						<div class="col-md-8">
+							<div id="conf-content-wrapper">                            
+									<input class="inputssettings required" type="text" value="{{Data.candidato.name}}" name="candidate[name]"/>                            
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Apellidos:</span>
+						</div>
+						<div class="col-md-8">
+							<div id="conf-content-wrapper">
+								
+									<input class="inputssettings required" type="text" value="{{Data.candidato.last_name}}" name="candidate[last_name]"/>
+								
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">CURP:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings required" name="candidate[curp]" required="required" id="curp" value="{{Data.candidato.curp}}">
+                                                        <div class="label label-danger" id="error-curp" style="display:none">CURP incorrecto </div>
+                                                        <div class="label label-danger" id="error-age" style="display:none">Para poder participar deberás tener mínimo 18 años y máximo 29</div>
+						</div>
+					</div>				
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Fecha de Nacimiento:</span>
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-4">
+									<select class="selectsettings" name="candidate[day]" id="day" disabled>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
+										<option value="06">06</option>
+										<option value="07">07</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
+										{% for i in 10..31 %}
+										<option value="{{i}}">{{i}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="col-md-4">
+									<select class="selectsettings2" name="candidate[month]" id="month" disabled>
+										<option value="01">Enero</option>
+										<option value="02">Febrero</option>
+										<option value="03">Marzo</option>
+										<option value="04">Abril</option>
+										<option value="05">Mayo</option>
+										<option value="06">Junio</option>
+										<option value="07">Julio</option>
+										<option value="08">Agosto</option>
+										<option value="09">Septiembre</option>
+										<option value="10">Octubre</option>
+										<option value="11">Noviembre</option>
+										<option value="12">Diciembre</option>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<select class="selectsettings3" name="candidate[year]" id="year" disabled>
+										{% set year = "now"|date("Y") %}
+										{% for i in (year-100)..year %}
+										<option value="{{i}}">{{i}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Sexo:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" class="inputs" value="{{Data.candidato.gender}}" id="gender_id"/>
+							<select class="selectsettings" name="candidate[gender]" id="gender">
+								<option value="1">Hombre</option>
+								<option value="0">Mujer</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" >
+							<span class="fieldscuestionarios ">Lugar de Nacimiento:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" name="candidate[birthplace]" class="inputssettings required" value="{{Data.candidato.birthplace}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Pertenezco a alg&uacute;n grupo &eacute;tnico:</sapn>
+						</div>
+						<div class="col-md-8">
+							<select class="inputssettings" name="candidate[id_etnia]">
+								<option value="">No pertenezco a ning&uacute;n grupo &eacute;tnico</option>
+								{% for key, item in Data.etnias %}
+								<option value="{{key}}" {% if key == Data.candidato.id_etnia %}selected="selected"{% endif %}>{{item|capitalize}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Tiempo de residencia en el Distrito Federal:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings required" placeholder="A&ntilde;os" name="candidate[years_df]" value="{{Data.candidato.years_df}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Estado Civil:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" class="inputs" value="{{Data.candidato.id_marital_status}}" id="id_marital_status"/>
+							<select class="selectsettings" name="candidate[id_marital_status]" id="marital_status">
+								<option value="2">Soltero</option>
+								<option value="1">Casado</option>
+								<option value="3">Divorciado</option>
+								<option value="4">Unión Libre</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Vivo con:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" class="inputs" value="{{Data.candidato.id_live_with}}" id="id_live_with"/>
+							<select class=" selectsettings"  name="candidate[id_live_with]" id="live_with">
+								<option value="2">Solo</option>
+								<option value="3">Mis padres</option>
+								<option value="1">Mi pareja, esposa o/e hijos</option>
+								<option value="4">Familiares que no son mis padres</option>
+								<option value="5">Amigos</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Nombre del esposo (a):</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings" name="candidate[couple_name]" value="{{Data.candidato.couple_name}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Ocupaci&oacute;n del esposo(a):</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings" name="candidate[couple_occupation]" value="{{Data.candidato.couple_occupation}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">N&uacute;mero de hijos que tiene:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" class="inputs" value="{{Data.candidato.id_number_sons}}" id="id_number_sons"/>
+							<select class="selectsettings" name="candidate[id_number_sons]" id="number_sons">
+								<option value="1">0</option>
+								<option value="2">1</option>
+								<option value="3">2</option>
+								<option value="4">M&aacute;s de 2</option>
+							</select>
+						</div>
+					</div>
+				</section>
+				<section id="Contacto" style="display:none">
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Tel&eacute;fono fijo:</span>
+						</div>
+						<div class="col-md-8">
+							<div id="conf-content-wrapper">
+								
+									<input class="inputssettings number" type="text" value="{{Data.candidato.phone_number}}" name="candidate[phone_number]"/>
+								
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios ">Tel&eacute;fono m&oacute;vil:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings number" name="candidate[cell_number]" alt="Por favor introduce solo n&uacute;meros" title="Por favor introduce solo n&uacute;meros" value="{{Data.candidato.cell_number}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Calle:</span>
+						</div>
+						<div class="col-md-8">
+							<div id="conf-content-wrapper">
+								
+									<input class="inputssettings required" type="text" value="{{Data.candidato.address}}" name="candidate[address]"/>
+								
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">N&uacute;mero:</span>
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-6">
+									<input class="inputssettings required number" type="text" placeholder="Exterior" value="{{Data.candidato.outside_number}}" name="candidate[outside_number]"/>
+								</div>
+								<div class="col-md-6">
+									<input class="inputssettings2" type="text" placeholder="Interior" value="{{Data.candidato.internal_number}}" name="candidate[internal_number]"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldsinput ">Entre calles:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings" value="{{Data.candidato.between_streets}}" name="candidate[between_streets]">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">C&oacute;digo postal:</span>
+						</div>
+						<div class="col-md-8">
+							<div id="conf-content-wrapper">
+								
+									<input class="inputssettings required number" type="text" value="{{Data.candidato.zip_code}}" id="zip_code" name="candidate[zip_code]"/>
+								
+							</div>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Delegaci&oacute;n:</span>
+						</div>
+						<div class="col-md-8">
+							<select class="selectsettings required" id="delegations" disabled="disabled" name="candidate[id_delegation]">
+								<option value="">Delegaci&oacute;n</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright" id="fieldsconfig">
+							<span class="fieldscuestionarios">Colonia:</span>
+						</div>
+						<div class="col-md-8">
+							<select class="selectsettings" id="colonies" disabled="disabled" name="candidate[id_colony]">
+								<option value="">Colonia</option>
+							</select>
+						</div>
+					</div>
+				</section>
+				<section id="Estudios" style="display:none">					
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">&Uacute;ltimos estudios cursados/nivel de escolaridad:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.id_degree}}" id="id_degree"/>
+							<select class="selectsettings" name="candidate[id_degree]" id="degree">
+								<option value="1">Primaria</option>
+								<option value="2">Secundaria</option>
+								<option value="3">Bachillerato</option>
+								<option value="4">Carrera T&eacute;cnica</option>
+								<option value="5">Ingenier&iacute;a / Licenciatura</option>
+								<option value="6">Maestr&iacute;a</option>
+								<option value="7">Doctorado</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Termin&eacute; o abandon&eacute; la escuela</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.degree_status}}" id="id_degree_status"/>
+							<select class="selectsettings" name="candidate[degree_status]" id="idegree_status">
+								<option value="1">Termin&eacute;</option>
+								<option value="0">Abandon&eacute;</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Mis &uacute;ltimos estudios fueron en la escuela</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings" name="candidate[school]" value="{{Data.candidato.school}}">
+						</div>
+					</div>
+	
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Comprobable con</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.id_proof_of_studies}}" id="id_proof_of_studies"/>
+							<select class="selectsettings" name="candidate[id_proof_of_studies]" id="proof_of_studies">
+								<option value="1">Boleta de calificaciones</option>
+								<option value="2">Certificado</option>
+								<option value="3">Constancia</option>
+								<option value="4">T&iacute;tulo</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Estudio actualmente</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.currently_studying}}" id="id_currently_studying"/>
+							<select class="selectsettings"  name="candidate[currently_studying]" id="currently_studying">
+								<option value="1">S&iacute;</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Carrera o profesi&oacute;n:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="text" class="inputssettings" name="candidate[degree_title]" value="{{Data.candidato.degree_title}}">
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Hablo otro idioma adem&aacute;s del español</span>
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-4 primerinput">
+									<input type="hidden" value="{{Data.candidato.languages}}" id="id_languages"/>
+									<select id="numcuest" class="selectsettings" name="candidate[languages]" id="languages">
+											<option value="1">S&iacute;</option>
+											<option value="0">No</option>
+									</select>
+								</div>
+								<div class="col-md-7 segundoinput">
+									<input id="numcuest" type="text" class="inputssettings" name="candidate[languages_names]" placeholder="¿Cu&aacute;l?" value="{{Data.candidato.languages_names}}">
+								</div>
+							</div>
+						</div>
+					</div>							
+				</section>
+				<section id="Profesional" style="display:none">
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">&Aacute;rea de inter&eacute;s:</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.id_area}}" id="id_area"/>
+							<select class="selectsettings" name="candidate[id_area]" id="area">
+								<option value="1">Comercial/Promotoria</option>
+								<option value="2">Operativo</option>
+								<option value="3">Administraci&oacute;n</option>
+								<option value="4">Servicio al Cliente</option>
+								<option value="5">Cualquiera</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Disponibilidad para cambiarme de ciudad</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.relocation_availavility}}" id="id_relocation_availavility"/>
+							<select class="selectsettings" name="candidate[relocation_availavility]" id="relocation_availavility">
+								<option value="1">S&iacute;</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Horario o turno de preferencia</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.id_working_time}}" id="id_working_time"/>
+							<select class="selectsettings" name="candidate[id_working_time]" id="working_time">
+								<option value="1">Matutino</option>
+								<option value="2">Vespertino</option>
+								<option value="3">Nocturno</option>
+								<option value="4">Indistinto</option>           
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Disponibilidad para cambiar de horarios</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.working_time_change}}" id="id_working_time_change"/>
+							<select class="selectsettings" name="candidate[working_time_change]" id="working_time_change">
+								<option value="1">S&iacute;</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Cuento con licencia o permiso de conducir</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.driving_license}}" id="id_driving_license"/>
+							<select class="selectsettings" name="candidate[driving_license]" id="driving_license">
+								<option value="1">S&iacute;</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mtop">
+						<div class="col-md-4 taright">
+							<span class="fieldscuestionarios">Me gustar&iacute;a tener un empleo</span>
+						</div>
+						<div class="col-md-8">
+							<input type="hidden" value="{{Data.candidato.id_job_type}}" id="id_job_type"/>
+							<select class="selectsettings" name="candidate[id_job_type]" id="job_type">
+								<option value="1">En una oficina haciendo trabajos administrativos</option>
+								<option value="2">Promoviendo la venta de alg&uacute;n producto</option>
+								<option value="3">En una planta, bodega, almac&eacute;n, cocina, realizando labores f&iacute;sicas/operativas</option>
+								<option value="4">Brindando un servicio y asegurando que el cliente se encuentra totalmente satisfecho</option>
+							</select>
+						</div>
+					</div>				
+				</section>
+
+				<br/>
+				<div class="row">
+					<div class="col-md-10" id="msgUpdateCandidate">
+					</div>	
+				</div>
+                <div class="btnLogin mbottom" id="divbtnsettings">
+                    <button class="btn mtop btnpassword btn-theme" id="updateCandidateProfile" type="button">Guardar</button>
+                </div>				
+            </div>
+		</form>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% endblock %}

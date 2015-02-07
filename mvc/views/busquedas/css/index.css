@@ -1,0 +1,386 @@
+.fa{
+    background-color: transparent;
+}
+
+.btn:focus{
+    background-color: #0389d2;
+    color:white;
+    border-color: #0389d2;
+}
+
+.right-oriented{
+    text-align: right;
+}
+
+.busquedas-panel-1{
+    min-height: 520px;
+    padding:0px;
+}
+
+.busquedas-panel{
+    min-height: 500px;
+}
+
+.input-label{
+    color:black;
+    margin-left: 0px;
+    font-size: 16px;
+}
+
+.btn-add-bus{
+    
+}
+
+.bus-notification{
+    padding: 4px;
+    color: green;
+    border: solid 1px green;
+}
+
+#searches-table{
+    width: 100%;
+}
+
+#searches-table tr{
+    border-bottom: 1px gray solid;
+}
+
+#searches-table tr:hover{
+    background-color: #feefbf !important;
+    cursor: pointer;
+}
+
+#searches-table span.bus-job_description{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.bus-selected{
+    background-color: #ffdc7a !important;
+}
+
+.bus-selected:hover{
+    background-color: #ffdc7a !important;
+}
+
+.box-bus-del{
+    padding-left: 20px;
+    color:blue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.delete-busqueda-tr p{
+    margin-bottom: 0px;
+    color:#666;
+    background-color:#fff;
+}
+
+#bus_search{
+    padding: 0px;
+    padding-left: 6px;
+    height: 30px;
+}
+
+.pagination{
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.pagination li a:hover{
+    cursor: pointer;
+}
+
+#icon-remove-bus,#icon-duplicate-bus,#icon-filter-bus{
+    margin-top: 14px;
+    margin-left: 5px;
+}
+
+#panel-heading-adjust{
+    min-height: 51px;
+}
+
+#panel-footer-adjust{
+    min-height: 40px;
+}
+
+#bus_add{
+    font-weight: bold;
+}
+
+#footer-panel-left{
+    padding-top: 5px;
+    padding-bottom: 1px;
+    min-height: 40px;
+}
+
+#panel_title{
+    margin-top: 4px;
+    color:#fff;
+}
+
+.pagination li a,.pagination li span{
+    background-color: #feefbf;
+}
+
+.pagination .disabled span{
+    background-color: #fff9e8;
+}
+
+
+.fa{
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.txt-inside-button{
+    line-height: 20px;
+}
+
+.label{
+    font-size: 12px;
+    line-height: 27px;
+}
+
+#new-filter{
+    cursor: pointer;
+    color:white;
+    font-weight: bold;
+}
+
+#new-filter:hover{
+    color: #dbdbdb;
+}
+
+#filters-table{
+    width: 100%;
+}
+
+
+.row-job-post{
+    height: 75px;
+}
+.filters-panel-message{
+    font-size: 24px;
+    position: relative;
+    top: 186px;
+    text-align: center !important;    
+}
+
+.txtgris{color:#666;}
+
+.right-oriented{
+    text-align: right;
+}
+
+.left-oriented{
+    text-align: left;
+}
+
+#filter-container{
+    height: 375px;
+    margin: 5px 0 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 419px;
+}
+
+#filter-container .label-form-filter{
+    text-align: right !important;
+    color: black;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 3px;
+    margin-left: 0px;
+    line-height: 40px;
+    height: 40px;
+}
+
+#filter-container .input-form-filter{
+    padding: 0px;
+    margin: 0px;
+    margin-left: 10px;
+    height: 40px;
+}
+
+#line-inside{
+    background-color: #666;
+    height: 1px;
+    margin-top: 12px;
+    width: 100%;
+}
+
+.btn-inside-filter{
+    float: right;
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 2px 5px 2px 5px;
+    background-color: #0389d2;
+    color:white;
+    border-color: #0389d2;
+    padding: 2px 5px 2px 5px;
+}
+
+.btn-inside-filter:hover{
+    /*background-color: #cc0066;*/
+    background-color: #006FB8;
+    border-color: #006FB8;
+    color:white;
+}
+
+.btn-inside-filter:focus{
+    background-color: #0389d2;
+    color:white;
+    border-color: #0389d2;
+}
+
+.check-inside-filter{
+    margin-right: 10px !important;
+    float: right;
+    height: 23px;
+    line-height: 23px;
+    text-align: left;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.check-inside-filter:hover{
+    cursor: pointer;
+    color: black;
+}
+
+#name-filter{
+    width: 205px;
+    float:right;
+    height: 26px;
+    margin-top: 8px;
+    display: none;
+    margin-right: 8px;
+}
+
+.input-filter-general{
+    height: 30px;
+    margin-top: 7px;
+    float: left;
+}
+
+.input-filter-number{
+    width: 30px;
+    padding: 3px;
+}
+
+.label-filter-template{
+    color:#666;
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+    line-height: 45px;
+}
+.label-filter-template2{
+    color:#666;
+    float: left;
+    margin-right: 0px;
+    margin-left: 0px;
+    line-height: 45px;
+    margin-top: -10px;
+    height: 20px;
+}
+
+.label-filter-template2:hover{
+    cursor: pointer;
+}
+
+.adjusting-radio{
+    margin-top: 15px !important;
+}
+
+.tableminheight{
+    min-height: 340px;
+}
+
+.filter-tags{
+    text-align: right;
+}
+
+.filter-tag{
+    margin-right: 4px;
+    margin-top: 3px;
+}
+
+.tag-edad1{ background-color: blue; }
+.tag-edad2{ background-color: blue; }
+.tag-genero{ background-color: orange; }
+.tag-delegacion{ background-color: green; }
+.tag-licencia{ background-color: #66512c; }
+.tag-hijos{ background-color: pink; }
+.tag-estado{background-color:#00b992;}
+.tag-turno{background-color:#ff4248;}
+
+.close-tag:hover{
+    color: #A3A3A3;
+    cursor: pointer;
+}
+.delete-modal{
+    background-color: #ff0000;
+    border: solid 1px #ff0000;
+}
+.delete-modal:hover{
+    background-color: #d30101;
+    border: solid 1px #d30101;
+}
+
+.cancel-modal:hover{
+    background-color: #fbaa00;
+    border: solid 1px #fbaa00;
+}
+.hire-modal{
+    background-color: #0cbc4a;
+    border: solid 1px #0cbc4a;
+}
+.hire-modal:hover{
+    background-color: #0c963c;
+    border: solid 1px #0c963c;
+    transition: .3s;
+    cursor: pointer;
+}
+.modal-label{
+    color: #000;
+    display: inline-block;
+    margin-left: 0;
+    position: relative;
+    top: 5px;
+    vertical-align: top;
+    width: 150px;
+}
+
+.bus-job_description{
+    display: none;
+}
+
+#icon-remove-bus, #icon-duplicate-bus, #icon-filter-bus {
+  margin-bottom: 14px;
+  margin-left: 5px;
+  margin-top: 14px;
+}
+
+#searches-table span.bus-name {
+  font-size: 16px;
+  margin-left: 10px;
+  line-height: 38px;
+}
+
+.filters-module-col-r{
+    padding-right: 26px;
+}
+
+.striped-1{
+    background-color: #f1f2f2;
+}
+
+div.busquedas-panel-1{
+    background-image: url('/images/bg_busquedas.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}

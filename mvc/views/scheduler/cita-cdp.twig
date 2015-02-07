@@ -1,0 +1,53 @@
+{# <?php ?> #}
+<br/>
+<div class="row">
+    <div class="row">
+        <div class="col-md-12" style="text-align:center;">
+		{% if Data.Scheduler.Slots %}                    
+            {% for key,data in Data.Scheduler.Slots %}
+                <div class="box" id="Option-{{loop.index}}">
+                    <div class='front-flip' onclick="_flip({{loop.index}})">
+                        <p class='calendar-day-month'>{{data.month}}</p>
+                        <p class='calendar-day-day'>{{data.day}}</p>
+                        <p class='calendar-day-dayofweek'>{{data.dayofweek}}</p>
+                    </div>
+                    <div class='back-flip'>
+                        <div class='calendar-day-header' onclick="_flip({{loop.index}})">
+                            {{data.dayofweek}}, {{data.day}} de {{data.month}}
+                        </div>
+                        <br>
+                        <p onclick="_flip({{loop.index}})">Elige una hora para tu cita:</p>
+                        <select>
+                            {% for slot in data.times %}
+                                <option value='{{slot.value_date}}' label-text='{{ slot.time }}'>{{ slot.time }}</option>
+                            {% endfor %}
+                        </select>
+                        <div onclick="_flip({{loop.index}})" class='calendar-day-clickable'>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+		{% else %}
+		<p>No hay horarios disponibles	</p>	
+		{% endif %}	 
+        </div>                          
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" align="center">
+			{% if Data.Scheduler.Slots %}
+            <div class="btn" id="cdp-agendar" onclick="$cdp.confirm()">
+            Agendar cita
+            </div>
+			&nbsp;
+			{% endif %}
+			<div class="btn" id="cdp-select-cdp">
+           	Regresar
+            </div>
+            <div id="calendar-day-final-schedule"></div>
+            <div class="btn mbottom mtop" id="calendar-day-confirmation-btn" onclick="$cdp.schedule()">
+            Confirmar
+            </div>
+        </div>
+    </div>
+</div>

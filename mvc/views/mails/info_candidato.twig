@@ -1,0 +1,205 @@
+{# <?php ?> #}
+<table align="center" cellpadding="0px" cellspacing="0px" style="width:700px; height: 900px; border:solid 1px #999999; font-family: Arial, Helvetica, sans-serif;">
+    <tr style="height:100px; background-color: #eaeaea;">
+        <td style="border-bottom:solid 3px #006b78;">
+            <img style="margin-left: 30px;" src="{{ Core.Domains.theme }}images/logohorizontal.png" />
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" style="padding:10px 0;">
+            <table width="100%" cellspacing="20px">
+                <tr>
+                    <td valign="top" style="border-bottom: solid 2px #666;">
+                        <h4 style="margin-bottom: 0;">
+                            Folio: {{Data.candidate.folio}}
+                        </h4>
+                        <h2 style="margin-top: 10px; margin-bottom:0; color:#006b78;">
+                            {{Data.candidate.name}} {{Data.candidate.last_name}}, ({{Data.candidate.age}} a&ntilde;os)
+                        </h2>
+                        <h3 style="margin-top: 10px; margin-bottom: 10px;">{{Data.candidate.degree_title}} ({{Data.candidate.degree}})</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color:#ff7900;">Informaci&oacute;n de contacto:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td align="right" width="185px">
+                                    <span style="font-size: 14px; font-weight: bold;">Email:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.email}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <span style="font-size: 14px; font-weight: bold;">Tel&eacute;fono:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.phone_number}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Direcci&oacute;n:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.address}} #{{Data.candidate.outside_number}}<br/>
+                            Col. {{Data.candidate.colony}},<br/>
+                            {{Data.candidate.delegation}}, C.P. {{Data.candidate.zip_code}}</span>
+                                </td>
+                            </tr>
+                        </table>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color:#ff7900;">Informaci&oacute;n general:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td align="right" width="185px">
+                                    <span style="font-size: 14px; font-weight: bold;">Sexo:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{% if Data.candidate.gender == 1 %}Masculino{% else %}Femenino{% endif %}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <span style="font-size: 14px; font-weight: bold;">CURP:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.curp}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Estado civ&iacute;l:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.marital_status}}</span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Fecha de nacimiento:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.birthdate|date("d/m/Y")}}</span>
+                                </td>
+                            </tr>
+                        </table>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color:#ff7900;">Estudios:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td align="right" width="185px">
+                                    <span style="font-size: 14px; font-weight: bold;">Nivel de escolaridad:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.degree}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <span style="font-size: 14px; font-weight: bold;">Carrera o profesi&oacute;n:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.degree_title}}</span>
+                                </td>
+                            </tr>
+                        </table>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color:#ff7900;">Inter&eacute;s profesional:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td align="right" width="185px">
+                                    <span style="font-size: 14px; font-weight: bold;">Puesto/&aacute;rea de inter&eacute;s:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.position}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <span style="font-size: 14px; font-weight: bold;">Turno de preferencia:</span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 14px;">{{Data.candidate.times}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Disponibilidad para cambiar horarios:</span>
+                                </td>
+                                <td valign="top">
+                                    <span style="font-size: 14px;">{% if Data.candidate.working_time_change == 1 %}Si{% else %}No{% endif %}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Disponibilidad para cambiar de ciudad:</span>
+                                </td>
+                                <td valign="top">
+                                    <span style="font-size: 14px;">{% if Data.candidate.relocation_availavility == 1 %}Si{% else %}No{% endif %}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Licencia o permiso de conducir:</span>
+                                </td>
+                                <td valign="top">
+                                    <span style="font-size: 14px;">{% if Data.candidate.driving_license == 1 %}Si{% else %}No{% endif %}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">
+                                    <span style="font-size: 14px; font-weight: bold;">Me gustar&iacute;a tener un empleo en el cual:</span>
+                                </td>
+                                <td valign="top">
+                                    <span style="font-size: 14px;">{{Data.candidate.job_type}}</span>
+                                </td>
+                            </tr>
+                        </table>    
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" valign="middle" style="height: 36px; background-color:#006b78; padding:10px; color:#fff;">
+            <img src="{{ Core.Domains.theme }}images//mail.png" style="margin-right:5px;" />
+            <span>
+                <a href="mailto:{{ Theme.Globals.companySupport }}" style="color: #FFF;text-decoration: none;">{{ Theme.Globals.companySupport }}</a>
+            </span>
+        </td>
+    </tr>
+</table>
+{% if Data.action == "print" %}
+<script>
+    window.onload = function() { window.print(); }
+</script>
+{% endif %}

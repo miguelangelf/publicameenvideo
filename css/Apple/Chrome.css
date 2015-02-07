@@ -1,0 +1,17 @@
+/* Empresa */
+.snake-graph {
+    background-position: 190px 45px;
+    background-size:221px 374px;
+}
+#snake-graph {
+    background-position: 169px 66px;
+    background-size: 263px 331px;
+}
+.adjusting-radio{margin-top: 7px !important;}
+.label-filter-template2{margin-top: -12px;}
+.textareacontacto {height: 110px !important; width: 450px !important;}
+
+/* Agenda enlace */
+.contnav{border-bottom-width: 4px;}
+.caret{position:relative; top:20px;}
+.fieldmargin{margin-top: -2px;}

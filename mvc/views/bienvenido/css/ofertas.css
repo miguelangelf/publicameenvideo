@@ -1,0 +1,43 @@
+.filter-panel{
+    margin-top: -10px;
+}
+
+#group-industry-hidden, #group-function-hidden, #group-state-hidden, #group-city-hidden, #group-salary-hidden{
+    display: none;
+}
+
+.attribute-group{
+    line-height: 25px;
+}
+.attribute-group:hover{
+    color: #ff7900;
+    cursor: pointer;
+}
+
+.attribute-group-value{
+    font-size: 12px;
+    color:#999;    
+}
+
+.toggleGroup {
+    color: #006B78;
+}
+
+.toggleGroup:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.filtertag{
+    background-color: #eaeaea;
+    color: #666;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #aeaeae;
+}
+
+.filterclose:hover{
+    color:#ff7900;
+    cursor: pointer;
+}

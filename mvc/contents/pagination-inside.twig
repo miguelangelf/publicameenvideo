@@ -1,0 +1,25 @@
+<ul class="pagination pagination-sm"> 
+    {% if Data.pagination.first != '' and Data.pagination.first != Data.pagination.current_page %}
+    <li><a onclick="_filterset.load({{Data.pagination.first_page}})">{{Data.pagination.label_first}}</a></li>
+    {% else %}
+    <li class="disabled"><span>{{Data.pagination.label_first}}</span></li>
+    {% endif %}       
+    {% if Data.pagination.previous != '' %}
+    <li><a onclick="_filterset.load({{Data.pagination.previous_page}})">{{Data.pagination.label_previous|raw}}</a></li>
+    {% else %}
+    <li class="disabled"><span>{{Data.pagination.label_previous|raw}}</span></li>
+    {% endif %}
+    {% for item in Data.pagination.pages %}
+    <li><a class="{% if item.current == 1 %}active{% endif %}" onclick="_filterset.load({{item.page}})">{{item.page}}</a></li>
+    {% endfor %}
+    {% if Data.pagination.next != '' %}	
+    <li><a onclick="_filterset.load({{Data.pagination.next_page}})">{{Data.pagination.label_next|raw}}</a></li>
+    {% else %}
+    <li class="disabled"><span>{{Data.pagination.label_next|raw}}</span></li>
+    {% endif %}
+    {% if Data.pagination.last != '' and Data.pagination.last != Data.pagination.current_page %}
+    <li><a onclick="_filterset.load({{Data.pagination.last_page}})">{{Data.pagination.label_last}}</a></li>
+    {% else %}
+    <li class="disabled"><span>{{Data.pagination.label_last}}</span></li>
+    {% endif %}
+</ul>

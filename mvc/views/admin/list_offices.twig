@@ -1,0 +1,28 @@
+{# <?php ?> #}
+<div class="content-list-offices">
+    <table id="searches-table">
+        <tbody>
+            {% for item in Data.office %}
+                <tr valign="middle">
+                    <td>
+                        <div class="row">
+                            <div class="col-md-9 nombre-enlace row-enlace" office-id="{{item.id}}">
+                                <span class="bus-name">{{item.name}}</span>							
+                            </div>						
+                            <div class="col-md-3 office-actions text-right">
+                                <i class="fa fa-clock-o set-time-slots" office-id="{{item.id}}"></i>&nbsp; 
+                                <i class="fa fa-map-marker set-cps" office-id="{{item.id}}"></i>&nbsp; 
+                                <i class="fa fa-calendar set-holiday" office-id="{{item.id}}"></i>&nbsp; 							
+                                <span class="fa-stack fa-lg get-holidays" office-id="{{item.id}}">
+                                    <i class="fa fa-calendar-o fa-stack-2x"></i>
+                                    <i class="fa fa-times  fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}		
+        </tbody>
+    </table>
+</div>
+<div class="panel-footer pagination-list-offices">{% include('pagination.twig') %}</div>

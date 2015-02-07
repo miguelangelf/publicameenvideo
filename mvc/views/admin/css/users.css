@@ -1,0 +1,361 @@
+/* CSS Document */
+
+
+.fa{
+    background-color: transparent;
+}
+
+.btn{
+    /*background-color: #E6378C;*/
+    background-color: #0389d2;
+    color:white;
+    border-color: #0389d2;
+    padding: 2px 5px 2px 5px;
+}
+
+.btn:hover{
+    /*background-color: #cc0066;*/
+    background-color: #006FB8;
+    border-color: #006FB8;
+    color:white;
+}
+
+.btn:focus{
+    background-color: #0389d2;
+    color:white;
+    border-color: #0389d2;
+}
+
+.right-oriented{
+    text-align: right;
+}
+
+.busquedas-panel{
+    min-height: 500px;
+}
+
+.input-label{
+    color:black;
+    margin-left: 0px;
+    font-size: 16px;
+}
+
+.btn-add-bus{
+    
+}
+
+.bus-notification{
+    padding: 4px;
+    color: green;
+    border: solid 1px green;
+}
+
+#searches-table{
+    width: 100%;
+}
+
+#searches-table tr{
+    border-bottom: 1px gray solid;
+}
+
+#searches-table tr:hover{
+    background-color: #fff9e8;
+    cursor: pointer;
+}
+
+#searches-table span.bus-name{
+    font-size: 16px;
+    color:#e6378C;
+}
+
+#searches-table span.bus-job_description{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.bus-selected{
+    background-color: #feefbf;
+}
+
+#icon-remove-bus:hover{
+    color:#E6378C;
+}
+
+#icon-duplicate-bus:hover{
+    color:#E6378C;
+}
+#icon-filter-bus:hover{
+    color:#E6378C;
+}
+
+.box-bus-del{
+    padding-left: 20px;
+    color:blue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.delete-busqueda-tr p{
+    margin-bottom: 0px;
+}
+
+#bus_search{
+    padding: 0px;
+    padding-left: 6px;
+    height: 30px;
+}
+
+.pagination{
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.pagination li a:hover{
+    cursor: pointer;
+}
+
+#icon-remove-bus,#icon-duplicate-bus,#icon-filter-bus{
+    margin-top: 14px;
+    margin-left: 5px;
+}
+
+.panel-heading, .panel-footer{
+    background-color: #FFBB00 !important;
+}
+
+#panel-heading-adjust{
+    min-height: 51px;
+}
+
+#panel-footer-adjust{
+    min-height: 40px;
+}
+
+#bus_add{
+    font-weight: bold;
+}
+
+#footer-panel-left{
+    padding-top: 5px;
+    padding-bottom: 1px;
+    min-height: 40px;
+}
+
+#panel_title{
+    margin-top: 4px;
+    color:#000;
+}
+
+.pagination li a,.pagination li span{
+    background-color: #feefbf;
+}
+.pagination li a:hover{
+    background-color: #0389d2;
+}
+.pagination .disabled span{
+    background-color: #fff9e8;
+}
+.pagination li .active{
+    background-color: #006FB8 !important;
+}
+
+.fa{
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.txt-inside-button{
+    line-height: 20px;
+}
+
+#title-filter-panel{
+    height: 26px;
+    font-size: 14px;
+    padding-top: 2px;
+    background-color: #e6378c !important;
+}
+
+.label{
+    font-size: 12px;
+    line-height: 27px;
+}
+
+#new-filter{
+    cursor: pointer;
+    color:white;
+    font-weight: bold;
+}
+
+#new-filter:hover{
+    color: #dbdbdb;
+}
+
+#filters-table{
+    width: 100%;
+}
+
+.tr-new-filter{
+    border: 1px solid #FFBB00;
+}
+.row-job-post{
+    height: 75px;
+}
+.row-empresa{
+    height:40px;
+    padding-top: 2px;
+}
+.nombre-empresa{
+    padding-top:7px;
+}
+.logo-empresa{
+    width: 100px;
+    height: 40px;
+    background-image: url("/images/logo_comex.png");
+    background-repeat: no-repeat;
+    background-position:center;
+}
+.regular-button{
+    width:100%;
+}
+.delete-button{
+    width:100%;
+    background-color: #ff0000;
+    border: #ff0000;
+}
+.delete-button:hover{
+    width:100%;
+    background-color: #d30101;
+    border: #d30101;
+}
+.register-button{
+    width:100%;
+    background-color: #0cbc4a;
+    border: #0cbc4a;
+}
+.register-button:hover{
+    width:100%;
+    background-color: #0c963c;
+    border: #0c963c;
+}
+.choose-logo{
+    background-color: #999;
+    border: #999;
+}
+.choose-logo:hover{
+    background-color: #666;
+    border: #666;
+}
+.fields{
+    font-size: 14px;
+    font-weight: bold;
+}
+.inputs{
+    margin-top: 1px;
+    margin-bottom: 15px;
+    height:22px;
+}
+.delegacion{
+    margin-top: 1px;
+    margin-bottom: 15px;
+    height:22px;
+    width:155px;
+}
+.delete-modal{
+    background-color: #ff0000;
+    border: #ff0000;
+}
+.delete-modal:hover{
+    background-color: #d30101;
+    border: #d30101;
+}
+.cancel-modal{
+    background-color: #ffbb00;
+    border: #ffbb00;
+}
+.cancel-modal:hover{
+    background-color: #fbaa00;
+    border: #fbaa00;
+}
+
+.companies-list{
+	min-height:465px;	
+}
+
+label{
+	color:#333333;
+	text-align:left;
+	margin:0;
+	font-weight:bold;
+}
+
+div.row.input{
+	margin:5px 0;
+}
+
+.subtitle{
+	margin:10px 0;
+}
+
+#companyForm{
+	height:410px;
+	display:block;
+	overflow:auto;
+}
+
+#busquedas-results .panel-footer a.active{
+	background-color:#006fb8 !important;	
+}
+
+#busquedas-results .panel-footer a:hover{
+	background-color:#006fb8 !important;	
+}
+
+#busquedas-results .panel-footer span.number_records{
+	display: block;
+    margin: 5px 0;	
+}
+
+#busquedas-results .panel-footer div.col-md-9{
+	text-align:right;	
+}
+
+#busquedas-results div.panel-body{
+	padding:0;		
+}
+
+#candidatesList_pagination{
+	display:none;
+}
+
+#busquedas-results .panel-footer{
+	background-color: #fbbf00;
+    bottom: -15px;
+    height: 40px;
+    margin: 0 -15px;
+    padding-bottom: 5px;
+    padding-top: 4px;
+    position: relative;
+}
+
+.users-list{
+	min-height:466px;
+}
+
+section.form{
+	min-height:425px;
+}
+
+.users-list table{
+	width:100%;
+}
+
+.users-list table td{
+	border-bottom:1px solid;
+	padding:10px 5px;
+}
+
+.users-list table td:hover{
+	background-color: #fff9e8;
+    cursor: pointer;
+}

@@ -1,0 +1,15 @@
+{# <?php ?> #}
+<div class="users-list">
+	<table>
+	{% for item in Data.users %}
+		<tr>
+			<td class="user" id-user="{{item.uid}}">
+			<strong>{{item.name}} {{item.last_name}}</strong>
+			<br/>
+			{{item.assoc.entity_name}} ({{item.assoc.type_user}})	
+			</td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+<div class="panel-footer">{% include('pagination.twig') %}</div>

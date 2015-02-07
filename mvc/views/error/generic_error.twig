@@ -1,0 +1,22 @@
+{% extends 'default.twig' %}
+
+{% block content %}
+<!-- start title area -->
+<section id="titleArea">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Houston, we have a problem !!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Error {{ Data.error_no }}: {{Data.error_name}}</h4>
+            <p>{{Data.error_description | raw }}</p>
+            <br><br><br>
+        </div>
+    </div>
+</section>
+<!-- end title area -->
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" id="slider-wrapper">
+                <div>
+                    <a href="#" class="btn btn-primary" role="button">Add new slide</a>
+                    <ul id="accordion" class="panel-group">
+                        <li class="panel panel-default">
+                            <div class="top panel-heading">
+                                <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" class="collapsed">Slide #</a>
+                            </div>
+                             <div class="panel-collapse collapse" id="collapseOne" style="height: 1px;">
+                                <p><input type="text"/></p>
+                                <p><textarea></textarea></p>
+                                <p><a href="#" class="btn btn-primary" role="button">Delete</a> <a href="#" class="btn btn-default" role="button">Update</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% endblock %}

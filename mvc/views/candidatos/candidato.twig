@@ -1,0 +1,591 @@
+{# <?php ?> #}
+<table border="0" class="tabla-candidato">
+<tr>
+	<td width="80%" height="200px">
+		<table>
+			<tr>
+				<td width="15px"></td>                    
+				<td width="15px"></td>
+				<td>
+					<h4>Folio: <span class="folio">{{Data.candidate.folio}}</span></h4>
+					<h2>										
+                                            {{Data.candidate.name}} {{Data.candidate.last_name}} ({{Data.candidate.age}} años) &nbsp;{% if Data.view != 1 %}<a href="{{ Core.Domains.core }}candidato/configuracion/editar"><span class="editinfo"><i class="fa fa-pencil-square-o edit"></i>&nbsp;Editar</span></a>{% endif %}
+					</h2>
+					<h3>{{Data.candidate.degree_title}}({{Data.candidate.degree}})</h3>
+					{% if Data.view %}
+					<a class="btn contact" href="#" candidate-id="{{Data.candidate.uid}}" candidate-name="{{Data.candidate.name}} {{Data.candidate.last_name}}">Programar Entrevista</a>
+					{% endif %}
+                                        {% if Data.view %}
+                                        <a class="btn" href="#" data-toggle="modal" data-target="#email_info" id="profileFromEmail" id-candidate="{{Data.candidate.uid}}"><i class="fa fa-envelope-o"></i> Enviar informaci&oacute;n</a>
+                                        {% endif %}
+                                        
+                                        {% if Data.view %}
+                                        <a class="btn" href="{{ Core.Domains.core }}web/mails/info_candidato/print/{{Data.candidate.uid}}" target="_newPage"><i class="fa fa-print"></i> Imprimir informaci&oacute;n</a>
+                                        {% endif %}
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td rowspan="2" class="candidatos-izquierda" valign="top">    
+			<div class="col-md-12">
+				<br>
+				<h5><span class="glyphicon glyphicon-book"></span> Datos de contacto</h5>
+				<p>
+				<h6>Email:</h6>
+				{{Data.candidate.email}}
+				</p>
+				<p>
+				<h6>Tel&eacute;fono fijo:</h6>    
+				{{Data.candidate.phone_number}}
+				</p>
+				<p>
+				<h6>Tel&eacute;fono m&oacute;vil:</h6>    
+				{{Data.candidate.cell_number}}
+				</p>
+				<p>
+				<h6>Direcci&oacute;n:</h6>    
+				{{Data.candidate.address}} #{{Data.candidate.outside_number}}
+				<br/>Col. {{Data.candidate.colony}}, {{Data.candidate.delegation}}
+				<br/>C.P. {{Data.candidate.zip_code}}
+				</p>
+			</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<table id="candidate-tabs" candidate-id="{{Data.candidate.uid}}">
+			<tr class="tr-border-top">
+				<td valign="top">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#home">
+										{% if Data.view %}
+											<span>1</span>
+										{% endif %}
+										Informaci&oacute;n General
+										</a>
+								</li>
+								{% if Data.view %}
+								<li><a data-toggle="tab" href="#documentos-full-profile" id="documentsTab"><span>2</span>Documentos</a></li>                                 
+                                <li><a data-toggle="tab" href="#psicometricos"><span>3</span>Reporte de Perfilamiento</a></li>
+                                <li><a data-toggle="tab" href="#notes-full-profile" id="notesTab"><span>4</span>Notas</a></li>
+								{% endif %}                                
+							</ul>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<!-- Tab panes -->
+					<div class="tab-content">
+                        <div id="notes-full-profile" class="tab-pane">
+                            <div class="col-xs-10"><textarea name="txt" id="txt" class="form-control"></textarea></div>
+                            <div class="col-xs-2"><button type="button" id="addNote" class="btn">Agregar</button></div>
+                            <div class="col-xs-12 table-head-notes table-notes">                
+                                <table class="table table-striped" id="notesList">
+                                    <thead>
+                                        <tr>
+                                            <th id="note_by">
+                                                Usuario
+                                            </th>
+                                            <th id="note_txt">
+                                                Nota
+                                            </th>
+                                            <th id="note_created">
+                                                Creada
+                                            </th>
+                                        </tr>
+                                    </thead>                
+                                </table>
+                            </div>      
+                            <div id="container_notes" class="col-xs-12 table-notes"></div>
+                        </div>
+                        <div id="home" class="tab-pane active">
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>CURP:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.curp}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Sexo:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.gender == 1 %}Masculino{% else %}Femenino{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Fecha de nacimiento:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.birthdate|date("d/m/Y")}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Lugar de Nacimiento:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.birthplace}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Grupo &eacute;tnico:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.etnia}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Tiempo de residencia en el Distrito Federal:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.years_df}} año(s)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Estado civil:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.marital_status}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Vive con:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.live_with}}
+                                </div>
+                            </div>												
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Nombre del esposo (a):</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.couple_name}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>Ocupaci&oacute;n del esposo(a):</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.couple_occupation}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding" id="fields_candidato">
+                                    <strong>N&uacute;mero de hijos que tiene:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.number_sons}}
+                                </div>
+                            </div>
+                            
+                                <br/>
+                                <hr>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p class="title_yellow">Estudios</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Último grado de estudios cursados:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.degree}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Conculido:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.degree_status %}S&iacute;{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Carrera o Profesi&oacute;n:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.degree_title}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Escuela:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.school}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Comprobable con:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.proof_of_studies}}
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Estudiando actualmente:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.currently_studying %}S&iacute;{% else %}No{% endif %}
+                                </div>
+                            </div>
+                                <br/>
+                                <hr>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p class="title_yellow">Inter&eacute;s profesional</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Puesto/Area de Inter&eacute;s:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.position != '' %}{{Data.candidate.position}}{% else %}Cualquiera{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Horario o turno de preferencia:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.times}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Intercambiar&iacute;a horarios:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.working_time_change == 1 %}Si{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Cambiar&iacute;a de ciudad:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.relocation_availavility == 1 %}Si{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Licencia o permiso de conducir:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {% if Data.candidate.driving_license == 1 %}Si{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5 taright fnopadding">
+                                    <strong>Me gustaria tener un empleo:</strong>
+                                </div>
+                                <div class="col-xs-7">
+                                    {{Data.candidate.job_type}}
+                                </div>
+                            </div>
+                            <!--
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            
+                                                <strong>Sexo:</strong>
+                                                {% if Data.candidate.gender == 1 %}Masculino{% else %}Femenino{% endif %}
+                                                <br>
+                                                <strong>CURP:</strong> 
+                                                {{Data.candidate.curp}}
+                                                <br>
+                                                <strong>Estado Civil:</strong>
+                                                {{Data.candidate.marital_status}}
+                                                <br>
+                                                <strong>N&uacute;mero de hijos que tiene:</strong>
+                                                {{Data.candidate.number_sons}}
+                                                <br>
+                                                <strong>Fecha de nacimiento:</strong>
+                                                {{Data.candidate.birthdate|date("d/m/Y")}}
+                                                <br>
+                                                <hr>
+                                                <p class="title_yellow">Estudios</p>
+                                                <strong>Último grado de estudios cursados o nivel de escolaridad:</strong>
+                                                {{Data.candidate.degree}}
+                                                <br>
+                                                <strong>Carrera o Profesi&oacute;n:</strong>
+                                                {{Data.candidate.degree_title}}
+                                                <br>
+                                                <hr>
+                                                <p class="title_yellow">Inter&eacute;s Profesional</p>
+                                                <strong>Puesto/Area de Interés:</strong>
+                                                {{Data.candidate.position}}
+                                                <br>
+                                                <strong>Horario o turno de preferencia:</strong> 
+                                                {{Data.candidate.times}}
+                                                <br>
+                                                <strong>Disponibilidad para intercambiar horarios:</strong>
+                                                {% if Data.candidate.working_time_change == 1 %}Si{% else %}No{% endif %}
+                                                <br>									
+                                                <strong>Disponibilidad para cambiarme de ciudad:</strong>
+                                                {% if Data.candidate.relocation_availavility == 1 %}Si{% else %}No{% endif %}
+                                                <br>
+                                                <strong>Tengo licencia o permiso de conducir:</strong>
+                                                {% if Data.candidate.driving_license == 1 %}Si{% else %}No{% endif %}
+                                                <br>
+                                                <strong>Me gustaria tener un empleo en el cual:</strong>
+                                                {{Data.candidate.job_type}}										
+                                        </div>
+                                </div>
+                            -->
+                        </div>                            
+                        <div id="documentos-full-profile" class="tab-pane">
+                            <div class="row document_form">
+                                <div class="col-xs-9">Nombre: <input class="form-control" id="nameNewDocument"></div> 
+                                <div class="col-xs-3">
+                                    <br>
+                                    <span class="btn fileinput-button white disabled">       
+                                        <span><i class="fa fa-upload"></i> Cargar</span>
+                                        <input type="file" name="files[]" class="fileupload">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <table class="table table-striped">
+                                    <thead class="black">
+                                        <tr>            
+                                           <th class="document_name">Documento</th>
+                                           <th colspan="2">Creado</th>                     
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-responsive tablebg row" id="listDocuments">
+                                
+                            </div>    
+                        </div>
+                        <div id="psicometricos" class="tab-pane">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress barras-progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{Data.candidate.administrativo|round}}%"></div>
+                                    </div>
+                                    <span class="areas">{{Data.candidate.administrativo}}% Administrativo</span><br/>
+                                    
+                                    <div class="progress barras-progress">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{Data.candidate.comercial|round}}%"></div>
+                                    </div>
+                                    <span class="areas">{{Data.candidate.comercial}}% Comercial</span><br/>
+                                    
+                                    <div class="progress barras-progress">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{Data.candidate.servicio|round}}%"></div>
+                                    </div>
+                                    <span class="areas">{{Data.candidate.servicio}}% Servicio al cliente</span><br/>
+                                    
+                                    <div class="progress barras-progress">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{Data.candidate.operativo|round}}%"></div>
+                                    </div>
+                                    <span class="areas">{{Data.candidate.operativo}}% Operativo</span>
+                                </div>
+                            </div>
+                                <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="snake-graph"></div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+</table>
+<!-- Modales -->
+        <div class="modal fade" id="email_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Enviar informaci&oacute;n por correo electr&oacute;nico</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        ¿Deseas enviar por correo electr&oacute;nico la informaci&oacute;n de &eacute;ste candidato?
+                    </p>
+                    <p>
+                        Ingresa el correo electr&oacute;nico y haz clic en Enviar.
+                    </p>
+                    <br/><br/>
+                    <form id="sendProfileForm" method="POST">
+                        <div>		
+                            Correo electr&oacute;nico:&nbsp;&nbsp;<input type="email" required="required" class="" name="email-from" id ="emailFrom" placeholder="Correo electr&oacute;nico">										
+                        </div>
+                    </form>
+                    <br/><div id="msgSendProfile" class="alert" style="display:none"></div>
+                </div>
+                <div class="modal-footer" style="text-align: left;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            
+                        </div>
+                        <div class="col-md-4 btnsright">
+                            <button type="button" id="btn-examUncomplete" class="btn btnaceptar white sendProfile"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;Enviar</button>
+                            <button type="button" data-dismiss="modal" class="btn">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+<!-- Terminan modales -->
+{% if Data.view %}
+<script>
+    $(document).ready(function(){
+       $('#snake-graph').highcharts({
+            chart: {
+                type: 'line',
+                inverted: true,
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Gráfica de perfilamiento',
+                style: { 'font-size':'20px'}
+            },
+            xAxis: [{
+                gridLineWidth: 0,
+                offset:12,
+                categories: [
+                    'Pensamiento Práctico',
+                    'Integridad Alta',
+                    'Respeto a Normas Bajo',
+                    'Baja tendencia al Robo',
+                    'Deshonesto',
+                    'Espontáneo',
+                    'Sumiso',
+                    'Emocionalmente Inestable',
+                    'Serio',
+                    'Confiado',
+                    'Exigente',
+                    'Orientado al Servicio',
+                    'Pacífico',
+                    'Introvertido',
+                    'Flexible',
+                    'Independiente'
+                ],
+                reversed: true,
+                labels: {
+                    formatter: function () {
+                        //return this.value + 'km';
+                        return this.value;
+                    }
+                },
+                maxPadding: 60,
+                showLastLabel: true
+            },{
+                linkedTo: 0,
+                offset:12,
+                categories: [
+                    'Pensamiento Estructurado',
+                    'Integridad Baja',
+                    'Respeto a Normas Alto',
+                    'Alta tendencia al Robo',
+                    'Honesto',
+                    'Diplomático',
+                    'Dominante',
+                    'Emocionalmente Estable',
+                    'Impetuoso',
+                    'Suspicaz',
+                    'Comprensivo',
+                    'Orientado a la Ganancia',
+                    'Enérgico',
+                    'Extrovertido',
+                    'Metódico',
+                    'Dependiente'
+                ],
+                reversed: true,
+                labels: {
+                    formatter: function () {
+                        //return this.value + 'km';
+                        return this.value;
+                    }
+                },
+                opposite: true,
+                maxPadding: 60,
+                showLastLabel: true
+            }],
+            yAxis:        
+            {
+                gridLineWidth: 0,
+                tickInterval: 1,
+                title:{enabled: false},
+                min: 1,
+                max:10,
+                labels: {
+                    formatter: function () {
+                        //return this.value + '°';
+                        return this.value;
+                    }
+                },
+             opposite:true
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                enabled:false,
+                headerFormat: '<b>{series.name}</b><br/>',
+                pointFormat: '{point.x} Competencia: {point.y} Evaluacion'
+            },
+            plotOptions: {
+                spline: {
+                    marker: {
+                        enable: false
+                    }
+                }
+            },
+            series: [{
+                lineWidth:4,
+                color:'orange',
+                data: [
+                    [0, {{Data.candidate.f1}}],
+                    [1, {{Data.candidate.f2}}],
+                    [2, {{Data.candidate.f3}}],
+                    [3, {{Data.candidate.f4}}],
+                    [4, {{Data.candidate.f5}}],
+                    [5, {{Data.candidate.f6}}],
+                    [6, {{Data.candidate.f7}}],
+                    [7, {{Data.candidate.f8}}],
+                    [8, {{Data.candidate.f9}}],
+                    [9, {{Data.candidate.f10}}],
+                    [10, {{Data.candidate.f11}}],
+                    [11, {{Data.candidate.f12}}],
+                    [12, {{Data.candidate.f13}}],
+                    [13, {{Data.candidate.f14}}],
+                    [14, {{Data.candidate.f15}}],
+                    [15, {{Data.candidate.f16}}]
+                ]
+            }],
+            credits:{enabled:false},
+            exporting: {
+              enabled: false
+             }
+        });
+    });
+</script>
+{% endif %}

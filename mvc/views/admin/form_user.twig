@@ -1,0 +1,63 @@
+{# <?php ?> #}
+<form id="userForm">
+	<section class="form">	
+		<input type="hidden" value="{{Data.uid}}" name="user[uid]"/>
+		<div class="row input">
+			<div class="col-md-12">
+				<label>Nombre<span class="requeridos">*</span></label>											
+				<input type="text" class="form-control required" value="{{Data.name}}" name="user[name]"/>
+			</div>
+		</div>
+		<div class="row input">
+			<div class="col-md-12">
+				<label>Apellidos<span class="requeridos">*</span></label>											
+				<input type="text" class="form-control required" value="{{Data.last_name}}" name="user[last_name]"/>
+			</div>
+		</div>
+		<div class="row input">
+			<div class="col-md-12">
+				<label>Email<span class="requeridos">*</span></label>											
+				<input type="text" class="form-control required" value="{{Data.email}}" name="user[email]"/>
+			</div>
+		</div>
+		<div class="row input">
+			<div class="col-md-12">
+				<label>Usuario<span class="requeridos">*</span></label>
+				<input type="hidden" value="{{Data.rid}}" id="us_rid_value" name="user[original_rid]"/>													
+				<select name="user[rid]" class="form-control required" id="us_rid">
+					<option value="">Selecciona el tipo de usuario</option>
+					<option value="5">Empresa</option>
+					<option value="8">Empresa (Admin)</option>					
+					<option value="7">Administraci&oacute;n</option>
+				</select>
+			</div>
+		</div>
+		<div class="row input">
+			<input type="hidden" value="{{Data.assoc.id}}" id="catalog_id" name="user[original_assoc_id]"/>
+			<div class="col-md-12" id="list_for_rids">
+			</div>
+		</div>	
+	</section>
+<div class="container">
+	<div class="row input">
+		{% if Data.uid %}				
+		<div class="col-md-4 col-md-offset-4">
+			<div class="btn delete-button" id-candidate="{{Data.uid}}">
+				<i class="fa fa-times"></i> Eliminar
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="btn regular-button update-button">
+				<i class="fa fa-refresh"></i> Actualizar
+			</div>
+		</div>
+		{% else %}
+		<div class="col-md-4 col-md-offset-8">
+			<div class="btn register-button">
+				<i class="fa fa-check"></i> Registrar
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+</form>

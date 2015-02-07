@@ -1,0 +1,30 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container">
+        <div class="section-title">
+                Demo page
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <form action="{{ Core.Domains.core }}web/demo/capchaCheck" method="post" name="capchaCheck">
+                    <input type="text" name="something" placeholder="something" /><br/><br/>
+                    
+                    {{ Data.module.capcha.capcha|raw }}
+                    
+                    <input type="submit" name="Submit" />
+                </form>
+            </div>
+            <div class="col-md-8" id="capchaValue">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+</script>
+<!-- end main area -->
+{% endblock %}

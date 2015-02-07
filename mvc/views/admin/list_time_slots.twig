@@ -1,0 +1,10 @@
+{# <?php ?> #}
+<table class="table table-striped table-bordered table-hover">	
+	{% for key, item in Data.office %}
+	<tr>
+		<td>
+		{{item.time|date("H:i")}} hrs
+		</td>
+	</tr>
+	{% endfor %}				
+</table>

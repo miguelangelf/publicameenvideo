@@ -1,0 +1,19 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container">
+        <div class="section-title">
+                Sitios de empleo
+        </div>
+        <div class="row mtop mbottom">
+            {% for key in Data.rsCompanies %}
+                <div class="col-sm-6 mbottomclist"><a href="http://{{ key.career_site }}" class="licompany" target="_blank">{{ key.name }}</a></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% include('logoslider.twig') %}
+{% endblock %}

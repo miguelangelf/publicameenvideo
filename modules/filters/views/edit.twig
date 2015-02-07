@@ -1,0 +1,159 @@
+<script>
+    _citiesCatalog.forEach(function(element){
+        $('#del_default').append($("<option value='"+element.id+"'></option>").text(element.name));         
+    });
+    _studiesCatalog.forEach(function(element){
+        $('#est_default').append($("<option value='"+element.value+"'></option>").text(element.name));          
+    });
+</script>
+<label class="input-label" for="bus_name">{{Data.Messages.name}}:</label>
+<input id="bus_name" type="text" class="form-control" placeholder="{{Data.Messages.name_plho}}" value="{{ Data.Search.name }}">
+<input id="bus_entity" type="hidden" class="form-control" placeholder="{{Data.Messages.entity_plho}}" value="{{ Data.Search.entity }}">
+
+<div id="filter-container" class="left-oriented">
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Edad:</div>
+        <div class="col-lg-7 input-form-filter">    
+            <span class="label-filter-template">De </span>
+            <input type="text" width="20" id="_mayor_a" class="form-control input-filter-general input-filter-number" onchange="_filtros.listener('edad_mayor',this);">
+            <span class="label-filter-template">A </span>
+            <input type="text" width="20" id="_menor_a" class="form-control input-filter-general input-filter-number" onchange="_filtros.listener('edad_menor',this);">
+            <span class="label-filter-template">a&ntilde;os </span>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Sexo:</div>
+        <div class="col-lg-7 input-form-filter">
+            <input type="radio" name="genero-input" value="1" class="input-filter-general adjusting-radio" onchange="_filtros.listener('genero',this);">
+            <span class="label-filter-template">Hombre</span>
+            <input type="radio" name="genero-input" value="0" class="input-filter-general adjusting-radio" onchange="_filtros.listener('genero',this);">
+            <span class="label-filter-template">Mujer</span>
+            <input type="radio" name="genero-input" id="gen_default" value="-1" checked class="input-filter-general adjusting-radio" onchange="_filtros.listener('genero',this);">
+            <span class="label-filter-template">Indistinto</span>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Delegación:</div>
+        <div class="col-lg-7 input-form-filter">
+            <select class="form-control" id="del_default" onchange="_filtros.listener('delegacion',this);">
+                <option value='0'>Cualquiera</option>
+            </select>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Con licencia de conducir:</div>
+        <div class="col-lg-7 input-form-filter">
+            <input type="radio" name="licencia-input" value="1" class="input-filter-general adjusting-radio" onchange="_filtros.listener('licencia',this);">
+            <span class="label-filter-template">Si</span>
+            <input type="radio" name="licencia-input" value="0" class="input-filter-general adjusting-radio" onchange="_filtros.listener('licencia',this);">
+            <span class="label-filter-template">No</span>
+            <input type="radio" name="licencia-input" id="lic_default" value="-1" checked class="input-filter-general adjusting-radio" onchange="_filtros.listener('licencia',this);">
+            <span class="label-filter-template">Indistinto</span>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Grado de estudios:</div>
+        <div class="col-lg-7 input-form-filter">
+            <select class="form-control" id="est_default" onchange="_filtros.listener('estudios',this);">
+                <option value="0">Cualquiera</option>
+            </select>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Estudios concluidos:</div>
+        <div class="col-lg-7 input-form-filter">
+            <div class="col-lg-8 input-form-filter">
+            <input type="radio" name="concluidos-input" value="1" class="input-filter-general adjusting-radio" onchange="_filtros.listener('concluidos',this);">
+            <span class="label-filter-template">Si</span>
+            <input type="radio" name="concluidos-input" value="0" class="input-filter-general adjusting-radio" onchange="_filtros.listener('concluidos',this);">
+            <span class="label-filter-template">No</span>
+            <input type="radio" name="concluidos-input" id="con_default" value="-1" checked class="input-filter-general adjusting-radio" onchange="_filtros.listener('concluidos',this);">
+            <span class="label-filter-template">Indistinto</span>
+        </div>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Estado civil:</div>
+        <div class="col-lg-7 input-form-filter">
+            <select class="form-control" id="estado_default" onchange="_filtros.listener('estado',this);">
+                <option value="0">Indistinto</option>
+                <option value="2">Soltero(a)</option>
+                <option value="1">Casado(a)</option>
+                <option value="3">Divorciado(a)</option>
+                <option value="4">Unión libre</option>
+              </select>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Hijos:</div>
+        <div class="col-lg-7 input-form-filter">
+            <select class="form-control" id="hij_default" onchange="_filtros.listener('hijos',this);">
+                <option value="-1">Indistinto</option>
+                <option value="1">Sin hijos</option>
+                <option value="3">Hasta dos hijos</option>
+                <option value="4">Mas de dos hijos</option>
+              </select>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Turno deseado:</div>
+        <div class="col-lg-7 input-form-filter">
+            <select class="form-control" id="turno_default" onchange="_filtros.listener('turno',this);">
+                <option value="0">Indistinto</option>
+                <option value="1">Matutino</option>
+                <option value="2">Vespertino</option>
+                <option value="3">Nocturno</option>
+              </select>
+        </div>                                
+    </div>
+    <div class="row">
+        <div class="col-lg-4 label-form-filter">Perfil:</div>
+        <div class="col-lg-7 input-form-filter">
+            <table style="margin-top:12px;">
+                <tr>
+                    <td>
+                        <label class="checkbox" style="margin-left:0px; height: 0px; margin-top:0px; margin-bottom:0px;">
+                            <input id="check-perfil1" type="checkbox" value="Administrativo" onchange="_filtros.listener('perfil1',this);"> 
+                            <span class="label-filter-template2">Administrativo</span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox" style="margin-left:0px; height: 0px; margin-top:0px; margin-bottom:0px;">
+                            <input id="check-perfil2" type="checkbox" value="Comercial" onchange="_filtros.listener('perfil2',this);"> 
+                            <span class="label-filter-template2">Comercial</span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="checkbox" style="margin-left:0px; height: 0px; margin-top:0px; margin-bottom:0px;">
+                            <input id="check-perfil3" type="checkbox" value="Operativo" onchange="_filtros.listener('perfil3',this);"> 
+                            <span class="label-filter-template2">Operativo</span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox" style="margin-left:0px; height: 0px; margin-top:0px; margin-bottom:0px;">
+                            <input id="check-perfil4" type="checkbox" value="Servicio al cliente" onchange="_filtros.listener('perfil4',this);"> 
+                            <span class="label-filter-template2">Servicio al cliente</span>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+
+        </div>                                
+    </div>                        
+</div>
+
+<input id="bus_owner_id" type="hidden" class="form-control" placeholder="{{Data.Messages.owner_plho}}" value="{{ Data.Search.owner }}">
+
+<input id="bus_evaluation_mask" type="hidden" class="form-control" placeholder="{{Data.Messages.mask_plho}}" value="{{ Data.Search.mask }}">
+
+<button id="bus_add" type="button btn-add-bus" class="btn btn-default btngreen" onclick="_filterset.save()"><i class="fa fa-floppy-o fa-lg"></i>&nbsp;&nbsp;{{Data.Messages.savechanges}}</button>
+
+<script>
+    var _filtersloaded = [];
+    {% for f,filter in Data.Search.json_structure %}
+        _filtersloaded.push({uuid:{{filter.uuid}},id:{{filter.id}},output:"{{filter.output}}",values:{ {% for v in filter.values %} v{{loop.index}}:"{{v}}", {% endfor %} }});
+    {% endfor %}
+    _filtros.loadFilters(_filtersloaded);
+</script>

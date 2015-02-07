@@ -1,0 +1,16 @@
+<table class="table">
+	<tr>
+		<th class="text-center">
+		Usuarios de {{Data.users[0].company_name}}	
+		</th>
+	</tr>
+	{% for item in Data.users %}
+		<tr>
+			<td>
+				<strong>{{item.name}} {{item.last_name}}</strong>
+				<br>
+				{{item.email}}
+			</td>
+		</tr>
+	{% endfor %}
+</table>

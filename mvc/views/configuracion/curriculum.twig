@@ -1,0 +1,48 @@
+<div class="col-md-12 list-curriculums" style="margin-left: 10px;">
+	{% set extensiones = {'pdf':'fa fa-file-pdf-o', 'doc':'fa fa-file-word-o', 'docx':'fa fa-file-word-o', 'jpg':'fa fa-file-image-o', 'jpeg':'fa fa-file-image-o', 'png':'fa fa-file-image-o', 'bmp':'fa fa-file-image-o', 'gif':'fa fa-file-image-o'} %}
+	{% for curriculum in Data.curriculums %}
+	<div class="media curriculums">
+	  <a class="pull-left" href="#" id="enabled" style="padding: 10px;" onclick="addCurriculum(event, this);"><div class="add-curriculum"><i class="{{ extensiones[curriculum.extension] }} btn-curriculum" style="color: #fff;"></i></div></a>
+	  <i class="fa fa-close edit-element click-element" onclick="deleteCurriculum(event, this);" style="color: #333;"></i>
+	  <i class="fa fa-download edit-element click-element" id="{{ curriculum.name }}" onclick="downloadCurriculum(this);"></i>
+	  <div class="media-body">
+	  	<!-- <h5 class="label-crrc">[Sube uno de tus curr&iacute;culums]</h5> -->
+	  	<form id="curriculumForm" method ="post" enctype="multipart/form-data">
+		  	<input type="file" name="curriculumFile" style ="visibility: hidden;" onchange="changeFile(this);" />
+		  	<input type="text" id="{{ curriculum.id }}" name="descriptionFile" class="form-control edit-curriculum" onblur="updateDescription(this);" onkeyup="enableUpload(this);" value="{{ curriculum.description }}" />
+			<span class="error-label">Mensaje de error</span>
+			<span class="loader"><img src="{{ Core.Domains.theme }}images/gear.gif" width="32px" height="32px" /></span>
+		</form>
+	  </div>
+	</div>
+	{% endfor %}
+
+	<div class="media curriculums">
+	  <a class="pull-left disabled" href="#" id="disabled" style="padding: 10px;" onclick="addCurriculum(event, this);"><div class="add-curriculum"><i class="fa fa-upload btn-curriculum"></i></div></a>
+	  <i class="fa fa-download edit-element click-element" id="noFile" style="display: none;" onclick="downloadCurriculum(this);"></i>
+	  <div class="media-body">
+	  	<form id="curriculumForm" method ="post" enctype="multipart/form-data">
+		  	<input type="file" name="curriculumFile" style ="visibility: hidden;" onchange="changeFile(this);" />
+		  	<input type="text" id="new" name="descriptionFile" class="form-control edit-curriculum" onblur="updateDescription(this);" onkeyup="enableUpload(this);" placeholder="[Empieza aqu&iacute;, nombra tu curr&iacute;culum]" />
+			<span class="error-label">Mensaje de error</span>
+			<span class="loader"><img src="{{ Core.Domains.theme }}images/gear.gif" width="32px" height="32px" /></span>
+		</form>
+	  </div>
+	</div>
+
+</div>
+<div class="clear-fix">
+</div>
+<script>var themeLocal = '{{ Core.Domains.theme|raw}}';</script>
+<!-- <div class="panel panel-default">
+  <div class="panel-body">
+  	<div class="row">
+  		<div class="col-md-1">
+  			<div class="add-curriculum"><i class="fa fa-plus btn-curriculum"></i></div>
+  		</div>
+  		<div class="col-md-11">
+  			<h5 class="label-crrc">Sube uno de tus curr&iacute;culums</h5>
+  		</div>
+  	</div>
+  </div>
+</div> -->

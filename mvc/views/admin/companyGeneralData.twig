@@ -1,0 +1,63 @@
+{# <?php ?> #}
+		<form id="companyForm">
+			<input type="hidden" class="inputs" value="{{Data.id}}" name="company[id]"/>			
+			<div class="row input">
+				<div class="col-md-12">
+					<label>R&eacute;gimen Fiscal<span class="requeridos">*</span></label>
+					<input type="hidden" class="inputs" value="{{Data.tax_regime}}" id="tax_regime_id"/>
+					<select class="form-control required" name="company[tax_regime]" id="tax_regime">
+						<option value="1">Persona F&iacute;sica</option>
+						<option value="2">Persona Moral</option>
+					</select>
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Sector<span class="requeridos">*</span></label>
+					<input type="hidden" class="inputs" value="{{Data.id_sector}}" id="id_sector"/>
+					<select class="form-control required" name="company[id_sector]" id="sectorId">
+						<option value="">Selecciona el sector</option>
+						{% for key, item in Data.sectors %}
+						<option value="{{key}}">{{item}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Subsector<span class="requeridos">*</span></label>
+					<input type="hidden" class="inputs" value="{{Data.id_subsector}}" id="id_subsector"/>
+					<select class="form-control required" disabled name="company[id_subsector]" id="subSectorId">
+						<option value="1">Subsector</option>
+					</select>
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Raz&oacute;n Social<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" value="{{Data.register_name}}" name="company[register_name]">
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>Nombre del comercio<span class="requeridos">*</span></label>					
+									
+					<input type="text" class="form-control required" value="{{Data.name}}" name="company[name]"/>
+				</div>
+			</div>
+			<div class="row input">
+				<div class="col-md-12">
+					<label>RFC<span class="requeridos">*</span></label>
+				
+					<input type="text" class="form-control required" value="{{Data.rfc}}" name="company[rfc]">
+				</div>
+			</div>
+			
+		</form>
+		<div class="row">
+			<div class="col-xs-12 btns-area">
+				<button class="btn" id="updateDataCompany">Guardar</button>
+			</div>
+		</div>
+		

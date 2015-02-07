@@ -1,0 +1,67 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+<!-- start main area -->
+<section id="mainArea">
+    <div class="container">
+        <!--
+        <div class="section-title">
+                Compa&ntilde;&iacute;as
+        </div> -->
+        <div class="row">
+            <div class="col-sm-3 mtop">
+                <div class="company-name">
+                    {{Data.rsCompanyDetail.company}}
+                </div>
+            </div>
+        </div>
+        <div class="row mtop bbottom">
+        </div>
+        <div class="row mbottom">
+            <div class="col-sm-6">
+                <span class="subtitle_company">A qu&eacute; se dedica</span>
+                <p>
+                    {{Data.rsCompanyDetail.mission}}
+                </p>
+                <span class="subtitle_company">Descripci&oacute;n</span>
+                <p>
+                    {{Data.rsCompanyDetail.description}}
+                </p>
+                <span class="subtitle_company">Website</span>
+                <p>
+                    {{Data.rsCompanyDetail.website}}
+                </p>
+				{% if Data.rsCompanyDetail.career_site %}
+				<span class="subtitle_company">Sitio de empleos</span>
+                <p>
+                    <a href="http://{{Data.rsCompanyDetail.career_site}}" target="_blank">{{Data.rsCompanyDetail.career_site}}</a>
+                </p>
+				{% endif %}
+            </div>
+            <div class="col-sm-6">
+                <span class="subtitle_company">Oficinas corporativas</span>
+                <p>
+                    {{Data.rsCompanyDetail.street}}<br/>
+                    {{Data.rsCompanyDetail.outside_number}}, {{Data.rsCompanyDetail.internal_number}}<br/>
+                    {{Data.rsCompanyDetail.colonia}}, {{Data.rsCompanyDetail.delegacion}}<br/>
+                    C.P. {{Data.rsCompanyDetail.zip_code}}
+                </p>
+                <span class="subtitle_company">No. de empleados</span>
+                <p>
+                    {{Data.rsCompanyDetail.company_size}}
+                </p>
+                <span class="subtitle_company">Sucursales</span>
+                <p>
+                    {{Data.rsCompanyDetail.subsidiaries}}
+                </p>
+                <span class="subtitle_company">Presencia</span>
+                <p>
+                    {{Data.rsCompanyDetail.presence}}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end main area -->
+{% include('logoslider.twig') %}
+{% endblock %}

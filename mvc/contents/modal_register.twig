@@ -1,0 +1,200 @@
+<!-- Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<br>
+				</div>		
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="loginSection">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <i class="fa fa-user fa-2x orange"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="subtitles-home">Usuarios registrados</span>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">					
+                                    <div class="col-sm-12">						
+                                        <form method="POST" id="UserLoginForm" action="">
+                                            <input type="hidden" value="1" id="UserType">
+                                            <div>
+												<label for="UserEmail">Correo</label>
+                                            	<input type="email" id="UserEmail" name="user[email]" placeholder="Correo electrónico" class="form-control">
+											</div>
+											<div>
+												<label for="UserPassword">Contraseña</label>
+												<input type="password" id="UserPassword" name="user[password]" placeholder="Contraseña" class="form-control">
+											</div>
+                                            <br>
+                                        </form>
+                                        <div class="btnLogin">
+                                            <input type="button" id="btnLogin" value="Ingresa" class="buttonlogin logintxt">
+                                        </div>
+                                        <div class="pwdforgot"><a data-target="#resetpwd" data-toggle="modal" href="#" class="adepriv">No recuerdo mi contraseña</a></div>
+
+                                        <div style="display:none" id="failLogin" class="alert alert-danger">
+                                            Los datos de acceso son incorrectos
+                                        </div>
+                                    </div>					
+                                </div>
+                            </div>
+                        </div>			
+                        <div class="col-md-8">
+							<div class="alert alert-success" id="responseRegisterSuccess" style="display: none;">
+							<i class="fa fa-check"></i> Tu cuenta ha sido creada, se te ha enviado un email con tus datos de acceso.
+							</div>	
+                            <form method="POST" id="CandidateRegisterForm" action="">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <i class="fa fa-user fa-2x orange"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="subtitles-home">Crea una cuenta</span>
+                                        <hr>
+                                    </div>
+                                </div>							
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="candidate_name">Nombre<span class="required">*</span></label>
+                                        <input type="text" id="candidate_name" name="User[name]" placeholder="Nombre" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="candidate_last_name">Apellidos<span class="required">*</span></label>
+                                        <input type="text" id="candidate_last_name" name="User[last_name]" placeholder="Apellidos" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="candidate_email">Correo electrónico<span class="required">*</span></label>
+                                        <input type="email" id="candidate_email" name="User[email]" placeholder="Correo electrónico" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="UserPassword">Confirmar correo<span class="required">*</span></label>
+                                        <input type="email" id="candidate_confirm_mail" name="User[confirm_email]" placeholder="Confirmar correo electrónico" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="candidate_phone_number">Telefono Fijo</label>
+                                        <input type="text" id="candidate_phone_number" name="User[phone_number]" placeholder="Telefono Fijo" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="candidate_cell_number">Telefono Movil</label>
+                                        <input type="text" id="candidate_cell_number" name="User[cell_number]" placeholder="Telefono Movil" class="form-control">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Fecha de Nacimiento</label>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select class="form-control" name="User[day]" id="day">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    {% for i in 10..31 %}
+                                                        <option value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <select class="form-control" name="User[month]" id="month">
+                                                    <option value="01">Enero</option>
+                                                    <option value="02">Febrero</option>
+                                                    <option value="03">Marzo</option>
+                                                    <option value="04">Abril</option>
+                                                    <option value="05">Mayo</option>
+                                                    <option value="06">Junio</option>
+                                                    <option value="07">Julio</option>
+                                                    <option value="08">Agosto</option>
+                                                    <option value="09">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="form-control" name="User[year]" id="year">
+                                                    {% set year = "now"|date("Y") %}
+                                                    {% for i in (year)..(year-100) %}
+                                                        <option value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="candidate_gender">Sexo</label>                              
+                                        <select id="candidate_gender" name="User[gender]" class="form-control">
+                                            <option value="1">Hombre</option>
+                                            <option value="0">Mujer</option>
+                                        </select>							
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>País</label>
+                                        <select name="User[id_country]" id="id_country" style="width:inherit">
+											<option value="">Selecciona un país</option>
+                                            <option value="MX">Mexico</option>
+                                            {% for key, item in Data.countries %}
+                                                <option value="{{key}}">{{item}}</option>                 	
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Estado</label>
+                                        <select name="User[id_state]" id="id_state" style="width:100%" disabled>
+											<option value="">Selecciona un estado</option> 
+                                            {% for key, item in Data.states %}
+                                                <option value="{{key}}">{{item}}</option>                 	
+                                            {% endfor %}                       
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Ciudad</label>
+                                        <select name="User[id_city]" style="width:100%" id="id_city" disabled>
+											<option value="">Selecciona una ciudad</option>
+                                            {% for key, item in Data.cities %}
+                                                <option value="{{key}}">{{item}}</option>                 	
+                                            {% endfor %}
+                                        </select>	
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <label>Calle<span class="required">*</span></label>
+                                                <input type="text" name="User[street]" placeholder="Calle" class="form-control" id="street">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label>Numero exterior<span class="required">*</span></label>
+                                                <input type="text" name="User[number]" placeholder="Numero exterior" class="form-control" id="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Código Postal<span class="required">*</span></label>
+                                        <input type="text" name="User[zip_code]" placeholder="Código Postal" class="form-control" id="zip_code">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="candidate_cv">CV<span class="required">*</span></label>
+                                        <input type="file" name="files[]" id="candidate_cv">
+                                    </div>
+									<div class="col-md-12">
+										<br>
+										{{ Data.capcha|raw }}
+									</div>
+                                    <div class="col-md-12 text-right">
+                                        <hr>
+                                        <div class="btn" id="createAccount">Crear cuenta</div>
+                                    </div>
+									<div class="col-md-12">
+										<br>
+										<div class="alert alert-danger" id="responseRegisterFail" style="display: none;"></div>
+									</div>
+                                </div>							
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

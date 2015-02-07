@@ -1,0 +1,104 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <!-- start main area -->
+    <section id="mainArea">
+        <div class="container">
+            <div class="row mtop">
+                <div class="col-sm-3">
+                    <button class="btn btn-default" style="width: 100%; margin-top: 10px;" onclick="_Sidemenu.toggle('menu1');">Filtrar (<strong id="total">0</strong>)</button>
+                    <input type="hidden" class="form-control" value="{{Data.searchBy}}" id="searchBy">
+                    <input type="hidden" class="form-control" value="" id="filterTags">
+                    <br>
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color: #349daa !important;">
+                            Mostrar solamente :
+                        </div>
+                        <div class="panel-body" id="filtersTags">
+                        </div>
+                    </div>   
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-calendar"></i> Publicado
+                        </div>
+                        <div class="panel-body" >
+                            <div id="group-published">
+                            </div>
+                            <div id="group-published-hidden">
+                            </div>
+                            <span class="toggleGroup" id="togglePublished" onclick="showElements('published');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-map-marker"></i> Estado
+                        </div>
+                        <div class="panel-body" >
+                            <div id="group-state">
+                            </div>
+                            <div id="group-state-hidden">
+                            </div>
+                            <span class="toggleGroup" id="toggleState" onclick="showElements('state');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-map-marker"></i> Ciudad
+                        </div>
+                        <div class="panel-body">
+                            <div id="group-city">
+                            </div>
+                            <div id="group-city-hidden">
+                            </div>
+                            <span class="toggleGroup" id="toggleCity" onclick="showElements('city');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-money"></i> Salary
+                        </div>
+                        <div class="panel-body">
+                            <div id="group-salary">
+                            </div>
+                            <div id="group-salary-hidden">
+                            </div>
+                            <span class="toggleGroup" id="toggleSalary" onclick="showElements('salary');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-building"></i> Industria
+                        </div>
+                        <div class="panel-body" >
+                            <div id="group-industry">
+                            </div>
+                            <div id="group-industry-hidden">
+                            </div>
+                            <span class="toggleGroup" id="toggleIndustry" onclick="showElements('industry');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default filter-panel">
+                        <div class="panel-heading" style="background-color: #006B78 !important;">
+                            <i class="fa fa-cogs"></i> Funci&oacute;n
+                        </div>
+                        <div class="panel-body" >
+                            <div id="group-function">
+                            </div>
+                            <div id="group-function-hidden">
+                            </div>
+                            <span class="toggleGroup" id="toggleFunction" onclick="showElements('function');" open="NO"><i class="fa fa-caret-square-o-down"></i> Ver mas </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9" id="vacancies-list">
+                	                        
+                </div>            
+            </div>
+                
+            </div>
+        </div>  
+    </section>    
+    
+{{Data.Sidemenu1 | raw}}
+{% endblock %}

@@ -1,0 +1,215 @@
+<form method="post" action="/empresa/vacancies/save" id="vacancyForm" enctype="multipart/form-data">
+    <section class="content">        
+        <div class="row">
+			{% if Data.rol == 8 %}
+			<div class="col-xs-6">
+                <label>Asignar a:</label>
+                <select name="vacancy[uid]" class="form-control">
+					{% for user in Data.users %}
+					<option value="{{user.uid}}" {% if (Data.logged_user == user.uid and not Data.vacancy.id) or (user.uid == Data.vacancy.uid) %}selected{% endif %}>{{user.name}} {{user.last_name}}</option>
+					{% endfor %}
+				</select>
+            </div>
+			{% endif %}
+            <div class="col-xs-12">
+                <label>Posición<span class="required">*</span></label>
+                <input type="text" name="vacancy[position]" value="{{Data.vacancy.position}}" placeholder="" class="form-control">
+            </div>
+            <div class="col-xs-12">
+                <label>Descripción de puesto<span class="required">*</span></label>						
+                <div id="txtEditor">{{Data.vacancy.job_description}}</div>
+                <textarea name="vacancy[job_description]"  id="job_description" style="display: none">{{Data.vacancy.job_description}}</textarea>
+            </div>
+
+            <div class="col-md-6">
+
+                <div>
+                    <label>Agregar archivo (opcional)</label>
+                    <div class="row">
+                        <div class="col-xs-12"><input type="text" name="vacancy[attachment_name]" value="{{Data.vacancy.attachment_name}}" placeholder="Nombre" class="form-control"></div>
+                        <div class="col-xs-12">
+                            {% if Data.vacancy.file.fid > 0 %}
+                                <div id="documentsActions">	
+                                    <a class="btn" href="{{ Core.Domains.core }}gobierno/agendar/viewDocument/{{Data.vacancy.file.file_name}}" target="_blank">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    <div class="btn delete-document" id-document="{{Data.vacancy.file.fid}}">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div {% if Data.vacancy.file.fid > 0 %}style="display: none"{% endif %} id="fileuploadBtn">
+                                <label for="attachment"><span class="btn"><i class="fa fa-upload"></i> Cargar</span><span class="file_name"></span><br/></label>
+								
+                                <input type="file" class="fileupload" name="files[]" id="attachment" style="display:none">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label>Departamento</label>
+                    <input type="text" name="vacancy[department]" value="{{Data.vacancy.department}}" placeholder="" class="form-control">
+                </div>
+                <div>
+                    <label>País</label>
+                    <select name="vacancy[id_country]" id="id_country" style="width:100%">
+                        <option value="MX">Mexico</option>
+                        {% for key, item in Data.countries %}
+                    	<option value="{{key}}" {% if Data.vacancy.id_country == key %}selected{% endif %}>{{item}}</option>                 	
+                    	{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Estado</label>
+                    <select name="vacancy[id_state]" id="id_state" style="width:100%"> 
+                    	{% for key, item in Data.states %}
+                    	<option value="{{key}}" {% if Data.vacancy.id_state == key %}selected{% endif %}>{{item}}</option>                 	
+                    	{% endfor %}                       
+                    </select>
+                </div>
+                <div>
+                    <label>Ciudad</label>
+                    <select name="vacancy[id_city]" value="{{Data.vacancy.id_city}}" style="width:100%" id="id_city">
+                    	{% for key, item in Data.cities %}
+                    	<option value="{{key}}" {% if Data.vacancy.id_city == key %}selected{% endif %}>{{item}}</option>                 	
+                    	{% endfor %}
+                    </select>	
+                </div>
+				<div class="row">
+					<div class="col-xs-8">
+						<label>Calle<span class="required">*</span></label>
+						<input type="text" name="vacancy[street]" value="{{Data.vacancy.street}}" placeholder="" class="form-control" id="street">
+					</div>
+					<div class="col-xs-4">
+						<label>Numero exterior<span class="required">*</span></label>
+						<input type="text" name="vacancy[number]" value="{{Data.vacancy.number}}" placeholder="" class="form-control" id="number">
+					</div>
+				</div>
+                <div>
+                    <label>Código Postal<span class="required">*</span></label>
+                    <input type="text" name="vacancy[zip_code]" value="{{Data.vacancy.zip_code}}" placeholder="" class="form-control" id="zip_code">
+                </div>
+				<div id="google_map" class="text-center">
+					<img src="{{ Core.Domains.theme }}images/logo_google_maps.jpg" id="logo_google_maps">
+				</div>				
+				<div class="btn-talentbase" id="updateGoogleMap">
+					Ver/Actualizar ubicación en el mapa
+				</div>
+				<div class="alert alert-danger" style="display:none" id="errorNoMap">
+				Es necesario que confirmes la ubicación del marcador en el mapa
+				</div>
+				<div id="sectionConfirmMarker" style="display:none">
+					<div class="btn btn-primary" id="markerOkBtn">
+						<input type="checkbox" name="vacancy[marker_ok]" value="1" {% if Data.vacancy.marker_ok == 1 %}checked{% endif %} id="marker_ok">
+						<label for="marker_ok">Corfirmar la ubicación del marcador en el mapa</label>
+					</div>
+					<div class="alert alert-warning">
+					Si la ubicación del marcador no es correcta, puedes arrastrarlo a la ubicación deseada. 
+					</div>
+				</div>                
+            </div>
+
+            <div class="col-md-6">                
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label>Edad mínima</label>
+                        <input type="text" name="vacancy[min_age]" value="{{Data.vacancy.min_age}}" placeholder="" class="form-control">
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Edad máxima</label>                        
+						<input type="text" name="vacancy[max_age]" value="{{Data.vacancy.max_age}}" placeholder="" class="form-control">
+                    </div>
+                </div>
+                <div>
+                    <label>Sexo</label>
+                    <select name="vacancy[sex]" class="form-control">
+                        <option value="2" {% if Data.vacancy.sex == 2 %}selected{% endif %}>Indistinto</option>
+                        <option value="0" {% if Data.vacancy.sex == 0 %}selected{% endif %}>Mujer</option>
+                        <option value="1" {% if Data.vacancy.sex == 1 %}selected{% endif %}>Hombre</option>							
+                    </select>
+                </div>
+                <div>
+                    <label>Disponibilidad para viajar</label>
+                    <select name="vacancy[id_travel_availability]" class="form-control">
+                        <option value="">Indistinto</option>
+                        <option value="1" {% if Data.vacancy.id_travel_availability == 1 %}selected{% endif %}>Sí, nacional</option>
+                        <option value="2" {% if Data.vacancy.id_travel_availability == 2 %}selected{% endif %}>Sí, nacional</option>
+                        <option value="3" {% if Data.vacancy.id_travel_availability == 3 %}selected{% endif %}>Sí, nacional e internacional</option>
+                        <option value="4" {% if Data.vacancy.id_travel_availability == 4 %}selected{% endif %}>No</option>							
+                    </select>
+                </div>
+                <div>
+                    <label>Idiomas</label>
+                    <select id="languages" name="vacancy[languages][]" class="form-control" placeholder="Idiomas" multiple="multiple">
+                    	{% for item in Data.vacancy.languages %}
+                    	<option value="{{item.value}}" selected="selected">{{item.value}}</option>                 	
+                    	{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Industrias<span class="required">*</span></label>						
+                    <select id="industries" name="vacancy[industries][]" class="form-control" placeholder="Industrias" multiple="multiple">
+                    	{% for item in Data.vacancy.industries %}
+                    	<option value="{{item.value}}" selected="selected">{{item.value}}</option>                 	
+                    	{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Funciones</label>
+                    <select id="functions" name="vacancy[functions][]" class="form-control" placeholder="Funciones" multiple="multiple">
+                    	{% for item in Data.vacancy.functions %}
+                    	<option value="{{item.value}}" selected="selected">{{item.value}}</option>                 	
+                    	{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label>Educación</label>
+                    <textarea type="text" name="vacancy[education]" value="" placeholder="" class="form-control">{{Data.vacancy.education}}</textarea>
+                </div>
+                <div>
+                    <label>Compensación<span class="required">*</span></label>                    
+                    <select name="vacancy[id_currency]" class="form-control currency-select">
+                    	<option value="1" {% if Data.vacancy.id_currency == 1 %}selected{% endif %}>MXN</option>
+                    	<option value="2" {% if Data.vacancy.id_currency == 2 %}selected{% endif %}>USD</option>                    	
+                    </select>
+                	
+                    <input type="text" name="vacancy[salary]" value="{{Data.vacancy.salary}}" placeholder="" class="form-control currency-input">                	
+                </div>
+				<div>
+					<label>Tipo de trabajo</label>
+					<select id="jobType" name="vacancy[id_vacancy_type]" class="form-control">
+						<option value="1" {% if Data.vacancy.id_vacancy_type == 1 %}selected{% endif %}>Tiempo completo</option>
+						<option value="2" {% if Data.vacancy.id_vacancy_type == 2 %}selected{% endif %}>Medio tiempo</option>
+						<option value="3" {% if Data.vacancy.id_vacancy_type == 3 %}selected{% endif %}>Temporal</option>
+						<option value="4" {% if Data.vacancy.id_vacancy_type == 4 %}selected{% endif %}>Pasantia</option>
+						<option value="5" {% if Data.vacancy.id_vacancy_type == 5 %}selected{% endif %}>Por Contrato</option>
+						<option value="6" {% if Data.vacancy.id_vacancy_type == 6 %}selected{% endif %}>Voluntario</option>
+						<option value="7" {% if Data.vacancy.id_vacancy_type == 7 %}selected{% endif %}>Primer empleo</option>
+						<option value="8" {% if Data.vacancy.id_vacancy_type == 8 %}selected{% endif %}>Por Horas</option>
+						<option value="9" {% if Data.vacancy.id_vacancy_type == 9 %}selected{% endif %}>Fines de Semana</option>
+						<option value="10" {% if Data.vacancy.id_vacancy_type == 10 %}selected{% endif %}>Teletrabajo</option>
+					</select>
+				</div>
+				<div>  
+                	<label for="published" class="row" id="btn_publish">                  
+	                    <div class="col-xs-1">
+	                    	<input type="checkbox" name="vacancy[published]" value="1" {% if Data.vacancy.published == 1 %}checked{% endif %} id="published">
+	                    	<label for="published"></label>
+	                    </div>
+	                    <div class="col-xs-6">Publicar</div>
+                    </label> 
+                </div>                
+            </div>
+        </div>
+        <div class="row">                        
+            <div class="col-xs-12 text-right">
+            	<hr>
+            	<p><button type="button" class="btn" id="saveVacancy">Guardar</button></p>            	
+            </div>
+        </div>            
+    </section>
+    <input type="hidden" name="vacancy[id]" value="{{Data.vacancy.id}}">
+	<input type="hidden" name="vacancy[lat]" value="{{Data.vacancy.lat}}" id="vacancy_lat">
+	<input type="hidden" name="vacancy[lng]" value="{{Data.vacancy.lng}}" id="vacancy_lng">
+</form>

@@ -1,0 +1,88 @@
+{# <?php ?> #}
+{% block content %}
+<ul id="myTab" class="nav nav-tabs contnav">    
+    <li class="active"><a href="#perfil" data-toggle="tab">Perfil del candidato</a></li>	
+	<li class=""><a href="#notes" data-toggle="tab" id="notesTab">Notas</a></li>
+	<li class=""><a href="#documentos" data-toggle="tab" id="documentsTab">Revisar y subir documentos</a></li>
+    <div class="glyphicon glyphicon-remove close" onClick="togglePanel('#panelRight');"></div>
+</ul>
+<div id="myTabContent" class="tab-content tabs tab-agenda">
+	<div id="notes" class="tab-pane fade row">
+		<div class="col-xs-10"><textarea name="txt" id="txt" class="form-control"></textarea></div>
+		<div class="col-xs-2"><button type="button" id="addNote" class="btn">Agregar</button></div>
+		<div class="col-xs-12 table-head-notes table-notes">				
+			<table class="table table-striped" id="notesList">
+				<thead>
+					<tr>
+						<th id="note_by">
+							Usuario
+						</th>
+						<th id="note_txt">
+							Nota
+						</th>
+						<th id="note_created">
+							Creada
+						</th>
+					</tr>
+				</thead>				
+			</table>
+		</div>		
+		<div id="container_notes" class="col-xs-12 table-notes"></div>
+	</div>
+    <div class="tab-pane fade" id="documentos">
+    	<div class="row document_form">
+    		<div class="col-xs-9">Nombre: <input class="form-control" id="nameNewDocument"></div> 
+    		<div class="col-xs-3">
+    			<br>
+    			<span class="btn fileinput-button white disabled">       
+    				<span><i class="fa fa-upload"></i> Cargar</span>
+    				<input type="file" name="files[]" class="fileupload">
+    			</span>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<table class="table table-striped">
+		    	<thead class="black">
+		    	    <tr>			
+		         	   <th class="document_name">Documento</th>
+		         	   <th colspan="2">Creado</th>		         	   
+		        	</tr>
+		    	</thead>
+			</table>
+    	</div>
+        <div class="table-responsive tablebg row" id="listDocuments">
+            
+        </div>		
+    </div>
+    <div class="tab-pane fade active in" id="perfil">
+        <table width="475px" border="0" class="tcmleft">
+            <tr>
+                <td colspan="3">
+                    <h4 class="candidatesname">{{Data.candidate.name}} {{Data.candidate.last_name}}, ({{Data.candidate.age}} años)</h4>
+                </td>
+            </tr>
+            <tr>
+                <td height="25px"></td>
+            </tr>
+            <tr>
+                <td valign="top" align="right" width="15%">
+                    <h6>Direcci&oacute;n:</h6><br/><br/><br/>
+                    <h6 class="fieldmargin">Folio:</h6>
+                    <h6>CURP:</h6>
+                    <h6>Teléfono:</h6>
+                </td>
+                <td width="15px"></td>
+                <td valign="top" align="left">
+                    <p>{{Data.candidate.address}} #{{Data.candidate.outside_number}}
+					<br/>Col. {{Data.candidate.colony}}, {{Data.candidate.delegation}}
+					<br/>C.P. {{Data.candidate.zip_code}}</p>
+                    <p class="pmargin">{{Data.candidate.folio}}</p>
+                    <p class="pmargin">{{Data.candidate.curp}}</p>
+                    <p class="pmargin">{{Data.candidate.phone_number}}</p><br/>
+                    <div class="btn details" candidate-id="{{Data.candidate.uid}}" candidate-name="{{Data.candidate.name}} {{Data.candidate.last_name}}">Ver perfil completo</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
