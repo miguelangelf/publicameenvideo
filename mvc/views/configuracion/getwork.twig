@@ -1,9 +1,0 @@
-{% for job in Data.result %}
-    <div class="media">
-	  <a class="pull-left" href="#"><img src="{{ Core.Domains.theme }}/images/circle1.png" width="64px" height="64px" alt="anteiku"></a>
-	  <div class="media-body">
-	    <h4 class="media-heading">{{job.position}} en {{job.company}}</h4>
-	  	{{job.job_description}}
-	  </div>
-	</div>
-{% endfor %}

@@ -10,20 +10,11 @@
         <link href="{{ Core.Domains.theme }}css/bootstrap.min.css" rel="stylesheet">
         <link href="{{ Core.Domains.theme }}css/jquery-ui.css" rel="stylesheet">
         <link href="{{ Core.Domains.theme }}css/font-awesome.css" rel="stylesheet">
-        <link href="{{ Core.Domains.theme }}js/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
         <link href="{{ Core.Domains.theme }}php/general.css" rel="stylesheet">        
-        <link rel="stylesheet" href="{{ Core.Domains.theme }}css/jquery.fileupload.css">
-        <link href="{{ Core.Domains.theme }}css/bootstrap-switch.css" rel="stylesheet">
-        <link href="{{ Core.Domains.theme }}js/bootstrap-wysiwyg/editor.css" rel="stylesheet">
-        <link href="{{ Core.Domains.theme }}js/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
-        <link href="{{ Core.Domains.theme }}js/bootstrap-tagsinput/app.css" rel="stylesheet">
-        <link href="{{ Core.Domains.theme }}js/select2/select2.css" rel="stylesheet"/>
-        <link href="{{ Core.Domains.theme }}js/circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
         {{ View.CSS|raw }}
         {{ Modules.top.css|raw }}
         <link href="{{Core.Domains.theme}}css/{{Browser.os}}/{{Browser.name}}.css" rel="stylesheet" type="text/css" />
         <script src="{{ Core.Domains.theme }}js/jquery-1.10.2.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
         {{ Modules.top.js|raw }}
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,43 +24,17 @@
     </head>
     <body role="document">
         {% include('header.twig') %}
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div> <!-- /container -->
         {% include('footer.twig') %}
         {{ View.JS|raw }}
         {{ Modules.bottom.css|raw }}
         {{ Modules.bottom.js|raw }}
-                
-        <script type="text/javascript" src="{{ Core.Domains.theme }}js/wdScrollTab/src/Plugins/Fader.js"></script>
-        <script type="text/javascript" src="{{ Core.Domains.theme }}js/wdScrollTab/src/Plugins/TabPanel.js"></script>
-        <script type="text/javascript" src="{{ Core.Domains.theme }}js/wdScrollTab/src/Plugins/Math.uuid.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.ui.widget.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.iframe-transport.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.fileupload.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.fileupload-process.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.fileupload-validate.js"></script>		
         <script src="{{ Core.Domains.theme }}js/jquery.jcryption.3.0.1.js"></script>
-        <script src="{{ Core.Domains.core }}js/jquery.validate.js"></script>
         <script src="{{ Core.Domains.core }}js/jquery-ui-1.10.3.js"></script>
         <script src="{{ Core.Domains.theme }}js/bootstrap.min.js"></script>		
-        <script src="{{ Core.Domains.theme }}js/jquery.parallax-1.1.3.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.localscroll-1.2.7-min.js"></script>		
         <script src="{{ Core.Domains.theme }}js/retina-1.1.0.min.js"></script>
-        <script src="{{ Core.Domains.theme }}js/scrolld.min.js"></script>
-        <script src="{{ Core.Domains.theme }}js/scripts.js"></script>
-        <script src="{{ Core.Domains.theme }}js/bootstrap-switch.js"></script>
-        <script src="{{ Core.Domains.theme }}js/blur.min.js"></script>
-        <script src="{{ Core.Domains.theme }}js/blur.min.js"></script>
         <script src="{{ Core.Domains.theme }}php/general.js"></script>      
-        <script src="{{ Core.Domains.theme }}js/bootstrap-wysiwyg/editor.js"></script>
-        <script src="{{ Core.Domains.theme }}js/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-        <script src="{{ Core.Domains.theme }}js/typeahead.bundle.js"></script>
-        <script src="{{ Core.Domains.theme }}js/select2/select2.min.js"></script>
-        <script src="{{ Core.Domains.core }}js/highcharts.js"></script>
-        <script src="{{ Core.Domains.theme }}js/circliful/js/jquery.circliful.min.js"></script>
-        <script src="{{ Core.Domains.theme }}js/cropbox.js"></script>
-        <script src="{{ Core.Domains.theme }}js/jquery.form.js"></script>
-        <script src="{{ Core.Domains.theme }}js/additional-methods.min.js"></script>
-        <!--<script src="{{ Core.Domains.core }}js/main.js"></script>-->        
-        <script src="{{ Core.Domains.theme }}js/markerclusterer.js"></script>
     </body>
 </html>

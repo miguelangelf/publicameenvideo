@@ -1,5 +1,0 @@
-{% if (Session.siteLanguage == 'es' or Session.siteLanguage == 'ES') %}
-    <li><a href="{{ Core.Domains.core }}c/webuser/changeLanguage/en/{{MVC.controller}}/{{MVC.action}}"></i><strong>EN</strong></a></li>
-{% elseif (Session.siteLanguage == 'en' or Session.siteLanguage == 'EN') %}
-    <li><a href="{{ Core.Domains.core }}c/webuser/changeLanguage/es/{{MVC.controller}}/{{MVC.action}}"></i><strong>ES</strong></a></li>
-{% endif %}
