@@ -1,0 +1,449 @@
+{# <?php ?> #}
+{% extends 'default.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 section-1">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="¿Que estas buscando?" style="width: 50%">
+                <input type="text" class="form-control" placeholder="¿Donde lo buscas?" style="width: 50%">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-default" type="button" onclick="_Sidemenu.toggle('CategoriesMenu');">
+                        <i class="fa fa-bars"></i> Categorias
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row section-1" >
+        <div class="col-md-12 text-2 subtitle-text">
+            Publicaciones recomendadas 
+        </div>
+        <div class='row'>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 1
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 2 - prueba de un título mas grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, prueba de descripción muy grande
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>13</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 segundos</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 3 - prueba de titulo muy grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>134</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 minuto</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 4, prueba de maxima logitud de título...
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,545</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 año</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 5
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, esta es una prueba de una descripción muy larga
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 semanas</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-lg-2 col-md-3 col-sm-4 col-xs-6 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 6
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,234</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+        </div>
+        <div class="col-md-12 link-section">
+            Mostrar más 
+        </div>
+    </div>
+    
+    <div class="row section-1" >
+        <div class="col-md-12 text-2 subtitle-text">
+            Publicaciones que te pueden interesar 
+        </div>
+        <div class='row'>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 1
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 2 - prueba de un título mas grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, prueba de descripción muy grande
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>13</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 segundos</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 3 - prueba de titulo muy grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>134</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 minuto</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 4, prueba de maxima logitud de título...
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,545</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 año</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 5
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, esta es una prueba de una descripción muy larga
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 semanas</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 6
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,234</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 7
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 8 - prueba de un título mas grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, prueba de descripción muy grande
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>13</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 segundos</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 9 - prueba de titulo muy grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>134</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 minuto</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 10, prueba de maxima logitud de título...
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,545</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 año</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 11
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, esta es una prueba de una descripción muy larga
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 semanas</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 12
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,234</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+        </div>
+        <div class="col-md-12 link-section">
+            Mostrar más 
+        </div>
+    </div>
+    
+    <div class="row section-1" >
+        <div class="col-md-12 text-2 subtitle-text">
+            Publicaciones recientes 
+        </div>
+        <div class='row'>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 1
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 2 - prueba de un título mas grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, prueba de descripción muy grande
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>13</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 segundos</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 3 - prueba de titulo muy grande
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>134</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 minuto</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 4, prueba de maxima logitud de título...
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,545</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 1 año</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 5
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video, esta es una prueba de una descripción muy larga
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 2 semanas</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+            <div class='col-md-2 video'>
+                <img class='video-img' src=''/>
+                <div class='video-title'>
+                    Título del video 6
+                </div>
+                <div class='video-description'>
+                    Descripción breve del video
+                </div>
+                <div class='video-social'>
+                    <i class="fa fa-heart-o"></i>
+                    <span class='like-video'>1,534,234</span>
+                    <i class="fa fa-clock-o clock-space"></i>
+                    <span class='date-video'>Hace 3 días</span>
+                </div>
+                <div class='video-metadata'></div>
+            </div>
+        </div>
+        <div class="col-md-12 link-section">
+            Mostrar más 
+        </div>
+    </div>
+    <!--
+      <div class="jumbotron">
+        <h1>Hola Mundo !!</h1>
+        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+    -->
+    {{Data.CategoriesMenu | raw}}
+{% endblock %}
