@@ -1,27 +1,38 @@
 {% extends 'defaultAdmin.twig' %}
 {% block content %}
+
     <div class="row row-offcanvas row-offcanvas-left">
-        {% include('sidebar.twig') %}
+
+        <div class="left_bar">
+            {% include('sidebar.twig') %}
+        </div>
+
         <div class="col-sm-9 col-md-10 main" id="main-panel">
+
+
+
+
+            {% include('notybanner.twig') %}
+
             <!--toggle sidebar button-->
             <p class="visible-xs">
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
             </p>
-            <h1 class="page-header">
-                De que color es el vestido?
-                <p class="lead">(Key performance indicators)</p>
+
+
+
+            <h1>
+                Dashboard :: {{Data.var}}
             </h1>
-            
             <hr>
-            <h2 class="sub-header">Section title</h2>
-            <p>
-                {% if Data.gender == 1 %}
-                    Hola amigo
-                {% else %}
-                    Hola amiga
-                {% endif %}
-                esta es mi variables get1: {{Data.var}}
-            </p>
-        </div><!--/row-->
+            <div class="col-md-12">
+                <span class="push_left">
+                    {% include('menubutton.twig') %}
+                    {% include('menubutton.twig') %}
+                    {% include('menubutton.twig') %}     
+                </span>
+            </div>
+        </div>
     </div>
+
 {% endblock %}
