@@ -7,11 +7,17 @@ class admin extends _controller {
         $this->view("dashboard", $data);
     }
     
-    public function hello() {
-        echo "HELLO";
-        exit();
-        //$this->view("dashboard", array());
+    public function usuarios(){
+        $inbox_number = $this->Post("inbox");
+        $data["inbox"] = $inbox_number;
+        
+        $users = $this->Model()->users();
+        $data["users"] = $users;
+        
+        
+        $this->view("usuarios", $data);
     }
+    
 }
 
 ?>

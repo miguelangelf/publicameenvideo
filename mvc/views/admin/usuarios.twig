@@ -1,0 +1,10 @@
+<h1>{{Data.inbox}}</h1>
+<table>
+    {% for user in Data.users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+    {% endfor %}
+</table>
