@@ -1,14 +1,28 @@
-$(document).ready(function() {
-  $('[data-toggle=offcanvas]').click(function() {
-    $('.row-offcanvas').toggleClass('active');
-  });
- 
-  
+$(document).ready(function () {
+    $('[data-toggle=offcanvas]').click(function () {
+        $('.row-offcanvas').toggleClass('active');
+    });
+
+
+
+
 });
 
- for(var i=0;i<100;i++)
-  {
-    $(".counter").text(i);
-      
-  }
+function solicitud()
+{
+   
+   $.ajax({
+        url: "dashboard",
+        type: "post",
+        data: "yolo=nolose",
+        success: function(){
+            alert("success");
+        },
+        error:function(){
+            alert("failure");
+        }
+    });
+   
+   
+}
 

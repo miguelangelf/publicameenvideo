@@ -1,19 +1,14 @@
 body {
     padding-top: 50px;
 }
+
 footer {
+    
     padding-left: 15px;
     padding-right: 15px;
     background-color: #fff;
 }
 
-.my_bg{
-    border-color:red;
-    color: red;
-    column-fill: red;
-    column-span: red;
-
-}
 
 #user{
     color:rgb(0,0,0);
@@ -75,7 +70,7 @@ footer {
  * Main content
  */
 
-.left_bar
+.padding-top
 {
     padding-top: 20px;
 
@@ -111,17 +106,4 @@ footer {
 
 }
 
-.push_center
-{
-    display: inline-block;
-    margin:0 auto;
-    width:100px;
 
-
-}
-
-.is_line
-{
-    display:inline;
-
-}

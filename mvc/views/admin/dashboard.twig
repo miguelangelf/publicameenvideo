@@ -1,16 +1,14 @@
 {% extends 'defaultAdmin.twig' %}
 {% block content %}
 
-    <div class="row row-offcanvas row-offcanvas-left">
+    
+    <div class="row padding-top ">
 
-        <div class="left_bar">
+        <div class=" col-sm-3 col-md-2">
             {% include('sidebar.twig') %}
         </div>
 
-        <div class="col-sm-9 col-md-10 main" id="main-panel">
-
-
-
+        <div class="col-sm-9 col-md-10  padding-top" id="main-panel">
 
             {% include('notybanner.twig') %}
 
@@ -22,16 +20,23 @@
 
 
             <h1>
-                Dashboard :: {{Data.var}}
+                Dashboard :: <? print_r($_POST);  ?>
+                
+                
             </h1>
+                
             <hr>
             <div class="col-md-12">
                 <span class="push_left">
                     {% include('menubutton.twig') %}
                     {% include('menubutton.twig') %}
                     {% include('menubutton.twig') %}     
+                    <input type="button" onclick="solicitud()" value="valor()"/>
                 </span>
             </div>
+            {% include('aform.twig') %} 
+                
+           
         </div>
     </div>
 
