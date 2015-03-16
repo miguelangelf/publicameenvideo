@@ -9,11 +9,41 @@ footer {
     background-color: #fff;
 }
 
+.nada{
+    
+    
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.a100{
+    width: 100%;
+    
+}
+
+.a80{
+    width: 80%;
+    
+}
+
+.a20{
+    width: 20%;
+    
+}
 
 #user{
     color:rgb(0,0,0);
     padding-right: 20px;
     padding-left: 20px;  
+}
+
+.fullw
+{
+    width: 100%;
 }
 
 

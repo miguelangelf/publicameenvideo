@@ -4,12 +4,13 @@
 
 <div class="fullw">
     <span class="pull-left a80">
-        <input type="text" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
+        <input type="text" class="form-control " placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
 
-        {% include('opcionesuser.twig') %}
+        {% include('menubutton.twig') %}
+        {% include('menubutton.twig') %}
     </span>
 
 </div >
@@ -30,7 +31,6 @@
                     <td>{{ user.name }}</td>
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
-                    <td><input type="checkbox"></input></td>
                     
                 </tr>
             {% endfor %}
@@ -42,10 +42,3 @@
 
     {% include('pager.twig') %}
 </div>
-    <div class="a100 ">
-        <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">
- Agregar Usuario
-</button>
-        
-    </div>
-{% include('modaluser.twig') %}

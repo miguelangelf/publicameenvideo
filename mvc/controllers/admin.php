@@ -7,15 +7,49 @@ class admin extends _controller {
         $this->view("dashboard", $data);
     }
     
+    public function countuser()
+    {
+        
+        $data['countusers']=5;
+        $this->view("dashboard",$data);
+    }
+    
     public function usuarios(){
         $inbox_number = $this->Post("inbox");
-        $data["inbox"] = $inbox_number;
+        $nextpage = $this->Post("next");
+        $categoria = $this->Post("cat");
+        $search = $this->Post("message");
+        $data["inbox"] = $inbox_number." :: ".$categoria;
         
-        $users = $this->Model()->users();
+        $users = $this->Model()->users($nextpage,$search);
         $data["users"] = $users;
         
         
         $this->view("usuarios", $data);
+    }
+    
+    
+    public function empresas(){
+        $inbox_number = $this->Post("inbox");
+        $data["inbox"] = $inbox_number;
+        
+        $users = $this->Model()->empresas();
+        $data["users"] = $users;
+        
+        
+        $this->view("empresas", $data);
+    }
+    
+    
+    public function videos(){
+        $inbox_number = $this->Post("inbox");
+        $data["inbox"] = $inbox_number;
+        
+        $users = $this->Model()->videos();
+        $data["users"] = $users;
+        
+        
+        $this->view("videos", $data);
     }
     
 }
