@@ -24,6 +24,9 @@ class admin extends _controller {
         $users = $this->Model()->users($nextpage,$search);
         $data["users"] = $users;
         
+        $usersnumber = $this->Model()->countusers($nextpage,$search);
+        $data["max"] = $users;
+        
         
         $this->view("usuarios", $data);
     }

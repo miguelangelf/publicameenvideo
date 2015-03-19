@@ -4,14 +4,38 @@ var categoria;
 var miinbox;
 var buscador;
 var auxpage;
+var maxpage;
 function SendData()
 {
 
     $.post(url, data, function (response) {
         $("#content-panel").html(response);
+        refreshnum();
+       // alert(response);
     });
+    
+    
+    
 }
 
+function refreshnum()
+{
+    var mypagenumber=auxpage;
+    mypagenumber++;
+    $('.numpage').html("Página "+mypagenumber)
+    
+    if(mypagenumber==1)
+    {
+        $('.masicono').hide();
+        
+    }
+    else
+    {
+        $('.masicono').show();
+        
+    }
+    
+}
 
 
 
@@ -24,7 +48,7 @@ var Communicator = function () {
             case "usuarios":
                 $(".menuitem").attr('class', 'menuitem');
                 $("#usuarios").attr('class', 'menuitem active');
-                auxpage='0';
+                auxpage=0;
                 url = "/site/admin/usuarios";
                 miinbox = 'Usuarios';
                 categoria = auxpage;
@@ -41,7 +65,7 @@ var Communicator = function () {
                 $("#empresas").attr('class', 'menuitem active');
                 url = "/site/admin/empresas";
                 miinbox = 'Empresas';
-                auxpage='0';
+                auxpage=0;
                 categoria = '0';
                 data = {
                     inbox: miinbox,
@@ -56,7 +80,7 @@ var Communicator = function () {
                 $("#videos").attr('class', 'menuitem active');
                 url = "/site/admin/videos";
                 miinbox = 'Videos';
-                auxpage='0';
+                auxpage=0;
                 categoria = '0';
                 data = {
                     inbox: miinbox,
@@ -72,7 +96,14 @@ var Communicator = function () {
 
     this.changepage = function (numberpage)
     {
-       auxpage=numberpage;
+           switch(numberpage)
+        {
+            case "menos": auxpage-=1; break;
+            case "mas": auxpage+=1; break;
+            
+        }
+        
+        
         data = {
             inbox: miinbox,
             next: auxpage,
@@ -86,7 +117,7 @@ var Communicator = function () {
     this.changecategory = function (category)
     {
         categoria = category;
-        auxpage='0';
+        auxpage=0;
         data = {
             inbox: miinbox,
             next: auxpage,
@@ -99,6 +130,7 @@ var Communicator = function () {
     
     this.search =function (valor)
     {
+        auxpage=0;
         buscador=valor.value;
         data = {
             inbox: miinbox,
@@ -124,3 +156,26 @@ $(document).ready(function () {
 
 });
 
+
+      google.load("visualization", "1", {packages:["geochart"]});
+      google.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 0],
+          ['United States', 0],
+          ['Brazil', 0],
+          ['Canada', 0],
+          ['Mexico',700],
+          ['France', 0],
+          ['RU', 0]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }

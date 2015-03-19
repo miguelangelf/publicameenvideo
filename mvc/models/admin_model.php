@@ -13,6 +13,18 @@ class admin_model{
         return $results;
     }
     
+    public function countusers($actual,$message)
+    {
+        $aux=$message;
+        $sql = "SELECT COUNT(*) FROM us_users where name like '%".$aux."%' or email like '%".$aux."%' or last_name like '%".$aux."%'   LIMIT ".($actual*20)." ,20";
+        $pdo = Database::executeConn($sql,"default");
+        $results = array();
+        $row = Database::fetch_array($pdo);
+        $results[] = $row;
+        
+        return $results;
+    }
+    
     
     
     public function empresas(){
