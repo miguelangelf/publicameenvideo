@@ -25,7 +25,12 @@ class admin_model{
         return $results;
     }
     
-    
+    public function disable_users(){
+        $sql = "SELECT COUNT(uid) as no FROM us_users WHERE id_status = 0";
+        $pdo = Database::executeConn($sql,"default");
+        $row = Database::fetch_row($pdo);
+        return $row["no"];
+    }
     
     public function empresas(){
         $sql = "SELECT name,email FROM us_users LIMIT 20";

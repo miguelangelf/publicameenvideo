@@ -80,6 +80,20 @@ function DeleteUsers()
     }
 }
 
+var Notifications = function(){
+    this.no_users;
+    
+    this.refresh= function(){
+        var parent = this;
+        $.post("/site/admin/notificaciones/usuarios",  null, function (response) {
+           var jsonResponse = $.parseJSON(response);
+           parent.no_users = jsonResponse.no_users;
+           $("#user-notifications-number").html(parent.no_users );
+        });
+        
+    };
+}
+
 var Communicator = function () {
 
     this.load = function (page) {
@@ -154,16 +168,18 @@ var Communicator = function () {
 
 };
 var Comm;
+var Notify;
+
 $(document).ready(function () {
     console.log("Loaded");
     $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
     });
     Comm = new Communicator();
+    Notify = new Notifications();
     Comm.load('usuarios');
+    Notify.refresh();
     buscador="";
-
-
 });
 
 /*

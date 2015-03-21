@@ -3,8 +3,7 @@
 class admin extends _controller {
 
     public function dashboard() {        
-        $data = array("username"=>"Sergio Roman","gender"=>0,"var"=>$this->Get(1));
-        $this->view("dashboard", $data);
+        $this->view("dashboard", null);
     }
     
     public function countuser()
@@ -53,6 +52,16 @@ class admin extends _controller {
         
         
         $this->view("videos", $data);
+    }
+    
+    public function notificaciones(){
+        $type = $this->Get(1);
+        switch($type){
+            case "usuarios":
+                $disable_users = $this->Model()->disable_users();
+                break;
+        }
+        echo json_encode(array("no_users"=>$disable_users));
     }
     
 }
