@@ -5,6 +5,19 @@ var miinbox;
 var buscador;
 var auxpage;
 var maxpage;
+
+function CreateData()
+{
+    data = {
+                    inbox: miinbox,
+                    next: auxpage,
+                    cat: categoria,
+                     message:buscador
+                };
+    
+    
+}
+
 function SendData()
 {
 
@@ -37,7 +50,35 @@ function refreshnum()
     
 }
 
-
+function DeleteUsers()
+{
+    $('.listtodelete').empty();
+     $('.okdelete').show();
+    var vacio=true;
+    
+    $('.eliminar').each(function(index,value){
+        
+        if($(this).is(':checked')) { 
+           
+            var info=$(this).val();
+            $('.listtodelete').append(info);
+            $('.listtodelete').append("<br>");
+            vacio=false;
+            
+        } else {    
+        } 
+        
+        
+        
+    });
+    
+    if(vacio)
+    {
+        $('.listtodelete').append("No hay elementos a borrar");
+        $('.okdelete').hide();
+        
+    }
+}
 
 var Communicator = function () {
 
@@ -52,12 +93,7 @@ var Communicator = function () {
                 url = "/site/admin/usuarios";
                 miinbox = 'Usuarios';
                 categoria = auxpage;
-                data = {
-                    inbox: miinbox,
-                    next: auxpage,
-                    cat: categoria,
-                     message:buscador
-                };
+                CreateData();
                 SendData();
                 break;
             case "empresas":
@@ -67,12 +103,7 @@ var Communicator = function () {
                 miinbox = 'Empresas';
                 auxpage=0;
                 categoria = '0';
-                data = {
-                    inbox: miinbox,
-                    next: auxpage,
-                    cat: categoria,
-                     message:buscador
-                };
+                CreateData();
                 SendData();
                 break;
             case "videos":
@@ -82,12 +113,7 @@ var Communicator = function () {
                 miinbox = 'Videos';
                 auxpage=0;
                 categoria = '0';
-                data = {
-                    inbox: miinbox,
-                    next: auxpage,
-                    cat: categoria,
-                     message:buscador
-                };
+                CreateData();
                 SendData();
                 break;
         }
@@ -103,13 +129,7 @@ var Communicator = function () {
             
         }
         
-        
-        data = {
-            inbox: miinbox,
-            next: auxpage,
-            cat: categoria,
-            message:buscador
-        };
+        CreateData();
         SendData();
 
     };
@@ -118,12 +138,7 @@ var Communicator = function () {
     {
         categoria = category;
         auxpage=0;
-        data = {
-            inbox: miinbox,
-            next: auxpage,
-            cat: categoria,
-            message:buscador
-        };
+        CreateData();
         SendData();
 
     };
@@ -132,12 +147,7 @@ var Communicator = function () {
     {
         auxpage=0;
         buscador=valor.value;
-        data = {
-            inbox: miinbox,
-            next: auxpage,
-            cat: categoria,
-            message:buscador
-        };
+        CreateData();
         SendData();
         
     };
@@ -156,7 +166,7 @@ $(document).ready(function () {
 
 });
 
-
+/*
       google.load("visualization", "1", {packages:["geochart"]});
       google.setOnLoadCallback(drawRegionsMap);
 
@@ -179,3 +189,5 @@ $(document).ready(function () {
 
         chart.draw(data, options);
       }
+      
+      */
