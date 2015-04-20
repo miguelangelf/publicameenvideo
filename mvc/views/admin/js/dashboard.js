@@ -1,21 +1,105 @@
 var url;
 var data;
-var categoria;
-var miinbox;
-var buscador;
-var auxpage;
-var maxpage;
+var urlaux;
 
-function CreateData()
+
+//SOLICITAR PAGINA------------------
+
+var pagename;
+var maxitems;
+var searchdata;
+var category;
+var actualpage;
+
+
+
+
+//ELIMINAR-BLOQUEAR-APROBAR
+var listofitems = [];
+var action;
+var origin;
+
+
+
+function createdatapage()
 {
     data = {
-                    inbox: miinbox,
-                    next: auxpage,
-                    cat: categoria,
-                     message:buscador
-                };
-    
-    
+        pagename: pagename,
+        maxitems: maxitems,
+        search: searchdata,
+        category: category,
+        actualpage: actualpage
+
+    };
+
+}
+
+function createdatamanage()
+{
+    data = {
+        elements: JSON.stringify(listofitems),
+        action: action
+
+    };
+}
+
+
+function GetChecked()
+{
+    listofitems.length = 0;
+    $('.modallist').empty();
+    $('.modalsend').show();
+
+    var vacio = true;
+
+    $('.checkbox').each(function (index, value) {
+        if ($(this).is(':checked')) {
+            var theid = $(this).attr("mainid");
+            listofitems.push(theid);
+
+            var info = $(this).val();
+
+
+            $('.modallist').append(info);
+            $('.modallist').append("<br>");
+            vacio = false;
+
+        } else {
+        }
+    });
+
+
+
+    if (vacio)
+    {
+        $('.modallist').append("No hay elementos seleccionados");
+        $('.modalsend').hide();
+
+    }
+    else
+    {
+
+
+    }
+}
+
+
+
+function SetPageNumber()
+{
+    var mypagenumber = actualpage;
+    mypagenumber++;
+    $('.numpage').html("Página " + mypagenumber);
+
+
+}
+
+
+function JustSend()
+{
+    $.post(url, data, function (response) {
+        SendData();
+    });
 }
 
 function SendData()
@@ -23,111 +107,74 @@ function SendData()
 
     $.post(url, data, function (response) {
         $("#content-panel").html(response);
-        refreshnum();
-       // alert(response);
+        SetPageNumber();
+        Notify.refresh();
+        $("#buscador").focus();
+        $("#buscador").val(searchdata);
+
     });
-    
-    
-    
+
 }
 
-function refreshnum()
-{
-    var mypagenumber=auxpage;
-    mypagenumber++;
-    $('.numpage').html("Página "+mypagenumber)
-    
-    if(mypagenumber==1)
-    {
-        $('.masicono').hide();
-        
-    }
-    else
-    {
-        $('.masicono').show();
-        
-    }
-    
-}
+//CORRECTO
 
-function DeleteUsers()
-{
-    $('.listtodelete').empty();
-     $('.okdelete').show();
-    var vacio=true;
-    
-    $('.eliminar').each(function(index,value){
-        
-        if($(this).is(':checked')) { 
-           
-            var info=$(this).val();
-            $('.listtodelete').append(info);
-            $('.listtodelete').append("<br>");
-            vacio=false;
-            
-        } else {    
-        } 
-        
-        
-        
-    });
-    
-    if(vacio)
-    {
-        $('.listtodelete').append("No hay elementos a borrar");
-        $('.okdelete').hide();
-        
-    }
-}
 
-var Notifications = function(){
-    this.no_users;
-    
-    this.refresh= function(){
+
+
+var Notifications = function () {
+    // this.no_users;
+
+    this.refresh = function () {
         var parent = this;
-        $.post("/site/admin/notificaciones/usuarios",  null, function (response) {
-           var jsonResponse = $.parseJSON(response);
-           parent.no_users = jsonResponse.no_users;
-           $("#user-notifications-number").html(parent.no_users );
+        $.post("/site/admin/notificaciones/usuarios", null, function (response) {
+            var jsonResponse = $.parseJSON(response);
+            parent.no_users = jsonResponse.no_users;
+            parent.no_unapproved = jsonResponse.no_unapproved;
+            parent.no_companies = jsonResponse.no_companies;
+            $("#user-notifications-number").html(parent.no_users);
+            $("#video-notifications-number").html(parent.no_unapproved);
+            $("#companies-notifications-number").html(parent.no_companies);
         });
-        
+
     };
-}
+};
 
 var Communicator = function () {
 
     this.load = function (page) {
 
-        buscador="";
+        searchdata = "";
+        category = 0;
+        actualpage = 0;
+        maxitesm = 0;
+
+
         switch (page) {
             case "usuarios":
                 $(".menuitem").attr('class', 'menuitem');
                 $("#usuarios").attr('class', 'menuitem active');
-                auxpage=0;
                 url = "/site/admin/usuarios";
-                miinbox = 'Usuarios';
-                categoria = auxpage;
-                CreateData();
+                pagename = 'Usuarios';
+                createdatapage();
                 SendData();
                 break;
+
+
             case "empresas":
                 $(".menuitem").attr('class', 'menuitem');
                 $("#empresas").attr('class', 'menuitem active');
                 url = "/site/admin/empresas";
-                miinbox = 'Empresas';
-                auxpage=0;
-                categoria = '0';
-                CreateData();
+                pagename = 'Empresas';
+                createdatapage();
                 SendData();
                 break;
+
             case "videos":
                 $(".menuitem").attr('class', 'menuitem');
                 $("#videos").attr('class', 'menuitem active');
                 url = "/site/admin/videos";
-                miinbox = 'Videos';
-                auxpage=0;
-                categoria = '0';
-                CreateData();
+                pagename = 'Videos';
+                createdatapage();
                 SendData();
                 break;
         }
@@ -136,38 +183,103 @@ var Communicator = function () {
 
     this.changepage = function (numberpage)
     {
-           switch(numberpage)
+
+        switch (numberpage)
         {
-            case "menos": auxpage-=1; break;
-            case "mas": auxpage+=1; break;
-            
+            case "menos":
+                actualpage -= 1;
+                break;
+            case "mas":
+                actualpage += 1;
+                break;
+
         }
-        
-        CreateData();
+
+        createdatapage();
         SendData();
 
     };
 
-    this.changecategory = function (category)
+    this.changecategory = function (categoria)
     {
-        categoria = category;
-        auxpage=0;
-        CreateData();
+        category = categoria;
+        actualpage = 0;
+        searchdata = "";
+        createdatapage();
         SendData();
 
     };
-    
-    this.search =function (valor)
+
+    this.search = function (valor)
     {
-        auxpage=0;
-        buscador=valor.value;
-        CreateData();
+        actualpage = 0;
+        searchdata = valor.value;
+        createdatapage();
         SendData();
-        
+
     };
 
 };
+
+var CRUD = function ()
+{
+
+    this.makechange = function (page, option)
+    {
+        //1 Elimina
+        //2 Bloquea
+        action = option;
+
+
+        if (option == 1)
+        {
+
+            $('#myModaldelete').modal('hide');
+
+
+        }
+        else if (option == 2)
+        {
+            $('#myModalBlock').modal('hide');
+
+        }
+
+
+        switch (page)
+        {
+
+            case 1:
+
+                url = "/site/admin/checkusuarios";
+
+                urlaux = "/site/admin/usuarios";
+                break;
+
+            case 2:
+                url = "/site/admin/checkempresas";
+
+                urlaux = "/site/admin/empresas";
+                break;
+
+            case 3:
+                url = "/site/admin/checkvideos";
+
+                urlaux = "/site/admin/videos";
+
+                break;
+        }
+        action = option;
+        createdatamanage();
+        JustSend();
+        url = urlaux;
+    };
+};
+
+
+
+
 var Comm;
+var Change;
 var Notify;
 
 $(document).ready(function () {
@@ -177,33 +289,8 @@ $(document).ready(function () {
     });
     Comm = new Communicator();
     Notify = new Notifications();
+    Change = new CRUD();
     Comm.load('usuarios');
     Notify.refresh();
-    buscador="";
+    search = "";
 });
-
-/*
-      google.load("visualization", "1", {packages:["geochart"]});
-      google.setOnLoadCallback(drawRegionsMap);
-
-      function drawRegionsMap() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', 0],
-          ['United States', 0],
-          ['Brazil', 0],
-          ['Canada', 0],
-          ['Mexico',700],
-          ['France', 0],
-          ['RU', 0]
-        ]);
-
-        var options = {};
-
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
-      
-      */
