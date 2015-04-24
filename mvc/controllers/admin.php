@@ -99,7 +99,7 @@ class admin extends _controller {
 
 
         //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
-        $users = $this->Model()->select($tabla, $fieldstoselect, $fieldstoselect, $search, $page, $maxitems, NULL, $filterfield, $condition, $filterarg);
+        $users = $this->Model()->select($tabla, $fieldstoselect, $fieldstoselect, $search, $page, $maxitems, NULL, NULL, $filterfield, $condition, $filterarg);
 
         //REGRESA 
 
@@ -107,7 +107,7 @@ class admin extends _controller {
         //   $data["inbox"]=$users;
         $data["path"] = Config::get("Theme.Web.uploads");
         $data["users"] = $users;
-      //  $data["max"] = $users;
+        //  $data["max"] = $users;
         $this->view("usuarios", $data);
     }
 
@@ -121,17 +121,7 @@ class admin extends _controller {
     }
 
     public function empresas() {
-        $inbox_number = $this->Post("inbox");
-        $data["inbox"] = $inbox_number;
 
-        $users = $this->Model()->empresas();
-        $data["users"] = $users;
-
-
-        $this->view("empresas", $data);
-    }
-
-    public function videos() {
         //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
         //RECIBE
         $name = $this->Post("pagename");
@@ -143,9 +133,8 @@ class admin extends _controller {
 
         //Prepara los datos
 
-        $fieldstoselect = array("videos.id", "title","category_id as categoria", "description","company_id as company", "user_id as user", "status_id as status","keywords_search");
-        $fieldstosearch = array("videos.id", "title", "description","company_id", "user_id", "status_id");
-        $tabla = "videos,users";
+        $fieldstoselect = array("id", "name", "phone", "email", "description");
+        $tabla = "companies";
         $maxitems = 20;
 
 
@@ -166,26 +155,26 @@ class admin extends _controller {
 
                 break;
             case 1:
-                $nameofcat = "Esperando Confirmación";
-                $filterfield = "status_id";
-                $condition = "=";
-                $filterarg = "0";
+                $nameofcat = "Expirados";
+                $filterfield = "plan_expiration";
+                $condition = "<";
+                $filterarg = "NOW()";
 
 
                 break;
             case 2:
-                $nameofcat = "Aprobados";
-                $filterfield = "status_id";
-                $condition = " =";
-                $filterarg = "1";
+                $nameofcat = "Proximos a vencer";
+                $filterfield = "plan_expiration";
+                $condition = " >= NOW() AND plan_expiration <=";
+                $filterarg = "NOW() + INTERVAL 1 MONTH";
 
 
                 break;
             case 3:
-                $nameofcat = "Suspendidos";
-                $filterfield = "status_id";
-                $condition = "=";
-                $filterarg = "2";
+                $nameofcat = "Recientemente Conectados";
+                $filterfield = "plan_expiration";
+                $condition = "<";
+                $filterarg = "NOW()";
 
 
                 break;
@@ -194,7 +183,93 @@ class admin extends _controller {
 
 
         //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
-        $videos = $this->Model()->select($tabla, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, NULL, $filterfield, $condition, $filterarg);
+        $empresas = $this->Model()->select($tabla, $fieldstoselect, $fieldstoselect, $search, $page, $maxitems, NULL, NULL, $filterfield, $condition, $filterarg);
+
+        //REGRESA 
+
+        $data["inbox"] = $name . " :: " . $nameofcat;
+        //   $data["inbox"]=$users;
+        $data["path"] = Config::get("Theme.Web.uploads");
+        $data["empresas"] = $empresas;
+        //  $data["max"] = $users;
+        $this->view("empresas", $data);
+    }
+
+    public function videos() {
+        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
+        //RECIBE
+        $name = $this->Post("pagename");
+        $page = $this->Post("actualpage");
+        $category = $this->Post("category");
+        $search = $this->Post("search");
+
+
+
+        //Prepara los datos
+
+        $fieldstoselect = array("videos.id", "title", "category_id", "categories.name as categoria", "company_id", "videos.description", "companies.name as company", "user_id", "users.name as user", "status_id", "status.name as status", "keywords_search");
+        $fieldstosearch = array("videos.id", "title", "videos.description", "company_id", "user_id", "status_id", "companies.name", "users.name");
+        $tabla = "videos,users,companies,status,categories";
+        $maxitems = 20;
+
+
+
+
+        $filterfield;
+        $condition;
+        $filterarg;
+
+        $nameofcat = "";
+        switch ($category) {
+            case 0:
+                $nameofcat = "Sin Filtro";
+                $filterfield = NULL;
+                $condition = NULL;
+                $filterarg = NULL;
+
+
+                break;
+            case 1:
+                $nameofcat = "En Espera";
+                $filterfield = "status_id";
+                $condition = "=";
+                $filterarg = "1";
+
+
+                break;
+            case 2:
+                $nameofcat = "Activos";
+                $filterfield = "status_id";
+                $condition = " =";
+                $filterarg = "2";
+
+
+                break;
+            case 3:
+                $nameofcat = "Inactivos";
+                $filterfield = "status_id";
+                $condition = "=";
+                $filterarg = "3";
+
+
+                break;
+
+            case 4:
+                $nameofcat = "Inactivos";
+                $filterfield = "Bloqueados";
+                $condition = "=";
+                $filterarg = "3";
+
+
+                break;
+        }
+
+        $extra = "user_id=users.id AND company_id=companies.id AND status.id=status_id AND category_id=categories.id";
+
+
+
+        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
+        $videos = $this->Model()->select($tabla, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, NULL, $extra, $filterfield, $condition, $filterarg);
 
         //REGRESA 
 
@@ -202,13 +277,10 @@ class admin extends _controller {
         //   $data["inbox"]=$users;
         $data["path"] = Config::get("Theme.Web.uploads");
         $data["videos"] = $videos;
-      //  $data["max"] = $users;
+        //  $data["max"] = $users;
         $this->view("videos", $data);
     }
 
-    
-    
-    
     public function notificaciones() {
         $type = $this->Get(1);
         $disable_users = $this->Model()->disable_users();

@@ -15,6 +15,8 @@ var file;
 
 
 
+var path;
+
 
 //ELIMINAR-BLOQUEAR-APROBAR
 var listofitems = [];
@@ -342,4 +344,15 @@ function SubirFile()
     var selectedFile = $('#input').get(0).files[0];
     var numFiles = files.selectedFile;
     echo(numFiles);
+}
+
+function showvideo(id,dir)
+{
+    //alert("WOLOLO");
+    path=dir;
+    path+="como.mp4";
+    
+    $('#ModalVid').modal('show');
+    $('#videospace').attr('src',path);
+    
 }

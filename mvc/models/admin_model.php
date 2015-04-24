@@ -2,7 +2,7 @@
 
 class admin_model {
 
-    public function select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition ,$filterarg) {
+    public function select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition ,$filterfield,$condition ,$filterarg) {
 
 
         $qfields = implode(",", $fieldstoselect);
@@ -16,6 +16,13 @@ class admin_model {
             if ($i < sizeof($fieldstosearch) - 1) {
                 $qwhere.=" OR ";
             }
+        }
+        
+        $extra="";
+        if($extracondition!=NULL)
+        {
+            
+            $extra="AND (".$extracondition." )";
         }
 
      
@@ -33,7 +40,7 @@ class admin_model {
 
 
 
-        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
+        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" .$extra. " ". $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
 
         
         $pdo = Database::executeConn($query, "publicameenvideo");
@@ -83,7 +90,7 @@ class admin_model {
     }
 
     public function unaprov() {
-        $sql = "SELECT COUNT(id) as no FROM videos WHERE status_id = 0";
+        $sql = "SELECT COUNT(id) as no FROM videos WHERE status_id = 1";
         $pdo = Database::executeConn($sql, "publicameenvideo");
         $row = Database::fetch_row($pdo);
         return $row["no"];

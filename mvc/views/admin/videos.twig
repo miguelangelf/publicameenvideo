@@ -11,7 +11,7 @@
 
     <span class="pull-right a20">
 
-        {% include('opcionesuser.twig') %}
+        {% include('opcionesvideos.twig') %}
     </span>
 </div >
 
@@ -35,10 +35,14 @@
             </tr>
         </thead>
         <tbody>
+            
+          
+            
             {% for video in Data.videos %}
                 <tr>
                     <td>{{ video.id }}</td> 
-                    <td>{{ video.title }}</td> 
+                    <td><a onclick="showvideo(5,'{{Data.path}}')" >{{ video.title }}</a></td> 
+                    
                     <td>{{ video.description}}</td>
                     <td>{{ video.categoria }}</td>
                     <td>{{ video.company }}</td>
@@ -68,7 +72,7 @@
 
 <div class="a100 ">
 
-    {{Data.path}}
+    
     <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
         Agregar Usuario
     </button>
