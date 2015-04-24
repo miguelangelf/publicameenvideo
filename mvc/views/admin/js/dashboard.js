@@ -11,6 +11,8 @@ var searchdata;
 var category;
 var actualpage;
 
+var file;
+
 
 
 
@@ -97,7 +99,8 @@ function SetPageNumber()
 
 function JustSend()
 {
-    $.post(url, data, function (response) {
+    $.post(urlaux, data, function (response) {
+        createdatapage();
         SendData();
     });
 }
@@ -146,7 +149,7 @@ var Communicator = function () {
         searchdata = "";
         category = 0;
         actualpage = 0;
-        maxitesm = 0;
+        maxitems = 0;
 
 
         switch (page) {
@@ -181,6 +184,8 @@ var Communicator = function () {
     };
 
 
+
+
     this.changepage = function (numberpage)
     {
 
@@ -199,6 +204,9 @@ var Communicator = function () {
         SendData();
 
     };
+
+
+
 
     this.changecategory = function (categoria)
     {
@@ -250,36 +258,47 @@ var CRUD = function ()
 
             case 1:
 
-                url = "/site/admin/checkusuarios";
+                urlaux = "/site/admin/checkusuarios";
 
-                urlaux = "/site/admin/usuarios";
                 break;
 
             case 2:
-                url = "/site/admin/checkempresas";
+                urlaux = "/site/admin/checkempresas";
 
-                urlaux = "/site/admin/empresas";
                 break;
 
             case 3:
-                url = "/site/admin/checkvideos";
+                urlaux = "/site/admin/checkvideos";
 
-                urlaux = "/site/admin/videos";
 
                 break;
         }
         action = option;
         createdatamanage();
         JustSend();
-        url = urlaux;
     };
 };
 
+var ItsFIle = function ()
+{
+
+    this.sub = function ()
+    {
+        
+        var lefile=$("#fileToUpload").valueOf();
+        var rfile=lefile.files[0];
+        alert(rfile.name);
+
+
+    };
+
+};
 
 
 
 var Comm;
 var Change;
+var Files;
 var Notify;
 
 $(document).ready(function () {
@@ -287,10 +306,40 @@ $(document).ready(function () {
     $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
     });
+    
+    
     Comm = new Communicator();
     Notify = new Notifications();
     Change = new CRUD();
+    Files = new ItsFIle();
+  
     Comm.load('usuarios');
     Notify.refresh();
     search = "";
 });
+
+
+
+
+
+
+
+
+
+function redirect()
+{
+    document.getElementById('my_form').target = 'my_iframe';
+    document.getElementById('my_form').submit();
+    
+
+}
+
+
+
+function SubirFile()
+{
+    
+    var selectedFile = $('#input').get(0).files[0];
+    var numFiles = files.selectedFile;
+    echo(numFiles);
+}

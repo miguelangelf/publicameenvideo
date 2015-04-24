@@ -1,45 +1,58 @@
 <h1>{{Data.inbox}}</h1>
 
+
+
 <hr/>
 
-<div class="fullw">
+<div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
 
         {% include('opcionesuser.twig') %}
     </span>
-
 </div >
 
 
+
+
+
+
 <div class="padding-top">
-    <table class="table">
+    <table class="table table-hover table-bordered">
         <thead>
             <tr>
+                <th>ID</th>  
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>E-Mail</th>
-                <th>Eliminar</th>
-                <th>Bloquear</th>
+                <th>Vencimiento</th>
+                <th>Eliminar/Bloquear</th>
             </tr>
         </thead>
         <tbody>
             {% for user in Data.users %}
                 <tr>
-                    <td>{{ user.name }}</td>
+                    <td>{{ user.id }}</td> 
+                    <td>{{ user.name }}</td> 
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
-                    <td><input class="eliminar" value="{{ user.name }}" type="checkbox"></input></td>
-                    <td><input class="bloquear" value="{{ user.name }}" type="checkbox"></input></td>
+                    <td>{{ user.plan_expiration }}</td>
+                    <td><input class="checkbox" mainid="{{user.id}}" value="{{ user.name }}" type="checkbox"></input></td>
 
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+        
+        
+        
+        
+        
+        
 
 <div class="center">       
 
@@ -50,18 +63,20 @@
 <div id="regions_div" style="width:400; height:300"></div>
 
 <div class="a100 ">
-    <button type="button" onclick="DeleteUsers();" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">
+
+    {{Data.path}}
+    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
         Agregar Usuario
     </button>
 
-    <button type="button"  onclick="DeleteUsers();" class="btn btn-primary btn-lg pull-right"  data-toggle="modal" data-target="#myModaldelete">
+
+    <button type="button"  onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModaldelete">
         Eliminar Usuarios
     </button>
 
-    <button type="button" class="btn btn-primary btn-lg pull-right"  onclick="">
+    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModalBlock">
         Bloquear Usuarios
     </button>
 
+
 </div>
-{% include('modaluser.twig') %}
-{% include('DeleteUser.twig') %}

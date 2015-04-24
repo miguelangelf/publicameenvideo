@@ -1,44 +1,86 @@
 <h1>{{Data.inbox}}</h1>
 
+
+
 <hr/>
 
-<div class="fullw">
+<div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" class="form-control " placeholder="Buscar">
+        <input type="text" id="buscador" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
 
-        {% include('menubutton.twig') %}
-        {% include('menubutton.twig') %}
+        {% include('opcionesuser.twig') %}
     </span>
-
 </div >
 
 
+
+
+
+
 <div class="padding-top">
-    <table class="table">
+    <table class="table table-hover table-bordered">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>E-Mail</th>
+                <th>ID</th>  
+                <th>Titulo</th>
+                <th width="20%">Descripcion</th>
+                <th>Categoria</th>
+                <th>Empresa</th>
+                <th>Usuario</th>
+                <th>Estatus</th>
+                <th>Eliminar/Bloquear</th>
             </tr>
         </thead>
         <tbody>
-            {% for user in Data.users %}
+            {% for video in Data.videos %}
                 <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.email }}</td>
-                    
+                    <td>{{ video.id }}</td> 
+                    <td>{{ video.title }}</td> 
+                    <td>{{ video.description}}</td>
+                    <td>{{ video.categoria }}</td>
+                    <td>{{ video.company }}</td>
+                    <td>{{ video.user }}</td>
+                    <td>{{ video.status }}</td>
+                    <td><input class="checkbox" mainid="{{video.id}}" value="{{ video.title }}" type="checkbox"></input></td>
+
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
+
+
+
+
+
+
 <div class="center">       
 
     {% include('pager.twig') %}
+</div>
+<button onclick="drawRegionsMap();">BOTON</button>
+
+<div id="regions_div" style="width:400; height:300"></div>
+
+<div class="a100 ">
+
+    {{Data.path}}
+    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+        Agregar Usuario
+    </button>
+
+
+    <button type="button"  onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModaldelete">
+        Eliminar Usuarios
+    </button>
+
+    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModalBlock">
+        Bloquear Usuarios
+    </button>
+
+
 </div>

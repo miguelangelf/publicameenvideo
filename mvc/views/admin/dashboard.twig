@@ -1,16 +1,25 @@
 {% extends 'defaultAdmin.twig' %}
 {% block content %}
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
     <div class="row padding-top ">
         <div class=" col-sm-3 col-md-2">
             {% include('sidebar.twig') %}
         </div>
         <div class="col-sm-9 col-md-10  padding-top" id="main-panel"> 
-            
+
             <div class="col-md-12" id="content-panel">
 
             </div>
         </div>
     </div>
+
+
+
+
+    <!-- Aqui van todos los extras que deben estar disponibles para todas las paginas -->
+    {% include('modaluser.twig') %}
+    {% include('DeleteUser.twig') %}
+    {% include('BlockUser.twig') %}
 
 {% endblock %}
