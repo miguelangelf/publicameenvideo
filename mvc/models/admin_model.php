@@ -54,6 +54,14 @@ class admin_model {
         return $results;
     }
     
+    public function insert($table,$val)
+    {
+        $values = implode(",", $val);
+        $query="INSERT INTO ".$table. " VALUES (".$values.") ";
+        $pdo = Database::executeConn($query, "publicameenvideo");
+        
+    }
+    
     
 
     public function insertuser($birthdate, $email, $gender, $lastname, $name, $plan, $role, $token) {
@@ -71,6 +79,9 @@ class admin_model {
         return true;
     }
 
+    
+    
+    
     public function countusers($actual, $message) {
         $aux = $message;
         $sql = "SELECT COUNT(*) FROM us_users where name like '%" . $aux . "%' or email like '%" . $aux . "%' or last_name like '%" . $aux . "%'   LIMIT " . ($actual * 20) . " ,20";

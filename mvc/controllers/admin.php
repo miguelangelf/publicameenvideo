@@ -36,6 +36,8 @@ class admin extends _controller {
             }
         }
     }
+    
+    //SELECCIONA USUARIOS EMPRESAS VIDEOS
 
     public function usuarios() {
         //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
@@ -111,15 +113,6 @@ class admin extends _controller {
         $this->view("usuarios", $data);
     }
 
-    public function checkusuarios() {
-
-        $elementsjson = $this->Post("elements");
-        $elements = json_decode($elementsjson);
-        $action = $this->Post("action");
-        if ($action == 1)
-            $this->Model()->delete("users", "id", $elements);
-    }
-
     public function empresas() {
 
         //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
@@ -155,29 +148,10 @@ class admin extends _controller {
 
                 break;
             case 1:
-                $nameofcat = "Expirados";
-                $filterfield = "plan_expiration";
-                $condition = "<";
-                $filterarg = "NOW()";
-
-
-                break;
-            case 2:
-                $nameofcat = "Proximos a vencer";
-                $filterfield = "plan_expiration";
-                $condition = " >= NOW() AND plan_expiration <=";
-                $filterarg = "NOW() + INTERVAL 1 MONTH";
-
-
-                break;
-            case 3:
-                $nameofcat = "Recientemente Conectados";
-                $filterfield = "plan_expiration";
-                $condition = "<";
-                $filterarg = "NOW()";
-
-
-                break;
+                $nameofcat = "Registrados Recientemente";
+                $filterfield = "created";
+                $condition = " <= NOW() AND created >=";
+                $filterarg = "NOW() - INTERVAL 1 MONTH";
         }
 
 
@@ -208,7 +182,7 @@ class admin extends _controller {
         //Prepara los datos
 
         $fieldstoselect = array("videos.id", "title", "category_id", "categories.name as categoria", "company_id", "videos.description", "companies.name as company", "user_id", "users.name as user", "status_id", "status.name as status", "keywords_search");
-        $fieldstosearch = array("videos.id", "title", "videos.description", "company_id", "user_id", "status_id", "companies.name", "users.name");
+        $fieldstosearch = array("videos.id","categories.name" ,"title", "videos.description", "company_id", "user_id", "status_id", "companies.name", "users.name");
         $tabla = "videos,users,companies,status,categories";
         $maxitems = 20;
 
@@ -280,6 +254,37 @@ class admin extends _controller {
         //  $data["max"] = $users;
         $this->view("videos", $data);
     }
+
+    //BLOQUEA,ELIMINA
+    
+    public function checkusuarios() {
+
+        $elementsjson = $this->Post("elements");
+        $elements = json_decode($elementsjson);
+        $action = $this->Post("action");
+        if ($action == 1)
+            $this->Model()->delete("users", "id", $elements);
+    }
+
+    public function checkempresas() {
+
+        $elementsjson = $this->Post("elements");
+        $elements = json_decode($elementsjson);
+        $action = $this->Post("action");
+        if ($action == 1)
+            $this->Model()->delete("companies", "id", $elements);
+    }
+
+    public function checkvideos() {
+
+        $elementsjson = $this->Post("elements");
+        $elements = json_decode($elementsjson);
+        $action = $this->Post("action");
+        if ($action == 1)
+            $this->Model()->delete("videos", "id", $elements);
+    }
+    
+    //OBTIENE CANTIDAD DE VIDEOS; USERS; EMPRESAS
 
     public function notificaciones() {
         $type = $this->Get(1);

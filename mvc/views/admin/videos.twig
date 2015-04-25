@@ -6,7 +6,7 @@
 
 <div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" id="buscador" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
@@ -41,7 +41,7 @@
             {% for video in Data.videos %}
                 <tr>
                     <td>{{ video.id }}</td> 
-                    <td><a onclick="showvideo(5,'{{Data.path}}')" >{{ video.title }}</a></td> 
+                    <td><a href="#" onclick="Change.shvideo('{{ video.id }}','{{Data.path}}');" >{{ video.title }}</a></td> 
                     
                     <td>{{ video.description}}</td>
                     <td>{{ video.categoria }}</td>
@@ -66,25 +66,26 @@
 
     {% include('pager.twig') %}
 </div>
-<button onclick="drawRegionsMap();">BOTON</button>
 
 <div id="regions_div" style="width:400; height:300"></div>
 
 <div class="a100 ">
 
     
-    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
-        Agregar Usuario
+    {% include('ShowVideo.twig') %}
+    
+    
+    <button type="button" onclick="Change.preparemodal(2);" class="btn btn-primary pull-right" >
+        Agregar Video
+    </button>
+    
+    <button type="button" onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+        Eliminar Video
     </button>
 
 
-    <button type="button"  onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModaldelete">
-        Eliminar Usuarios
-    </button>
 
-    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModalBlock">
-        Bloquear Usuarios
-    </button>
+
 
 
 </div>

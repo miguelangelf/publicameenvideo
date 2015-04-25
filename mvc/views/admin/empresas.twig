@@ -6,12 +6,12 @@
 
 <div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" id="buscador" onchange="Comm.search(this)" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
 
-        {% include('opcionesuser.twig') %}
+        {% include('opcionesempresas.twig') %}
     </span>
 </div >
 
@@ -59,25 +59,23 @@
 
     {% include('pager.twig') %}
 </div>
-<button onclick="drawRegionsMap();">BOTON</button>
 
 <div id="regions_div" style="width:400; height:300"></div>
 
 <div class="a100 ">
 
     {{Data.path}}
-    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
-        Agregar Usuario
+    
+    
+     <button type="button" onclick="Change.preparemodal(2);" class="btn btn-primary pull-right" >
+        Agregar Empresa
     </button>
 
 
-    <button type="button"  onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModaldelete">
-        Eliminar Usuarios
+    <button type="button"  onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+        Eliminar Empresa
     </button>
 
-    <button type="button" onclick="GetChecked();" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModalBlock">
-        Bloquear Usuarios
-    </button>
-
+ 
 
 </div>

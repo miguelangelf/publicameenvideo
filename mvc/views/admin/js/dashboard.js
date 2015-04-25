@@ -3,6 +3,7 @@ var data;
 var urlaux;
 
 
+
 //SOLICITAR PAGINA------------------
 
 var pagename;
@@ -14,7 +15,6 @@ var actualpage;
 var file;
 
 
-
 var path;
 
 
@@ -22,6 +22,8 @@ var path;
 var listofitems = [];
 var action;
 var origin;
+
+var modaloption;
 
 
 
@@ -144,6 +146,8 @@ var Notifications = function () {
     };
 };
 
+
+
 var Communicator = function () {
 
     this.load = function (page) {
@@ -187,7 +191,6 @@ var Communicator = function () {
 
 
 
-
     this.changepage = function (numberpage)
     {
 
@@ -206,8 +209,6 @@ var Communicator = function () {
         SendData();
 
     };
-
-
 
 
     this.changecategory = function (categoria)
@@ -234,61 +235,155 @@ var Communicator = function () {
 var CRUD = function ()
 {
 
-    this.makechange = function (page, option)
+
+    this.preparemodal = function (picked)
+    {
+        GetChecked();
+
+        modaloption = picked;
+
+        switch (pagename)
+        {
+
+            case "Usuarios":
+
+                switch (modaloption)
+                {
+                    case 1:
+                        $('#modallabel').html("Eliminar Usuario");
+                        $('#modalmessage').html("¿Esta seguro que desa ELIMINAR los siguientes usuarios?");
+                        break;
+                    case 2:
+                        $('#modallabel').html("Eliminar Usuario");
+                        $('#modalmessage').html("¿Esta seguro que desa eliminar este usuario?");
+                        break;
+                    case 3:
+                        $('#modallabel').html("Suspender Usuario");
+                        $('#modalmessage').html("¿Esta seguro que desa suspender este usuario?");
+                        break;
+
+                    default:
+                        break;
+
+                }
+                break;
+
+            case "Empresas":
+                switch (modaloption)
+                {
+                    case 1:
+                        $('#modallabel').html("Eliminar Empresa");
+                        $('#modalmessage').html("¿Esta seguro que desea ELIMINAR las siguientes empresas?");
+                        break;
+                    case 2:
+                        $('#modallabel').html("Bloquear Empresa");
+                        $('#modalmessage').html("¿Esta seguro que desa bloquear esta empresa?");
+                        break;
+                    case 3:
+                        $('#modallabel').html("Eliminar Empresa");
+                        $('#modalmessage').html("¿Esta seguro que desa eliminar esta empresa?");
+                        break;
+                    default:
+                        break;
+
+                }
+                break;
+
+            case "Videos":
+                switch (modaloption)
+                {
+                    case 1:
+                        $('#modallabel').html("Eliminar Video");
+                        $('#modallabel').html("¿Esta seguro que desa ELIMINAR los siguientes videos?");
+                        break;
+                    case 2:
+                        $('#modallabel').html("Eliminar Video");
+                        $('#modallabel').html("¿Esta seguro que desa eliminar esta video?");
+                        break;
+                    case 3:
+                        $('#modallabel').html("Aprobar Video");
+                        $('#modallabel').html("¿Esta seguro que desa aprobar este video?");
+                        break;
+                    default:
+                        break;
+
+                }
+                break;
+
+            default:
+                break;
+        }
+        $('#genericmodal').modal('show');
+
+
+
+    };
+
+    this.shvideo = function (id, src)
+    {
+
+        path = src;
+        path += "como.mp4";
+
+        //alert(path);
+
+        $('#ModalVid').modal('show');
+
+      // $("#videospace").attr("src", path)
+
+
+    };
+
+    this.makechange = function ()
     {
         //1 Elimina
         //2 Bloquea
-        action = option;
+        action = modaloption;
+
+        $('#genericmodal').modal('hide');
 
 
-        if (option == 1)
+
+        switch (pagename)
         {
 
-            $('#myModaldelete').modal('hide');
-
-
-        }
-        else if (option == 2)
-        {
-            $('#myModalBlock').modal('hide');
-
-        }
-
-
-        switch (page)
-        {
-
-            case 1:
-
+            case "Usuarios":
                 urlaux = "/site/admin/checkusuarios";
-
                 break;
 
-            case 2:
+            case "Empresas":
                 urlaux = "/site/admin/checkempresas";
-
                 break;
 
-            case 3:
+            case "Videos":
                 urlaux = "/site/admin/checkvideos";
-
-
                 break;
         }
-        action = option;
+
         createdatamanage();
         JustSend();
     };
+    
+    
+    this.insertuser=function()
+    {
+        $('#inuser').modal('show');
+        
+        
+    };
 };
+
+
+
 
 var ItsFIle = function ()
 {
 
     this.sub = function ()
     {
-        
-        var lefile=$("#fileToUpload").valueOf();
-        var rfile=lefile.files[0];
+
+        var lefile = $("#fileToUpload").valueOf();
+        var rfile = lefile.files[0];
         alert(rfile.name);
 
 
@@ -308,13 +403,13 @@ $(document).ready(function () {
     $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
     });
-    
-    
+
+
     Comm = new Communicator();
     Notify = new Notifications();
     Change = new CRUD();
     Files = new ItsFIle();
-  
+
     Comm.load('usuarios');
     Notify.refresh();
     search = "";
@@ -332,7 +427,7 @@ function redirect()
 {
     document.getElementById('my_form').target = 'my_iframe';
     document.getElementById('my_form').submit();
-    
+
 
 }
 
@@ -340,19 +435,21 @@ function redirect()
 
 function SubirFile()
 {
-    
+
     var selectedFile = $('#input').get(0).files[0];
     var numFiles = files.selectedFile;
     echo(numFiles);
 }
 
-function showvideo(id,dir)
+function showvideo(id, dir)
 {
     //alert("WOLOLO");
-    path=dir;
-    path+="como.mp4";
-    
+    path = dir;
+    path += "como.mp4";
+
+    alert(path);
+
     $('#ModalVid').modal('show');
-    $('#videospace').attr('src',path);
-    
+    $('#videospace').attr('src', path);
+
 }
