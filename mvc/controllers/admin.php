@@ -6,136 +6,140 @@ class admin extends _controller {
         $this->view("dashboard", null);
     }
 
-    public function insertuser() {
-        $birthdate = $this->Post("birthdate");
-        $email = $this->Post("email");
+    public function insertusarios() {
+        $id="NULL";
         $gender = $this->Post("gender");
-        $lastname = $this->Post("lastname");
-        $name = $this->Post("name");
-        $plan = $this->Post("plan");
+        $birthdate = $this->Post("birthdate");
+        $name = "'".$this->Post("name")."'";
+        $lastname = "'".$this->Post("lastname")."'";
+        $email = "'".$this->Post("email")."'";
         $role = $this->Post("role");
-        $token = $this->Post("token");
-        $this->Model()->insertuser($birthdate, $email, $gender, $lastname, $name, $plan, $role, $token);
-    }
-
-    public function itsFile() {
-
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-// Check if image file is a actual image or fake image
-        if (isset($_POST["submit"])) {
-            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-            if ($check !== false) {
-                echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-            }
-        }
+        $created="NOW()";
+        $lastaccess="NOW()";      
+        $plan = $this->Post("plan");
+        $expiration=$this->Post("expiration");
+        $status=$this->Post("status");      
+        $token = "''";
+        $table="users";
+        
+        $birthdate=date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $birthdate)));
+        $expiration=date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $expiration)));
+        $birthdate="'".$birthdate."'";
+        $expiration="'".$expiration."'";
+        
+        
+        $datos=array($id,$gender,$birthdate,$name,$lastname,$email,$role,$created,$lastaccess,$token,$plan,$expiration,$status);
+        $thelastid=$this->Model()->insert($table,$datos);
+        
+        $table="users_paswd";
+        $password = $this->Post("password");       
+        $datos=array($thelastid,$password);
+        $thelastid=$this->Model()->insert($table,$datos);
+        
+        
+         
+        echo $resp;
     }
     
+    public function insertempresas()
+    {
+        
+        
+    }
+    
+    public function insertvideos()
+    {
+        
+        
+    }
+
     //SELECCIONA USUARIOS EMPRESAS VIDEOS
 
     public function usuarios() {
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
-        //RECIBE
+
+        $nameofcat = "";
+
         $name = $this->Post("pagename");
         $page = $this->Post("actualpage");
         $category = $this->Post("category");
         $search = $this->Post("search");
 
-
-
-        //Prepara los datos
-
-        $fieldstoselect = array("id", "name", "last_name", "email", "plan_expiration");
-        $tabla = "users";
-        $maxitems = 20;
-
-
-
-
-        $filterfield;
-        $condition;
-        $filterarg;
-
         $nameofcat = "";
+
+        $table = "users";
+        $fieldstoselect = array("users.id", "users.name", "users.last_name", "users.email", "users.plan_expiration");
+        $fieldstosearch = $fieldstoselect;
+        $search = $search;
+        $page = $page;
+        $maxitems = 20;
+        $order = NULL;
+        $tablerelation = NULL;
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
+
+
         switch ($category) {
             case 0:
                 $nameofcat = "Sin Filtro";
                 $filterfield = NULL;
                 $condition = NULL;
                 $filterarg = NULL;
-
-
                 break;
             case 1:
                 $nameofcat = "Expirados";
                 $filterfield = "plan_expiration";
                 $condition = "<";
                 $filterarg = "NOW()";
-
-
                 break;
             case 2:
                 $nameofcat = "Proximos a vencer";
                 $filterfield = "plan_expiration";
                 $condition = " >= NOW() AND plan_expiration <=";
                 $filterarg = "NOW() + INTERVAL 1 MONTH";
-
-
                 break;
             case 3:
                 $nameofcat = "Recientemente Conectados";
                 $filterfield = "plan_expiration";
                 $condition = "<";
                 $filterarg = "NOW()";
-
-
                 break;
         }
 
-
-
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
-        $users = $this->Model()->select($tabla, $fieldstoselect, $fieldstoselect, $search, $page, $maxitems, NULL, NULL, $filterfield, $condition, $filterarg);
-
-        //REGRESA 
+        $users = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
         $data["inbox"] = $name . " :: " . $nameofcat;
-        //   $data["inbox"]=$users;
         $data["path"] = Config::get("Theme.Web.uploads");
         $data["users"] = $users;
-        //  $data["max"] = $users;
+
         $this->view("usuarios", $data);
     }
 
     public function empresas() {
 
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
-        //RECIBE
+
+
+        $nameofcat = "";
+
         $name = $this->Post("pagename");
         $page = $this->Post("actualpage");
         $category = $this->Post("category");
         $search = $this->Post("search");
 
+        $nameofcat = "";
 
-
-        //Prepara los datos
-
-        $fieldstoselect = array("id", "name", "phone", "email", "description");
-        $tabla = "companies";
+        $table = "companies";
+        $fieldstoselect = array("companies.id", "companies.name", "companies.phone", "companies.email", "companies.description");
+        $fieldstosearch = $fieldstoselect;
+        $search = $search;
+        $page = $page;
         $maxitems = 20;
+        $order = NULL;
+        $tablerelation = NULL;
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
 
-
-
-
-        $filterfield;
-        $condition;
-        $filterarg;
 
         $nameofcat = "";
         switch ($category) {
@@ -154,44 +158,39 @@ class admin extends _controller {
                 $filterarg = "NOW() - INTERVAL 1 MONTH";
         }
 
-
-
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
-        $empresas = $this->Model()->select($tabla, $fieldstoselect, $fieldstoselect, $search, $page, $maxitems, NULL, NULL, $filterfield, $condition, $filterarg);
-
-        //REGRESA 
+        $empresas = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
         $data["inbox"] = $name . " :: " . $nameofcat;
-        //   $data["inbox"]=$users;
         $data["path"] = Config::get("Theme.Web.uploads");
         $data["empresas"] = $empresas;
-        //  $data["max"] = $users;
         $this->view("empresas", $data);
     }
 
     public function videos() {
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber,$order,$filterfield,$filterarg
-        //RECIBE
+
+        $nameofcat = "";
+
         $name = $this->Post("pagename");
         $page = $this->Post("actualpage");
         $category = $this->Post("category");
         $search = $this->Post("search");
 
+        $nameofcat = "";
 
-
-        //Prepara los datos
-
-        $fieldstoselect = array("videos.id", "title", "category_id", "categories.name as categoria", "company_id", "videos.description", "companies.name as company", "user_id", "users.name as user", "status_id", "status.name as status", "keywords_search");
-        $fieldstosearch = array("videos.id","categories.name" ,"title", "videos.description", "company_id", "user_id", "status_id", "companies.name", "users.name");
-        $tabla = "videos,users,companies,status,categories";
+        $table = "videos,companies,status,categories";
+        $fieldstoselect = array("videos.id", "videos.title", "videos.category_id", "categories.name as categoria", "videos.company_id", "videos.description", "companies.name as company", "videos.status_id", "status.name as status", "videos.keywords_search");
+        $fieldstosearch = array("videos.id", "categories.name", "videos.title", "videos.description", "videos.company_id", "videos.status_id", "companies.name");
+        $search = $search;
+        $page = $page;
         $maxitems = 20;
+        $order = NULL;
+        $tablerelation = "videos.company_id=companies.id AND status.id=videos.status_id AND category_id=categories.id";
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
 
 
 
-
-        $filterfield;
-        $condition;
-        $filterarg;
 
         $nameofcat = "";
         switch ($category) {
@@ -205,7 +204,7 @@ class admin extends _controller {
                 break;
             case 1:
                 $nameofcat = "En Espera";
-                $filterfield = "status_id";
+                $filterfield = "videos.status_id";
                 $condition = "=";
                 $filterarg = "1";
 
@@ -213,7 +212,7 @@ class admin extends _controller {
                 break;
             case 2:
                 $nameofcat = "Activos";
-                $filterfield = "status_id";
+                $filterfield = "videos.status_id";
                 $condition = " =";
                 $filterarg = "2";
 
@@ -221,7 +220,7 @@ class admin extends _controller {
                 break;
             case 3:
                 $nameofcat = "Inactivos";
-                $filterfield = "status_id";
+                $filterfield = "videos.status_id";
                 $condition = "=";
                 $filterarg = "3";
 
@@ -238,14 +237,11 @@ class admin extends _controller {
                 break;
         }
 
-        $extra = "user_id=users.id AND company_id=companies.id AND status.id=status_id AND category_id=categories.id";
 
 
 
-        //$table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $filterfield,$condition, $filterarg)
-        $videos = $this->Model()->select($tabla, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, NULL, $extra, $filterfield, $condition, $filterarg);
+        $videos = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
-        //REGRESA 
 
         $data["inbox"] = $name . " :: " . $nameofcat;
         //   $data["inbox"]=$users;
@@ -256,8 +252,8 @@ class admin extends _controller {
     }
 
     //BLOQUEA,ELIMINA
-    
-    public function checkusuarios() {
+
+    public function delusuarios() {
 
         $elementsjson = $this->Post("elements");
         $elements = json_decode($elementsjson);
@@ -266,7 +262,7 @@ class admin extends _controller {
             $this->Model()->delete("users", "id", $elements);
     }
 
-    public function checkempresas() {
+    public function delempresas() {
 
         $elementsjson = $this->Post("elements");
         $elements = json_decode($elementsjson);
@@ -275,7 +271,7 @@ class admin extends _controller {
             $this->Model()->delete("companies", "id", $elements);
     }
 
-    public function checkvideos() {
+    public function delvideos() {
 
         $elementsjson = $this->Post("elements");
         $elements = json_decode($elementsjson);
@@ -283,7 +279,7 @@ class admin extends _controller {
         if ($action == 1)
             $this->Model()->delete("videos", "id", $elements);
     }
-    
+
     //OBTIENE CANTIDAD DE VIDEOS; USERS; EMPRESAS
 
     public function notificaciones() {
@@ -298,6 +294,47 @@ class admin extends _controller {
         echo json_encode(array("no_users" => $disable_users, "no_unapproved" => $unapprovedvideos, "no_companies" => $numofcompanies));
     }
 
+    //SUBIR ARCHIVO
+    
+    public function subirarchivo() {
+        $path = Config::get("Core.Path.theme") . 'includes/UploadHandler.php';
+        require($path);
+        $upload_handler = new UploadHandler();
+    }
+    
+    public function getitemstoinsertuser()
+    {
+        
+        $fieldstoselect = array("*");
+        $fieldstosearch = array("id");
+        $search = "";
+        $page = 0;
+        $maxitems = 20;
+        $order = NULL;
+        $tablerelation = NULL;
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
+        
+        $role = $this->Model()->select("roles", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+        $plan = $this->Model()->select("plans", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+        $status = $this->Model()->select("status", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+      
+        
+        $data["role"] = $role;
+        $data["plan"] = $plan;
+        $data["status"] = $status;
+
+        $this->view("FormInsertUser", $data);
+        
+        
+       // echo json_encode($elementos);
+        
+        
+    }
+
+    
 }
 
 ?>

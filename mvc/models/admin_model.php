@@ -2,7 +2,7 @@
 
 class admin_model {
 
-    public function select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition ,$filterfield,$condition ,$filterarg) {
+    public function select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition, $filterfield, $condition, $filterarg) {
 
 
         $qfields = implode(",", $fieldstoselect);
@@ -17,22 +17,21 @@ class admin_model {
                 $qwhere.=" OR ";
             }
         }
-        
-        $extra="";
-        if($extracondition!=NULL)
-        {
-            
-            $extra="AND (".$extracondition." )";
+
+        $extra = "";
+        if ($extracondition != NULL) {
+
+            $extra = "AND (" . $extracondition . " )";
         }
 
-     
+
         $filter = "";
         if ($filterfield != NULL) {
 
-            $filter.=" AND " . $filterfield." ".$condition." ". $filterarg . "";
+            $filter.=" AND " . $filterfield . " " . $condition . " " . $filterarg . "";
         }
-        
-           $orderby = "";
+
+        $orderby = "";
 
         if ($order != NULL) {
             $orderby = "ORDER BY " . $order;
@@ -40,36 +39,27 @@ class admin_model {
 
 
 
-        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" .$extra. " ". $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
+        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
 
-        
+
         $pdo = Database::executeConn($query, "publicameenvideo");
         $results = array();
         while ($row = Database::fetch_array($pdo)) {
 
             $results[] = $row;
         }
-         
-        
+
+        // return array("query" => $query);
         return $results;
     }
-    
-    public function insert($table,$val)
-    {
+
+    public function insert($table, $val) {
         $values = implode(",", $val);
-        $query="INSERT INTO ".$table. " VALUES (".$values.") ";
-        $pdo = Database::executeConn($query, "publicameenvideo");
-        
-    }
-    
-    
-
-    public function insertuser($birthdate, $email, $gender, $lastname, $name, $plan, $role, $token) {
-        $aux = "Insert INTO users VALUES(" . $birthdate . ",now()," . $email . "," . $gender . ",NULL,NULL," . $lastname . "," . name . ",NULL," . $plan . "," . $role . "," . $token . ")";
-
-        $pdo = Database::executeConn($sql, "publicameenvideo");
-
-        return true;
+        $query = "INSERT INTO " . $table . " VALUES (" . $values . ") ";
+        $lacon = Database::getExternalConnection("publicameenvideo");
+        $elquery = $lacon->query($query);
+        $lastid = $lacon->lastInsertId();
+        return $lastid;
     }
 
     public function delete($table, $idfield, $lista) {
@@ -79,9 +69,6 @@ class admin_model {
         return true;
     }
 
-    
-    
-    
     public function countusers($actual, $message) {
         $aux = $message;
         $sql = "SELECT COUNT(*) FROM us_users where name like '%" . $aux . "%' or email like '%" . $aux . "%' or last_name like '%" . $aux . "%'   LIMIT " . ($actual * 20) . " ,20";

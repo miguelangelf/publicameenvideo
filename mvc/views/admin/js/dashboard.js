@@ -329,8 +329,14 @@ var CRUD = function ()
 
         $('#ModalVid').modal('show');
 
-      // $("#videospace").attr("src", path)
+        // $("#videospace").attr("src", path)
 
+
+    };
+
+    this.upload = function ()
+    {
+        $('#upvideo').modal('show');
 
     };
 
@@ -348,54 +354,53 @@ var CRUD = function ()
         {
 
             case "Usuarios":
-                urlaux = "/site/admin/checkusuarios";
+                urlaux = "/site/admin/delusuarios";
                 break;
 
             case "Empresas":
-                urlaux = "/site/admin/checkempresas";
+                urlaux = "/site/admin/delempresas";
                 break;
 
             case "Videos":
-                urlaux = "/site/admin/checkvideos";
+                urlaux = "/site/admin/delvideos";
                 break;
         }
 
         createdatamanage();
         JustSend();
     };
-    
-    
-    this.insertuser=function()
+
+
+    this.insertuser = function ()
     {
         $('#inuser').modal('show');
-        
-        
+        $("#mybanner").hide();
+
+
+        var pagetosend = "/site/admin/getitemstoinsertuser";
+
+        var datatosend = {
+            table: "status"
+        };
+
+
+        $.post(pagetosend, datatosend, function (response) {
+            $("#leform").html(response);
+        });
+
+
+
+
     };
 };
 
 
 
-
-var ItsFIle = function ()
-{
-
-    this.sub = function ()
-    {
-
-        var lefile = $("#fileToUpload").valueOf();
-        var rfile = lefile.files[0];
-        alert(rfile.name);
-
-
-    };
-
-};
 
 
 
 var Comm;
 var Change;
-var Files;
 var Notify;
 
 $(document).ready(function () {
@@ -408,7 +413,6 @@ $(document).ready(function () {
     Comm = new Communicator();
     Notify = new Notifications();
     Change = new CRUD();
-    Files = new ItsFIle();
 
     Comm.load('usuarios');
     Notify.refresh();
@@ -418,6 +422,8 @@ $(document).ready(function () {
 
 
 
+/*jslint unparam: true */
+/*global window, $ */
 
 
 
@@ -451,5 +457,159 @@ function showvideo(id, dir)
 
     $('#ModalVid').modal('show');
     $('#videospace').attr('src', path);
+
+}
+
+
+function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    return pattern.test(emailAddress);
+}
+;
+
+function returntop()
+{
+    $('#inuser').animate({
+        scrollTop: ($('#funombre').offset().top)
+    }, 500);
+
+
+}
+
+
+function validateformuser()
+{
+    var unombre = $("#funombre").val();
+    var uapellido = $("#fuapellido").val();
+    var ucon = $("#fucon").val();
+    var ucon2 = $("#fucon2").val();
+    var uemail = $("#fuemail").val();
+    var usexo = $("#fusexo").val();
+    var ucumple = $("#birthpicker").val();
+    var uexpiration = $("#expirationpicker").val();
+    var urol = $("#furol").val();
+    var uplan = $("#fuplan").val();
+    var ustatus = $("#fustatus").val();
+    var photo = $("#photoname").val();
+
+
+
+    $("#bannermessage").empty();
+
+    if (unombre == null || unombre.length == 0)
+    {
+        $("#bannermessage").html("Nombre vacio <br/>");
+        $("#mybanner").show();
+        returntop();
+
+        $('#funombre').focus();
+        return false;
+    }
+
+    if (uapellido == null || uapellido.length == 0)
+    {
+        $("#bannermessage").html("Apellido vacio <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fuapellido').focus();
+        return false;
+    }
+    if (ucon == null || ucon.length == 0)
+    {
+        $("#bannermessage").html("Contraseña Vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fucon').focus();
+        return false;
+    }
+    if (ucon2 != ucon)
+    {
+        $("#bannermessage").html("Las contraseñas no coinciden <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fucon2').focus();
+        return false;
+    }
+
+    if (uemail == null || uemail.length == 0)
+    {
+        $("#bannermessage").html("Email vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fuemail').focus();
+        return false;
+    }
+    else
+    {
+        if (!isValidEmailAddress(uemail)) {
+            $("#bannermessage").html("NO ES EMAIL <br/>");
+            $("#mybanner").show();
+
+            returntop();
+            $('#fuemail').focus();
+            return false;
+        }
+        ;
+
+    }
+    if (ucumple == null || ucumple.length == 0)
+    {
+        $("#bannermessage").html("Fecha de Cumpleaños Vacia <br/>");
+        $("#mybanner").show();
+
+        $('#birthpicker').focus();
+        returntop();
+        return false;
+    }
+    if (uexpiration == null || uexpiration.length == 0)
+    {
+        $("#bannermessage").html("Fecha de Expiracion vacia <br/>");
+        $("#mybanner").show();
+
+        $('#expirationpicker').focus();
+        returntop();
+        return false;
+    }
+
+    if (photo == null || photo.length == 0)
+    {
+        $("#bannermessage").html("Seleccione una Foto <br/>");
+        $("#mybanner").show();
+
+
+        returntop();
+        return false;
+    }
+
+
+
+    $("#bannermessage").html("Everythings looks ok <br/>");
+    var pic=$("#photoname").val();
+
+    var infouser = {
+        gender: usexo,
+        birthdate: ucumple,
+        name: unombre,
+        lastname: uapellido,
+        email: uemail,
+        role: urol,
+        plan: uplan,
+        expiration: uexpiration,
+        status: ustatus,
+        password:ucon,
+        photo: pic
+        
+    };
+    
+    $.post("/site/admin/insertusarios", infouser, function (response) {
+        alert(response);
+    });
+
+
+
 
 }

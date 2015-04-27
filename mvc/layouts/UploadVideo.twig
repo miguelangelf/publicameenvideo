@@ -1,0 +1,79 @@
+
+<!-- Modal -->
+<div class="modal fade" id="upvideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+
+                <h4 class="modal-title" id="modallabel">Subir video</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                <p/>
+                <h5 id="modalmessage"></h5>
+                    <input type="text" name="nombre"/>
+                    <input type="text"name="descripcion"/>
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select files...</span>
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload" type="file" name="files[]" multiple>
+                    </span>
+
+                    <div id="progress" class="progress">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
+
+
+
+                    <button> ENVIAR </button>
+               
+
+
+                <script>
+
+                    $(function () {
+                       // alert("HOLA");
+                        'use strict';
+                        // Change this to the location of your server-side upload handler:
+                        var url = "/site/admin/subirarchivo";
+                        $('#fileupload').fileupload({
+                            url: url,
+                            dataType: 'json',
+                            done: function (e, data) {
+                                $.each(data.result.files, function (index, file) {
+                                    alert(file.name);
+                                });
+                            },
+                            progressall: function (e, data) {
+                                var progress = parseInt(data.loaded / data.total * 100, 10);
+                                $('#progress .progress-bar').css(
+                                        'width',
+                                        progress + '%'
+                                        );
+                            }
+                        }).prop('disabled', !$.support.fileInput)
+                                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+                    });
+
+
+                </script>
+
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="Change.makechange();" class="modalsend btn btn-primary">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
