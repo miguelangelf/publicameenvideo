@@ -110,14 +110,14 @@ class admin extends _controller {
 
         $nameofcat = "";
 
-        $table = "users";
-        $fieldstoselect = array("users.id", "users.name", "users.last_name", "users.email", "users.plan_expiration");
-        $fieldstosearch = $fieldstoselect;
+        $table = "users,roles";
+        $fieldstoselect = array("users.id", "users.name", "users.last_name", "users.email", "roles.name as rolename");
+        $fieldstosearch = array("users.id", "users.name", "users.last_name", "users.email");
         $search = $search;
         $page = $page;
         $maxitems = 20;
         $order = NULL;
-        $tablerelation = NULL;
+        $tablerelation = "users.role_id=roles.id";
         $filterfield = NULL;
         $condition = NULL;
         $filterarg = NULL;
@@ -372,7 +372,13 @@ class admin extends _controller {
         $this->view("FormInsertUser", $data);
 
 
-        // echo json_encode($elementos);
+    }
+    
+    
+    public function getitemstoinsertcompany()
+    {
+        $this->view("FormInsertCompany", $data);
+        
     }
 
 }

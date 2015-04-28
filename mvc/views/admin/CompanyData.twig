@@ -1,0 +1,25 @@
+
+<div id="allofuser">
+
+   
+    {% for user in Data.infouser %}
+        <div id="infouser">
+            ID: {{ user.id }} <br/>
+            Nombre: {{ user.nombre }} <br/>
+            Apellido: {{ user.apellido }} <br/>
+            Sexo: {{ user.sexo }} <br/>
+            Email:{{ user.email }} <br/>
+            Rol: {{ user.rolename }}<br/>
+            Creado: {{ user.creado }}<br/>
+            Plan: {{ user.planname }}<br/>
+            Cumpleaños: {{ user.birthdate }}<br/>
+            Expiration: {{ user.expiration }}<br/>
+            Estatus: {{ user.statusname }}<br/>
+
+
+        </div>
+    {% endfor %}
+
+
+
+</div>

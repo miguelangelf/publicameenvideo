@@ -52,6 +52,7 @@ function createdatamanage()
 
 function GetChecked()
 {
+    
     listofitems.length = 0;
     $('.modallist').empty();
     $('.modalsend').show();
@@ -73,7 +74,6 @@ function GetChecked()
         } else {
         }
     });
-
 
 
     if (vacio)
@@ -134,10 +134,10 @@ function hidelist()
 
         var nameelement = "#tr" + listofitems[i];
 
-      $(nameelement).remove();
+        $(nameelement).remove();
 
     }
-   
+
 
 }
 
@@ -380,7 +380,7 @@ var CRUD = function ()
                 urlaux = "/site/admin/delvideos";
                 break;
         }
-       // hidelist();
+        // hidelist();
         createdatamanage();
         JustSend();
     };
@@ -390,6 +390,9 @@ var CRUD = function ()
     {
         $('#inuser').modal('show');
         $("#mybanner").hide();
+
+
+
 
 
         var pagetosend = "/site/admin/getitemstoinsertuser";
@@ -407,6 +410,31 @@ var CRUD = function ()
 
 
     };
+
+
+
+    this.insertcompany = function ()
+    {
+
+        $('#incompany').modal('show');
+        $("#mybanner").hide();
+
+
+        var pagetosend = "/site/admin/getitemstoinsertcompany";
+
+        var datatosend = {
+            table: "status"
+        };
+
+
+        $.post(pagetosend, datatosend, function (response) {
+            $("#leform").html(response);
+        });
+
+
+
+
+    }
 };
 
 
@@ -432,10 +460,10 @@ $(document).ready(function () {
     Comm.load('usuarios');
     Notify.refresh();
     search = "";
-    
-    
-  
-    
+
+
+
+
 });
 
 
