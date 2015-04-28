@@ -104,8 +104,10 @@ function SetPageNumber()
 function JustSend()
 {
     $.post(urlaux, data, function (response) {
-        createdatapage();
-        SendData();
+        // createdatapage();
+        Notify.refresh();
+        //SendData();
+        hidelist();
     });
 }
 
@@ -125,7 +127,19 @@ function SendData()
 
 //CORRECTO
 
+function hidelist()
+{
+    for (var i = 0; i < listofitems.length; i++)
+    {
 
+        var nameelement = "#tr" + listofitems[i];
+
+      $(nameelement).remove();
+
+    }
+   
+
+}
 
 
 var Notifications = function () {
@@ -145,6 +159,7 @@ var Notifications = function () {
 
     };
 };
+
 
 
 
@@ -365,7 +380,7 @@ var CRUD = function ()
                 urlaux = "/site/admin/delvideos";
                 break;
         }
-
+       // hidelist();
         createdatamanage();
         JustSend();
     };
@@ -588,7 +603,7 @@ function validateformuser()
 
 
     $("#bannermessage").html("Everythings looks ok <br/>");
-    var pic=$("#photoname").val();
+    var pic = $("#photoname").val();
 
     var infouser = {
         gender: usexo,
@@ -600,16 +615,23 @@ function validateformuser()
         plan: uplan,
         expiration: uexpiration,
         status: ustatus,
-        password:ucon,
+        password: ucon,
         photo: pic
-        
+
     };
-    
+
     $.post("/site/admin/insertusarios", infouser, function (response) {
-        alert(response);
+        $('#inuser').modal('hide');
+
     });
 
 
 
 
+}
+
+function moreinfouser()
+{
+    
+    
 }

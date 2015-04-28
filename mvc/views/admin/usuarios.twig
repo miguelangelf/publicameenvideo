@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             {% for user in Data.users %}
-                <tr>
+                <tr id="tr{{ user.id }}" onclick="moreinfouser(this);" value="{{ user.id }}">
                     <td>{{ user.id }}</td> 
                     <td>{{ user.name }}</td> 
                     <td>{{ user.last_name }}</td>

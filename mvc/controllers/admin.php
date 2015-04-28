@@ -7,49 +7,62 @@ class admin extends _controller {
     }
 
     public function insertusarios() {
-        $id="NULL";
+        $id = "NULL";
         $gender = $this->Post("gender");
         $birthdate = $this->Post("birthdate");
-        $name = "'".$this->Post("name")."'";
-        $lastname = "'".$this->Post("lastname")."'";
-        $email = "'".$this->Post("email")."'";
+        $name = "'" . $this->Post("name") . "'";
+        $lastname = "'" . $this->Post("lastname") . "'";
+        $email = "'" . $this->Post("email") . "'";
         $role = $this->Post("role");
-        $created="NOW()";
-        $lastaccess="NOW()";      
+        $created = "NOW()";
+        $lastaccess = "NOW()";
         $plan = $this->Post("plan");
-        $expiration=$this->Post("expiration");
-        $status=$this->Post("status");      
+        $expiration = $this->Post("expiration");
+        $status = $this->Post("status");
         $token = "''";
-        $table="users";
+        $table = "users";
+
+        $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $birthdate)));
+        $expiration = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $expiration)));
+        $birthdate = "'" . $birthdate . "'";
+        $expiration = "'" . $expiration . "'";
+
+
+        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status);
+        $thelastid = $this->Model()->insert($table, $datos);
+
+
+        $table = "users_paswd";
+        $password = "'" . $this->Post("password") . "'";
+        $newdatos = array($thelastid, $password);
+        $resp = $this->Model()->insert($table, $newdatos);
+
         
-        $birthdate=date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $birthdate)));
-        $expiration=date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $expiration)));
-        $birthdate="'".$birthdate."'";
-        $expiration="'".$expiration."'";
+        $photo = $this->Post("photo");
+        $path = Config::get("Core.Path.theme") . "data/tmp/";
+        $fichero = $path . $photo;        
+        $filesize=filesize($fichero);
+        $name=$photo;
+        $created=date ("Y-m-d H:i:s", filectime($fichero));
+        $extension= pathinfo($fichero, PATHINFO_EXTENSION);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime=finfo_file($finfo,$fichero);
+        finfo_close($finfo);
+        $table="files";
         
         
-        $datos=array($id,$gender,$birthdate,$name,$lastname,$email,$role,$created,$lastaccess,$token,$plan,$expiration,$status);
-        $thelastid=$this->Model()->insert($table,$datos);
+        $datosfile=array("NULL","'$photo'","''","'$created'",$filesize,"'$extension'","'$mime'",$thelastid);
+       $resp = $this->Model()->insert($table, $datosfile);
+
         
-        $table="users_paswd";
-        $password = $this->Post("password");       
-        $datos=array($thelastid,$password);
-        $thelastid=$this->Model()->insert($table,$datos);
-        
-        
-         
-        echo $resp;
+       // echo($resp);
     }
-    
-    public function insertempresas()
-    {
-        
+
+    public function insertempresas() {
         
     }
-    
-    public function insertvideos()
-    {
-        
+
+    public function insertvideos() {
         
     }
 
@@ -295,16 +308,15 @@ class admin extends _controller {
     }
 
     //SUBIR ARCHIVO
-    
+
     public function subirarchivo() {
         $path = Config::get("Core.Path.theme") . 'includes/UploadHandler.php';
         require($path);
         $upload_handler = new UploadHandler();
     }
-    
-    public function getitemstoinsertuser()
-    {
-        
+
+    public function getitemstoinsertuser() {
+
         $fieldstoselect = array("*");
         $fieldstosearch = array("id");
         $search = "";
@@ -315,26 +327,23 @@ class admin extends _controller {
         $filterfield = NULL;
         $condition = NULL;
         $filterarg = NULL;
-        
+
         $role = $this->Model()->select("roles", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
         $plan = $this->Model()->select("plans", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
         $status = $this->Model()->select("status", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
-      
-        
+
+
         $data["role"] = $role;
         $data["plan"] = $plan;
         $data["status"] = $status;
 
         $this->view("FormInsertUser", $data);
-        
-        
-       // echo json_encode($elementos);
-        
-        
+
+
+        // echo json_encode($elementos);
     }
 
-    
 }
 
 ?>

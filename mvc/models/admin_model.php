@@ -61,6 +61,15 @@ class admin_model {
         $lastid = $lacon->lastInsertId();
         return $lastid;
     }
+    
+    public function insert2($table, $val) {
+        $values = implode(",", $val);
+        $query = "INSERT INTO " . $table . " VALUES (" . $values . ") ";
+        $lacon = Database::getExternalConnection("publicameenvideo");
+      ///  $elquery = $lacon->query($query);
+       // $lastid = $lacon->lastInsertId();
+        return $query;
+    }
 
     public function delete($table, $idfield, $lista) {
         $strlist = implode(",", $lista);
