@@ -53,6 +53,57 @@ class admin_model {
         return $results;
     }
 
+    public function select2($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition, $filterfield, $condition, $filterarg) {
+
+
+        $qfields = implode(",", $fieldstoselect);
+        $qwhere = "";
+        for ($i = 0; $i < sizeof($fieldstosearch); $i++) {
+            $qwhere.=$fieldstosearch[$i];
+            $qwhere.=" like '%";
+            $qwhere.=$search;
+            $qwhere.="%'";
+
+            if ($i < sizeof($fieldstosearch) - 1) {
+                $qwhere.=" OR ";
+            }
+        }
+
+        $extra = "";
+        if ($extracondition != NULL) {
+
+            $extra = "AND (" . $extracondition . " )";
+        }
+
+
+        $filter = "";
+        if ($filterfield != NULL) {
+
+            $filter.=" AND " . $filterfield . " " . $condition . " " . $filterarg . "";
+        }
+
+        $orderby = "";
+
+        if ($order != NULL) {
+            $orderby = "ORDER BY " . $order;
+        }
+
+
+
+        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
+
+
+        $pdo = Database::executeConn($query, "publicameenvideo");
+        $results = array();
+        while ($row = Database::fetch_array($pdo)) {
+
+            $results[] = $row;
+        }
+
+        // return array("query" => $query);
+        return $query;
+    }
+
     public function insert($table, $val) {
         $values = implode(",", $val);
         $query = "INSERT INTO " . $table . " VALUES (" . $values . ") ";
@@ -61,13 +112,13 @@ class admin_model {
         $lastid = $lacon->lastInsertId();
         return $lastid;
     }
-    
+
     public function insert2($table, $val) {
         $values = implode(",", $val);
         $query = "INSERT INTO " . $table . " VALUES (" . $values . ") ";
         $lacon = Database::getExternalConnection("publicameenvideo");
-      ///  $elquery = $lacon->query($query);
-       // $lastid = $lacon->lastInsertId();
+        ///  $elquery = $lacon->query($query);
+        // $lastid = $lacon->lastInsertId();
         return $query;
     }
 

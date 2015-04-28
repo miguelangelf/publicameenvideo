@@ -5,6 +5,37 @@ class admin extends _controller {
     public function dashboard() {
         $this->view("dashboard", null);
     }
+    
+    public function getmoreofuser()
+    {
+        
+        
+        $theid = $this->Post("id");
+        
+             
+
+
+        $table = "users,roles,plans,status";
+        $fieldstoselect = array("users.id","birthdate","users.gender as sexo", "users.name as nombre", "users.last_name as apellido", "users.email", "users.plan_expiration as expiration","users.created as creado","roles.name as rolename","plans.name as planname","status.name as statusname");
+        $fieldstosearch = array("users.id");
+        $search = "";
+        $page = 0;
+        $maxitems = 20;
+        $order = NULL;
+        $tablerelation = "role_id=roles.id AND plan_id=plans.id AND status_id=status.id AND users.id=$theid";
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
+
+        $moreuser = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+        $data["infouser"] = $moreuser;
+        $data["infochannel"] = $moreuser;
+
+        $this->view("UserData", $data);
+        
+        
+    }
 
     public function insertusarios() {
         $id = "NULL";

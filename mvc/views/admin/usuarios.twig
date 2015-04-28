@@ -34,19 +34,56 @@
         </thead>
         <tbody>
             {% for user in Data.users %}
-                <tr id="tr{{ user.id }}" onclick="moreinfouser(this);" value="{{ user.id }}">
+                <tr class="myrow" id="tr{{ user.id }}" value="{{ user.id }}">
                     <td>{{ user.id }}</td> 
                     <td>{{ user.name }}</td> 
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.plan_expiration }}</td>
-                    <td><input class="checkbox" mainid="{{user.id}}" value="{{ user.name }}" type="checkbox"></input></td>
+                    <td class="mycheckbox" ><input mainid="{{user.id}}" value="{{ user.name }}" type="checkbox"></input></td>
 
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+
+<script>
+
+    $('.mycheckbox').click(function (e)
+    {
+       
+        e.stopPropagation();
+
+    });
+    
+    $('.myrow').on('click',function ()
+    {
+        $('#showmoreuser').modal('show');
+        var theid = $(this).attr('value');
+        
+        
+        
+        var thepage = "/site/admin/getmoreofuser";
+
+        var datatosend = {
+            id: theid
+        };
+
+
+        $.post(thepage, datatosend, function (response) {
+            $("#allofmyuser").html(response);
+        });
+        
+        
+        
+
+    });
+    
+    
+    
+
+</script>
 
 
 
@@ -60,7 +97,11 @@
 </div>
 
 
-{% include('InsertUser.twig') %}
+
+
+
+{% include('InsertUser.twig') %}}
+{% include('MoreUser.twig') %}
 
 
 <div class="a100 ">

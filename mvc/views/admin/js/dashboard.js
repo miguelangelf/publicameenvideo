@@ -432,6 +432,10 @@ $(document).ready(function () {
     Comm.load('usuarios');
     Notify.refresh();
     search = "";
+    
+    
+  
+    
 });
 
 
@@ -630,8 +634,7 @@ function validateformuser()
 
 }
 
-function moreinfouser()
-{
-    
-    
-}
+
+
+
+
