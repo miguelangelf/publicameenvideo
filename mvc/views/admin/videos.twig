@@ -1,4 +1,11 @@
+
+{% include('MoreUser.twig') %}
+
 <h1>{{Data.inbox}}</h1>
+
+
+
+
 
 
 
@@ -19,7 +26,6 @@
 
 
 
-
 <div class="padding-top">
     <table class="table table-hover table-bordered">
         <thead>
@@ -35,20 +41,20 @@
             </tr>
         </thead>
         <tbody>
-            
-          
-            
+
+
+
             {% for video in Data.videos %}
-                <tr>
+                <tr class="myrow" id="tr{{ video.id }}" value="{{ video.id }}" >
                     <td>{{ video.id }}</td> 
-                    <td><a href="#" onclick="Change.shvideo('{{ video.id }}','{{Data.path}}');" >{{ video.title }}</a></td> 
-                    
+                    <td><a href="#" onclick="Change.shvideo('{{ video.id }}', '{{Data.path}}');" >{{ video.title }}</td> 
+
                     <td>{{ video.description}}</td>
                     <td>{{ video.categoria }}</td>
                     <td>{{ video.company }}</td>
                     <td>{{ video.user }}</td>
                     <td>{{ video.status }}</td>
-                    <td><input class="checkbox" mainid="{{video.id}}" value="{{ video.title }}" type="checkbox"></input></td>
+                    <td class="mycheckbox"><input class="checkbox" mainid="{{video.id}}" value="{{ video.title }}" type="checkbox"></input></td>
 
                 </tr>
             {% endfor %}
@@ -57,8 +63,45 @@
 </div>
 
 
+{% include('InsertCompany.twig') %}}
+<script>
+
+    $('.mycheckbox').click(function (e)
+    {
+        //alert("AHAY");
+
+        e.stopPropagation();
+
+    });
+
+    $('.myrow').on('click', function ()
+    {
+        $('#showmoreuser').modal('show');
+        var theid = $(this).attr('value');
+
+        //alert("tontonuel");
+
+        var thepage = "/site/admin/getmoreofvideo";
+
+        var datatosend = {
+            id: theid
+        };
 
 
+        $.post(thepage, datatosend, function (response) {
+            $("#allofmyuser").html(response);
+
+        });
+
+
+
+
+    });
+
+
+
+
+</script>
 
 
 
@@ -67,20 +110,17 @@
     {% include('pager.twig') %}
 </div>
 
-<div id="regions_div" style="width:400; height:300"></div>
 
 <div class="a100 ">
 
-    
-    {% include('ShowVideo.twig') %}
-    {% include('UploadVideo.twig') %}
-    
-    
-    <button type="button" onclick="Change.upload(2);" class="btn btn-primary pull-right" >
+    {% include('InsertVideo.twig') %}
+
+
+    <button type="button" onclick="Change.insertvideo(1);" class="btn btn-primary pull-right" >
         Agregar Video
     </button>
-    
-    <button type="button" onclick="Change.uploadvideo(1);" class="btn btn-primary pull-right" >
+
+    <button type="button" onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
         Eliminar Video
     </button>
 

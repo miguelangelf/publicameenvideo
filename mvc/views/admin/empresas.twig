@@ -23,7 +23,7 @@
 <div class="padding-top">
     <table class="table table-hover table-bordered">
         <thead>
-            <tr >
+            <tr  >
                 <th>ID</th>  
                 <th>Nombre</th>
                 <th>Descripcion</th>
@@ -34,26 +34,67 @@
         </thead>
         <tbody>
             {% for empresa in Data.empresas %}
-                <tr id="tr{{ empresa.id }}">
+                <tr  class="myrow" id="tr{{ empresa.id }}" value="{{ empresa.id }}">
                     <td>{{ empresa.id }}</td> 
                     <td>{{ empresa.name }}</td> 
                     <td>{{ empresa.description }}</td>
                     <td>{{ empresa.phone }}</td>
                     <td>{{ empresa.email }}</td>
-                    
-                    <td><input class="checkbox" mainid="{{empresa.id}}" value="{{ empresa.name }}" type="checkbox"></input></td>
+
+                    <td class="mycheckbox" ><input class="checkbox" mainid="{{empresa.id}}" value="{{ empresa.name }}" type="checkbox"></input></td>
 
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-        
-        
-        
-        
-        
-        
+
+
+<script>
+
+    $('.mycheckbox').click(function (e)
+    {
+
+          e.stopPropagation();
+        // alert("bananero");
+
+    });
+
+    $('.myrow').on('click', function ()
+    {
+
+        //  alert("sabe");
+
+        $('#showmoreuser').modal('show');
+        var theid = $(this).attr('value');
+
+
+
+        var thepage = "/site/admin/getmoreofcompany";
+
+        var datatosend = {
+            id: theid
+        };
+
+
+        $.post(thepage, datatosend, function (response) {
+            $("#allofmyuser").html(response);
+        });
+
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+
 
 <div class="center">       
 
@@ -65,9 +106,10 @@
 <div class="a100 ">
 
     {{Data.path}}
-    
-    
-     <button type="button" onclick="Change.insertcompany();;" class="btn btn-primary pull-right" >
+
+
+    <button type="button" onclick="Change.insertcompany();
+            ;" class="btn btn-primary pull-right" >
         Agregar Empresa
     </button>
 
@@ -76,9 +118,8 @@
         Eliminar Empresa
     </button>
 
- 
-
 </div>
 
-    
-    {% include('InsertCompany.twig') %}}
+
+{% include('InsertCompany.twig') %}}
+{% include('MoreUser.twig') %}

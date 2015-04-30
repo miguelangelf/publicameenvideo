@@ -15,6 +15,9 @@
             Latitud: {{ user.birthdate }}<br/>
             Logintud: {{ user.expiration }}<br/>
             Creado: {{ user.statusname }}<br/>
+            {% if Data.photo is not empty %}Foto:<img width="30%" height="30%" src="http://static.publicameenvideo.local/data/tmp/{{ Data.photo }}"> <br/>{% endif %}
+            
+            
 
 
         </div>
@@ -23,3 +26,4 @@
 
 
 </div>
+ 

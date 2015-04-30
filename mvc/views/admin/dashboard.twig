@@ -1,5 +1,9 @@
 {% extends 'defaultAdmin.twig' %}
+
 {% block content %}
+    
+    {% include('Modal.twig') %}
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <div class="row padding-top ">
@@ -20,7 +24,5 @@
     <!-- Aqui van todos los extras que deben estar disponibles para todas las paginas -->
 
     <!--  MODALS-->
-    {% include('Modal.twig') %}
-
 
 {% endblock %}

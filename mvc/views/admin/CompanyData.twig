@@ -1,20 +1,22 @@
 
+{{Data.infochannel }}
+
 <div id="allofuser">
 
    
-    {% for user in Data.infouser %}
+    {% for comp in Data.infocompany %}
         <div id="infouser">
-            ID: {{ user.id }} <br/>
-            Nombre: {{ user.nombre }} <br/>
-            Apellido: {{ user.apellido }} <br/>
-            Sexo: {{ user.sexo }} <br/>
-            Email:{{ user.email }} <br/>
-            Rol: {{ user.rolename }}<br/>
-            Creado: {{ user.creado }}<br/>
-            Plan: {{ user.planname }}<br/>
-            Cumpleaños: {{ user.birthdate }}<br/>
-            Expiration: {{ user.expiration }}<br/>
-            Estatus: {{ user.statusname }}<br/>
+            ID: {{ comp.id }} <br/>
+            Nombre: {{ comp.nombre }} <br/>
+            RFC: {{ comp.rfc }} <br/>
+            Direccion: {{ comp.direccion }} <br/>
+            Email:{{ comp.email }} <br/>
+            Descripcion: {{ comp.descripcion }}<br/>
+            Telefono: {{ comp.telefono }}<br/>
+            Ubicacion: {{ comp.ubicacion }}<br/>
+            Latitud: {{ comp.latitud }}<br/>
+            Longitud: {{ comp.longitud }}<br/>
+            Fecha de Creacion: {{ comp.fechacreacion }}<br/>
 
 
         </div>

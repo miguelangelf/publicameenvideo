@@ -36,6 +36,7 @@ function createdatapage()
         category: category,
         actualpage: actualpage
 
+
     };
 
 }
@@ -52,7 +53,7 @@ function createdatamanage()
 
 function GetChecked()
 {
-    
+
     listofitems.length = 0;
     $('.modallist').empty();
     $('.modalsend').show();
@@ -103,6 +104,8 @@ function SetPageNumber()
 
 function JustSend()
 {
+
+
     $.post(urlaux, data, function (response) {
         // createdatapage();
         Notify.refresh();
@@ -114,7 +117,9 @@ function JustSend()
 function SendData()
 {
 
+
     $.post(url, data, function (response) {
+
         $("#content-panel").html(response);
         SetPageNumber();
         Notify.refresh();
@@ -253,14 +258,17 @@ var CRUD = function ()
 
     this.preparemodal = function (picked)
     {
+
         GetChecked();
 
         modaloption = picked;
+
 
         switch (pagename)
         {
 
             case "Usuarios":
+                //  alert("usuarios");
 
                 switch (modaloption)
                 {
@@ -277,16 +285,16 @@ var CRUD = function ()
                         $('#modalmessage').html("¿Esta seguro que desa suspender este usuario?");
                         break;
 
-                    default:
-                        break;
 
                 }
                 break;
 
             case "Empresas":
+                // alert("empresas"); 
                 switch (modaloption)
                 {
                     case 1:
+                        // alert("jodertio");
                         $('#modallabel').html("Eliminar Empresa");
                         $('#modalmessage').html("¿Esta seguro que desea ELIMINAR las siguientes empresas?");
                         break;
@@ -298,36 +306,36 @@ var CRUD = function ()
                         $('#modallabel').html("Eliminar Empresa");
                         $('#modalmessage').html("¿Esta seguro que desa eliminar esta empresa?");
                         break;
-                    default:
-                        break;
+
 
                 }
                 break;
 
             case "Videos":
+                // alert("empresas"); 
                 switch (modaloption)
                 {
                     case 1:
-                        $('#modallabel').html("Eliminar Video");
-                        $('#modallabel').html("¿Esta seguro que desa ELIMINAR los siguientes videos?");
+                        //  alert("entro a eliminar video");
+                        $('#modallabel').html("Eliminar VID");
+                        $('#modalmessage').html("¿Esta seguro que desea ELIMINAR los siguientes videos?");
                         break;
                     case 2:
-                        $('#modallabel').html("Eliminar Video");
-                        $('#modallabel').html("¿Esta seguro que desa eliminar esta video?");
+                        $('#modallabel').html("Bloquear VID");
+                        $('#modalmessage').html("¿Esta seguro que desa bloquear esta empresa?");
                         break;
                     case 3:
-                        $('#modallabel').html("Aprobar Video");
-                        $('#modallabel').html("¿Esta seguro que desa aprobar este video?");
+                        $('#modallabel').html("Eliminar VID que desa eliminar esta empresa?");
                         break;
-                    default:
-                        break;
+
 
                 }
                 break;
 
-            default:
-                break;
+
         }
+
+
         $('#genericmodal').modal('show');
 
 
@@ -434,7 +442,33 @@ var CRUD = function ()
 
 
 
-    }
+    };
+
+
+    this.insertvideo = function ()
+    {
+
+        $('#invideo').modal('show');
+        $("#mybanner").hide();
+
+
+        var pagetosend = "/site/admin/getitemstoinsertvideo";
+
+        var datatosend = {
+            table: "status"
+        };
+
+
+        $.post(pagetosend, datatosend, function (response) {
+            $("#leform").html(response);
+        });
+
+
+
+
+    };
+
+
 };
 
 

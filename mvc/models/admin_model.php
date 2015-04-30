@@ -92,14 +92,14 @@ class admin_model {
 
         $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
 
-
+/*
         $pdo = Database::executeConn($query, "publicameenvideo");
         $results = array();
         while ($row = Database::fetch_array($pdo)) {
 
             $results[] = $row;
         }
-
+*/
         // return array("query" => $query);
         return $query;
     }
