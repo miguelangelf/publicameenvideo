@@ -212,6 +212,7 @@ class admin extends _controller {
 
     public function usuarios() {
 
+        //sleep(3);
         $nameofcat = "";
 
         $name = $this->Post("pagename");

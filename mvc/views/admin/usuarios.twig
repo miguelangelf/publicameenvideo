@@ -1,25 +1,29 @@
+
+<!--ESTRUCTURA VACIA PARA INSERTAR USUARIO-->
+{% include('InsertUser.twig') %}
+
+<!--ESTRUCTURA VACIA PARA OBTENER DATOS DE UN USUARIO EN ESPECIFICO-->
+{% include('MoreInfo.twig') %}
+
+
+<!--TITULO-->
 <h1>{{Data.inbox}}</h1>
-
-
-
 <hr/>
 
+
+<!-- BUSCADO Y FILTRADO-->
 <div class="fullw">    
     <span class="pull-left a80">
         <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
     </span>
-
     <span class="pull-right a20">
-
         {% include('opcionesuser.twig') %}
     </span>
 </div >
 
 
 
-
-
-
+<!--TABLA-->
 <div class="padding-top">
     <table class="table table-hover table-bordered">
         <thead>
@@ -48,62 +52,14 @@
     </table>
 </div>
 
-<script>
 
-    $('.mycheckbox').click(function (e)
-    {
-       
-        e.stopPropagation();
-
-    });
-    
-    $('.myrow').on('click',function ()
-    {
-        $('#showmoreuser').modal('show');
-        var theid = $(this).attr('value');
-        
-        
-        
-        var thepage = "/site/admin/getmoreofuser";
-
-        var datatosend = {
-            id: theid
-        };
-
-
-        $.post(thepage, datatosend, function (response) {
-            $("#allofmyuser").html(response);
-        });
-        
-        
-        
-
-    });
-    
-    
-    
-
-</script>
-
-
-
-
-
-
-
-<div class="center">       
-
+<!--PAGINACION-->
+<div class="center">    
     {% include('pager.twig') %}
 </div>
 
 
-
-
-
-{% include('InsertUser.twig') %}}
-{% include('MoreUser.twig') %}
-
-
+<!--BOTONES-->
 <div class="a100 ">
 
     {{Data.path}}
@@ -116,7 +72,33 @@
         Eliminar Usuarios
     </button>
 
-
-
 </div>
 
+
+<!--SCRIPTS-->
+<script>
+
+    $('.mycheckbox').click(function (e)
+    {
+
+        e.stopPropagation();
+
+    });
+
+    $('.myrow').on('click', function ()
+    {
+        $('#showmoreuser').modal('show');
+        var theid = $(this).attr('value');
+        var thepage = "/site/admin/getmoreofuser";
+        var datatosend = {
+            id: theid
+        };
+        $.post(thepage, datatosend, function (response) {
+            $("#allofmyuser").html(response);
+        });
+    });
+
+
+
+
+</script>

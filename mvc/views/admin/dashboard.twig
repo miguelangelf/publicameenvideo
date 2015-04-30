@@ -3,6 +3,14 @@
 {% block content %}
     
     {% include('Modal.twig') %}
+    
+    <style>
+        #justspace{
+            
+            height: 30em;
+        }
+        
+    </style>
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
@@ -13,6 +21,12 @@
         <div class="col-sm-9 col-md-10  padding-top" id="main-panel"> 
 
             <div class="col-md-12" id="content-panel">
+                
+                <div align="center">
+                <img width="10%" height="10%" src="{{Core.Domains.theme}}images/loading.gif"/>
+                </div>
+                
+                <div id="justspace"> </div>
 
             </div>
         </div>

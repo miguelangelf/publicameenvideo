@@ -396,11 +396,11 @@ var CRUD = function ()
 
     this.insertuser = function ()
     {
-        $('#inuser').modal('show');
+
+
+        var namemodal = "#inuser";
+        $(namemodal).modal('show');
         $("#mybanner").hide();
-
-
-
 
 
         var pagetosend = "/site/admin/getitemstoinsertuser";
@@ -411,7 +411,7 @@ var CRUD = function ()
 
 
         $.post(pagetosend, datatosend, function (response) {
-            $("#leform").html(response);
+           $(".emptyform").html(response);
         });
 
 
@@ -423,8 +423,9 @@ var CRUD = function ()
 
     this.insertcompany = function ()
     {
+        var namemodal = "#incompany";
+        $(namemodal).modal('show');
 
-        $('#incompany').modal('show');
         $("#mybanner").hide();
 
 
@@ -436,7 +437,7 @@ var CRUD = function ()
 
 
         $.post(pagetosend, datatosend, function (response) {
-            $("#leform").html(response);
+            $(".emptyform").html(response);
         });
 
 
@@ -448,7 +449,8 @@ var CRUD = function ()
     this.insertvideo = function ()
     {
 
-        $('#invideo').modal('show');
+        var namemodal = "#invideo";
+        $(namemodal).modal('show');
         $("#mybanner").hide();
 
 
@@ -460,7 +462,7 @@ var CRUD = function ()
 
 
         $.post(pagetosend, datatosend, function (response) {
-            $("#leform").html(response);
+            $(".emptyform").html(response);
         });
 
 

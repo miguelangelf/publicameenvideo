@@ -1,14 +1,8 @@
+{% include('InsertVideo.twig') %}
 
-{% include('MoreUser.twig') %}
+{% include('MoreInfo.twig') %}
 
 <h1>{{Data.inbox}}</h1>
-
-
-
-
-
-
-
 <hr/>
 
 <div class="fullw">    
@@ -21,9 +15,6 @@
         {% include('opcionesvideos.twig') %}
     </span>
 </div >
-
-
-
 
 
 <div class="padding-top">
@@ -63,7 +54,27 @@
 </div>
 
 
-{% include('InsertCompany.twig') %}}
+<div class="center">       
+
+    {% include('pager.twig') %}
+</div>
+
+
+<div class="a100 ">
+
+    
+    <button type="button" onclick="Change.insertvideo();" class="btn btn-primary pull-right" >
+        Agregar Video
+    </button>
+
+    <button type="button" onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+        Eliminar Video
+    </button>
+
+
+</div>
+
+
 <script>
 
     $('.mycheckbox').click(function (e)
@@ -92,10 +103,6 @@
             $("#allofmyuser").html(response);
 
         });
-
-
-
-
     });
 
 
@@ -103,30 +110,3 @@
 
 </script>
 
-
-
-<div class="center">       
-
-    {% include('pager.twig') %}
-</div>
-
-
-<div class="a100 ">
-
-    {% include('InsertVideo.twig') %}
-
-
-    <button type="button" onclick="Change.insertvideo(1);" class="btn btn-primary pull-right" >
-        Agregar Video
-    </button>
-
-    <button type="button" onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
-        Eliminar Video
-    </button>
-
-
-
-
-
-
-</div>

@@ -1,9 +1,14 @@
+<!--ESTRUCTURA VACIA PARA INSERTAR UNA EMPRESA-->
+{% include('InsertCompany.twig') %}
+<!--ESTRUCTURA VACIA PARA OBTENER DATOS DE UN USUARIO EN ESPECIFICO-->
+{% include('MoreInfo.twig') %}
+
+
+<!--TITULO-->
 <h1>{{Data.inbox}}</h1>
-
-
-
 <hr/>
 
+<!-- BUSCADO Y FILTRADO-->
 <div class="fullw">    
     <span class="pull-left a80">
         <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
@@ -15,11 +20,7 @@
     </span>
 </div >
 
-
-
-
-
-
+<!--TABLA-->
 <div class="padding-top">
     <table class="table table-hover table-bordered">
         <thead>
@@ -50,6 +51,33 @@
 </div>
 
 
+
+
+
+<!--PAGINACION-->
+<div class="center">       
+
+    {% include('pager.twig') %}
+</div>
+
+
+<!--BOTONES-->
+<div class="a100 ">
+    {{Data.path}}
+    <button type="button" onclick="Change.insertcompany();
+            ;" class="btn btn-primary pull-right" >
+        Agregar Empresa
+    </button>
+
+
+    <button type="button"  onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+        Eliminar Empresa
+    </button>
+
+</div>
+
+    
+<!--SCRIPTS-->    
 <script>
 
     $('.mycheckbox').click(function (e)
@@ -91,35 +119,3 @@
 
 </script>
 
-
-
-
-
-
-<div class="center">       
-
-    {% include('pager.twig') %}
-</div>
-
-<div id="regions_div" style="width:400; height:300"></div>
-
-<div class="a100 ">
-
-    {{Data.path}}
-
-
-    <button type="button" onclick="Change.insertcompany();
-            ;" class="btn btn-primary pull-right" >
-        Agregar Empresa
-    </button>
-
-
-    <button type="button"  onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
-        Eliminar Empresa
-    </button>
-
-</div>
-
-
-{% include('InsertCompany.twig') %}}
-{% include('MoreUser.twig') %}
