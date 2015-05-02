@@ -1,8 +1,6 @@
 
-
 <div id="allofuser">
 
-   
     {% for vid in Data.infovideo %}
         <div id="infouser">
             ID: {{ vid.id }} <br/>
@@ -16,11 +14,21 @@
             Latitud: {{ vid.latitud }}<br/>
             Longitud: {{ vid.longitud }}<br/>
             Fecha de Creacion: {{ vid.fechacreacion }}<br/>
-
+            
+            {% if Data.video is not empty %}
+                Video: 
+                <video id="vidid" width="400" height="240" controls autoplay>
+                    <source id="videospace" src="http://static.publicameenvideo.local/data/tmp/{{ Data.video }}" type="video/webm">
+                    Your browser does not support the video tag.
+                </video> 
+                    
+            {%else %}
+                NO HAY VIDEO DISPONINBLE
+                    
+            {% endif %}
+            
 
         </div>
     {% endfor %}
-
-
 
 </div>

@@ -1,3 +1,10 @@
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+
 {% include('InsertVideo.twig') %}
 
 {% include('MoreInfo.twig') %}
@@ -38,7 +45,7 @@
             {% for video in Data.videos %}
                 <tr class="myrow" id="tr{{ video.id }}" value="{{ video.id }}" >
                     <td>{{ video.id }}</td> 
-                    <td><a href="#" onclick="Change.shvideo('{{ video.id }}', '{{Data.path}}');" >{{ video.title }}</td> 
+                    <td>{{ video.title }}</td> 
 
                     <td>{{ video.description}}</td>
                     <td>{{ video.categoria }}</td>
@@ -62,7 +69,7 @@
 
 <div class="a100 ">
 
-    
+
     <button type="button" onclick="Change.insertvideo();" class="btn btn-primary pull-right" >
         Agregar Video
     </button>
@@ -107,6 +114,9 @@
 
 
 
+    $('#showmoreuser').on('hidden.bs.modal', function () {
+        $("#vidid").trigger("pause");
+    })
 
 </script>
 

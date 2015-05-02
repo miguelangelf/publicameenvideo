@@ -60,6 +60,18 @@ class admin extends _controller {
         $data["infovideo"] = $morevideo;
         $data["infochannel"] = $morevideo;
 
+        
+        $table = "files,videos";
+        $fieldstoselect = array("name as nombre");
+        $fieldstosearch = array("files.id");
+        $tablerelation = "videos.id=$theid AND videos.file_id=files.id";
+
+        $video = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+        $data["video"] = $video[0][0];
+
+
+
         $this->view("VideoData", $data);
     }
 
@@ -186,26 +198,26 @@ class admin extends _controller {
 
     public function insertvideos() {
 
-/*
-        $id = "NULL";
-        $name = "'" . $this->Post("name") . "'";
-        $rfc = "'" . $this->Post("rfc") . "'";
-        $address = "'" . $this->Post("adress") . "'";
-        $description = "'" . $this->Post("lastname") . "'";
-        $phone = "'" . $this->Post("email") . "'";
-        $email = "'" . $this->Post("role") . "'";
-        $location_id = 0;
-        $latitude = 0;
-        $longitude = 0;
-        $created = "NOW()";
-        $table = "companies";
+        /*
+          $id = "NULL";
+          $name = "'" . $this->Post("name") . "'";
+          $rfc = "'" . $this->Post("rfc") . "'";
+          $address = "'" . $this->Post("adress") . "'";
+          $description = "'" . $this->Post("lastname") . "'";
+          $phone = "'" . $this->Post("email") . "'";
+          $email = "'" . $this->Post("role") . "'";
+          $location_id = 0;
+          $latitude = 0;
+          $longitude = 0;
+          $created = "NOW()";
+          $table = "companies";
 
 
 
-        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created);
-        $thelastid = $this->Model()->insert($table, $datos);
- * 
- */
+          $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created);
+          $thelastid = $this->Model()->insert($table, $datos);
+         * 
+         */
     }
 
     //SELECCIONA USUARIOS EMPRESAS VIDEOS
@@ -488,11 +500,31 @@ class admin extends _controller {
         $this->view("FormInsertCompany", $data);
     }
 
-    public function getitemstoinsertvideo()
-    {
-        
+    public function getitemstoinsertvideo() {
+
         $this->view("FormInsertVideo", $data);
     }
+
+    public function availablecompanies() {
+
+        $name = $this->Post("name");
+        $table = "companies";
+        $fieldstoselect = array("companies.name as label", "companies.id as idselected");
+        $fieldstosearch = array("companies.name");
+        $search = $name;
+        $page = 0;
+        $maxitems = 20;
+        $order = NULL;
+        $tablerelation = NULL;
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
+
+        $moreuser = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+        echo json_encode($moreuser);
+    }
+
 }
 
 ?>
