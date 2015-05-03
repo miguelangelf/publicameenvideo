@@ -14,6 +14,14 @@
             Latitud: {{ comp.latitud }}<br/>
             Longitud: {{ comp.longitud }}<br/>
             Fecha de Creacion: {{ comp.fechacreacion }}<br/>
+            {% if Data.photo is not empty %}
+                {% for thephoto in Data.photo %}
+                    Foto:<img width="30%" height="30%" src="http://static.publicameenvideo.local/data/tmp/{{ thephoto.nombre }}"> <br/>
+
+                {% endfor %}
+
+            {%else%} NO HAY IMAGEN DISPONI[BLE
+            {% endif %}
 
         </div>
     {% endfor %}

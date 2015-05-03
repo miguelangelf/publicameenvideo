@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 class admin extends _controller {
 
@@ -26,15 +26,15 @@ class admin extends _controller {
 
         $moreuser = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
-        $table = "files";
-        $fieldstoselect = array("name as nombre");
-        $fieldstosearch = array("id");
-        $tablerelation = "user_id=$theid";
+        $table = "users,files";
+        $fieldstoselect = array("files.name as nombre");
+        $fieldstosearch = array("files.id");
+        $tablerelation = "users.id=$theid AND users.file_id=files.id";
 
         $photo = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
         $data["infouser"] = $moreuser;
-        $data["photo"] = $photo[0][0];
+        $data["photo"] = $photo;
         $data["infochannel"] = $moreuser;
 
         $this->view("UserData", $data);
@@ -44,7 +44,7 @@ class admin extends _controller {
         $theid = $this->Post("id");
 
         $table = "videos,files,companies,status,categories";
-        $fieldstoselect = array("videos.id as id", "videos.description as descripcion", "videos.likes as likes", "videos.views", "companies.name as companyname", "status.name as statusname", "categories.name as categoryname", "videos.location_id as locid", "videos.latitude as latitud", "videos.longitude as longitud", "videos.last_view as ultimavisita", "videos.created as creado", "videos.ranking as ranking", "videos.friendly_url as furl");
+        $fieldstoselect = array("videos.id as id","videos.title as titulo" ,"videos.description as descripcion", "videos.likes as likes", "videos.views as vistas", "companies.name as companyname", "status.name as statusname", "categories.name as categoryname", "videos.location_id as locid", "videos.latitude as latitud", "videos.longitude as longitud", "videos.last_view as ultimavisita", "videos.created as creado", "videos.ranking as ranking", "videos.friendly_url as furl");
         $fieldstosearch = array("videos.id");
         $search = "";
         $page = 0;
@@ -95,8 +95,18 @@ class admin extends _controller {
 
         $morecompany = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
+        $table = "companies,files";
+        $fieldstoselect = array("files.name as nombre");
+        $fieldstosearch = array("files.id");
+        $tablerelation = "companies.id=$theid AND companies.file_id=files.id";
+
+        $photo = $this->Model()->select($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+        $data["photo"] = $photo;
+        $data["infochannel"] = $moreuser;
+        
+        
         $data["infocompany"] = $morecompany;
-        // $data["infochannel"] = $morecompany;
 
         $this->view("CompanyData", $data);
     }
@@ -234,14 +244,14 @@ class admin extends _controller {
 
         $nameofcat = "";
 
-        $table = "users,roles";
-        $fieldstoselect = array("users.id", "users.name", "users.last_name", "users.email", "roles.name as rolename");
+        $table = "users,roles,status";
+        $fieldstoselect = array("users.id", "users.name", "users.last_name", "users.email", "roles.name as rolename", "status.name as statusname");
         $fieldstosearch = array("users.id", "users.name", "users.last_name", "users.email");
         $search = $search;
         $page = $page;
         $maxitems = 20;
         $order = NULL;
-        $tablerelation = "users.role_id=roles.id";
+        $tablerelation = "users.role_id=roles.id AND status.id=users.status_id";
         $filterfield = NULL;
         $condition = NULL;
         $filterarg = NULL;

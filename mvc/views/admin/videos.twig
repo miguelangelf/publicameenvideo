@@ -33,7 +33,6 @@
                 <th width="20%">Descripcion</th>
                 <th>Categoria</th>
                 <th>Empresa</th>
-                <th>Usuario</th>
                 <th>Estatus</th>
                 <th>Eliminar/Bloquear</th>
             </tr>
@@ -46,11 +45,9 @@
                 <tr class="myrow" id="tr{{ video.id }}" value="{{ video.id }}" >
                     <td>{{ video.id }}</td> 
                     <td>{{ video.title }}</td> 
-
                     <td>{{ video.description}}</td>
                     <td>{{ video.categoria }}</td>
                     <td>{{ video.company }}</td>
-                    <td>{{ video.user }}</td>
                     <td>{{ video.status }}</td>
                     <td class="mycheckbox"><input class="checkbox" mainid="{{video.id}}" value="{{ video.title }}" type="checkbox"></input></td>
 

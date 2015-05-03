@@ -33,6 +33,7 @@
                 <th>Apellido</th>
                 <th>E-Mail</th>
                 <th>Rol</th>
+                <th>Status</th>
                 <th>Eliminar/Bloquear</th>
             </tr>
         </thead>
@@ -44,6 +45,7 @@
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.rolename }}</td>
+                    <td>{{ user.statusname }}</td>
                     <td class="mycheckbox" ><input class="checkbox" mainid="{{user.id}}" value="{{ user.name }}" type="checkbox"></input></td>
 
                 </tr>

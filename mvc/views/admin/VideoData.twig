@@ -4,16 +4,15 @@
     {% for vid in Data.infovideo %}
         <div id="infouser">
             ID: {{ vid.id }} <br/>
-            Nombre: {{ vid.nombre }} <br/>
-            RFC: {{ vid.rfc }} <br/>
-            Direccion: {{ vid.direccion }} <br/>
-            Email:{{ vid.email }} <br/>
+            Nombre: {{ vid.titulo }} <br/>
             Descripcion: {{ vid.descripcion }}<br/>
-            Telefono: {{ vid.telefono }}<br/>
-            Ubicacion: {{ vid.ubicacion }}<br/>
-            Latitud: {{ vid.latitud }}<br/>
-            Longitud: {{ vid.longitud }}<br/>
-            Fecha de Creacion: {{ vid.fechacreacion }}<br/>
+            Likes: {{ vid.likes }}<br/>
+            Vistas: {{ vid.vistas }}<br/>
+            Compañia: {{ vid.companyname }}<br/>
+            Status: {{ vid.statusname }}<br/>
+            Categoria: {{ vid.categoryname }}<br/>
+            Ultima Visita: {{ vid.ultimavisita }}<br/>
+            Creado: {{ vid.creado }}<br/>
             
             {% if Data.video is not empty %}
                 Video: 

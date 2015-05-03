@@ -4,17 +4,27 @@
         <div id="infouser">
             ID: {{ user.id }} <br/>
             Nombre: {{ user.nombre }} <br/>
-            RFC: {{ user.apellido }} <br/>
-            Direccion: {{ user.sexo }} <br/>
-            Descripcion:{{ user.email }} <br/>
-            Telefono: {{ user.rolename }}<br/>
-            E-mail: {{ user.creado }}<br/>
-            Location_id: {{ user.planname }}<br/>
-            Latitud: {{ user.birthdate }}<br/>
-            Logintud: {{ user.expiration }}<br/>
-            Creado: {{ user.statusname }}<br/>
+            Apellido: {{ user.apellido }} <br/>
+
+            {% if user.sexo == 1 %} 
+                Sexo: Masculino<br/>
+            {%else%}
+                Sexo: Femenino<br/>
+            {% endif %}
+
+            E-Mail:{{ user.email }} <br/>
+            Rol: {{ user.rolename }}<br/>
+            Fecha de Creacion: {{ user.creado }}<br/>
+            Plan: {{ user.planname }}<br/>
+            Fecha Nacimiento: {{ user.birthdate }}<br/>
+            Fecha de Expiracion: {{ user.expiration }}<br/>
+            Status: {{ user.statusname }}<br/>
             {% if Data.photo is not empty %}
-                Foto:<img width="30%" height="30%" src="http://static.publicameenvideo.local/data/tmp/{{ Data.photo }}"> <br/>
+                {% for thephoto in Data.photo %}
+                    Foto:<img width="30%" height="30%" src="http://static.publicameenvideo.local/data/tmp/{{ thephoto.nombre }}"> <br/>
+
+                {% endfor %}
+
             {%else%} NO HAY IMAGEN DISPONI[BLE
             {% endif %}
 
