@@ -111,7 +111,29 @@ class admin extends _controller {
         $this->view("CompanyData", $data);
     }
 
-    public function insertusarios() {
+    public function insertusarios() 
+    {
+     
+        
+        //INSERTAR LA FOTO EN LA 
+        $photo = $this->Post("photo");
+        $id = "NULL";
+        $path = Config::get("Core.Path.theme") . "data/tmp/";
+        $fichero = $path . $photo;
+        $filesize = filesize($fichero);
+        $name = $photo;
+     //   $created = date("Y-m-d H:i:s", filectime($fichero));
+        $created = "NOW()";
+        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $fichero);
+        finfo_close($finfo);
+        $table = "files";
+        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
+        $idofphoto = $this->Model()->insert($table, $datosfile);
+        
+            
+        //INSERTAR USUARIO 
         $id = "NULL";
         $gender = $this->Post("gender");
         $birthdate = $this->Post("birthdate");
@@ -132,8 +154,10 @@ class admin extends _controller {
         $birthdate = "'" . $birthdate . "'";
         $expiration = "'" . $expiration . "'";
 
+        
+        //Insertar contraseña
 
-        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status);
+        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status,$idofphoto);
         $thelastid = $this->Model()->insert($table, $datos);
 
 
@@ -143,21 +167,7 @@ class admin extends _controller {
         $resp = $this->Model()->insert($table, $newdatos);
 
 
-        $photo = $this->Post("photo");
-        $path = Config::get("Core.Path.theme") . "data/tmp/";
-        $fichero = $path . $photo;
-        $filesize = filesize($fichero);
-        $name = $photo;
-        $created = date("Y-m-d H:i:s", filectime($fichero));
-        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $fichero);
-        finfo_close($finfo);
-        $table = "files";
-
-
-        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'", $thelastid, '-1');
-        $resp = $this->Model()->insert($table, $datosfile);
+        
 
 
         echo($resp);
@@ -165,13 +175,31 @@ class admin extends _controller {
 
     public function insertempresas() {
 
+        
+        $photo = $this->Post("photo");
+        $path = Config::get("Core.Path.theme") . "data/tmp/";
+        $fichero = $path . $photo;
+        $filesize = filesize($fichero);
+        $name = $photo;
+        $created = "NOW()";
+        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $fichero);
+        finfo_close($finfo);
+        $table = "files";
+
+        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
+        $idofphoto = $this->Model()->insert($table, $datosfile);
+        
+        
+        
         $id = "NULL";
         $name = "'" . $this->Post("name") . "'";
         $rfc = "'" . $this->Post("rfc") . "'";
-        $address = "'" . $this->Post("adress") . "'";
-        $description = "'" . $this->Post("lastname") . "'";
-        $phone = "'" . $this->Post("email") . "'";
-        $email = "'" . $this->Post("role") . "'";
+        $address = "'" . $this->Post("address") . "'";
+        $description = "'" . $this->Post("descripcion") . "'";
+        $phone = "'" . $this->Post("phone") . "'";
+        $email = "'" . $this->Post("email") . "'";
         $location_id = 0;
         $latitude = 0;
         $longitude = 0;
@@ -180,30 +208,18 @@ class admin extends _controller {
 
 
 
-        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created);
+        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created,$idofphoto);
         $thelastid = $this->Model()->insert($table, $datos);
 
 
-        $table = "company_paswd";
+        $table = "company_passwd";
         $password = "'" . $this->Post("password") . "'";
         $newdatos = array($thelastid, $password);
         $resp = $this->Model()->insert($table, $newdatos);
+         
+    echo($resp);
 
 
-        $photo = $this->Post("photo");
-        $path = Config::get("Core.Path.theme") . "data/tmp/";
-        $fichero = $path . $photo;
-        $filesize = filesize($fichero);
-        $name = $photo;
-        $created = date("Y-m-d H:i:s", filectime($fichero));
-        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $fichero);
-        finfo_close($finfo);
-        $table = "files";
-
-        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'", $thelastid);
-        $resp = $this->Model()->insert($table, $datosfile);
     }
 
     public function insertvideos() {

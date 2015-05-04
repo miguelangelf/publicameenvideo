@@ -553,7 +553,7 @@ function isValidEmailAddress(emailAddress) {
 function returntop()
 {
     $('#inuser').animate({
-        scrollTop: ($('#funombre').offset().top)
+       // scrollTop: ($('#fcnombre').offset().top)
     }, 500);
 
 
@@ -690,6 +690,173 @@ function validateformuser()
 
     $.post("/site/admin/insertusarios", infouser, function (response) {
         $('#inuser').modal('hide');
+
+    });
+
+
+
+
+}
+
+
+
+
+
+function validateformcompany()
+{
+    var fnombre = $("#fcnombre").val();
+    var fcon = $("#fccon").val();
+    var fcon2 = $("#fccon2").val();
+    var femail = $("#fcemail").val();
+    var frfc = $("#fcrfc").val();
+    var fdireccion = $("#fcdireccion").val();
+    var fdescripcion = $("#fcdescripcion").val();
+    var ftelefono = $("#fctelefono").val();
+    var photo = $("#photoname").val();
+
+
+
+    $("#bannermessage").empty();
+
+    if (fnombre == null || fnombre.length == 0)
+    {
+        $("#bannermessage").html("Nombre vacio <br/>");
+        $("#mybanner").show();
+        returntop();
+
+        $('#fcnombre').focus();
+        return false;
+    }
+
+    
+    if (fcon == null || fcon.length == 0)
+    {
+        $("#bannermessage").html("Contraseña Vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fccon').focus();
+        return false;
+    }
+    if (fcon != fcon2)
+    {
+        $("#bannermessage").html("Las contraseñas no coinciden <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fccon2').focus();
+        return false;
+    }
+    
+    
+    if (frfc == null || frfc.length == 0)
+    {
+        $("#bannermessage").html("RFC vacio <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fcrfc').focus();
+        return false;
+    }
+    
+    
+    
+    if (fdireccion == null || fdireccion.length == 0)
+    {
+        $("#bannermessage").html("Direccion vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fcdireccion').focus();
+        return false;
+    }
+    
+    
+    if (fdescripcion == null || fdescripcion.length == 0)
+    {
+        $("#bannermessage").html("Descripcion vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fcdescripcion').focus();
+        return false;
+    }
+    
+    
+    
+    
+    
+    if (ftelefono == null || ftelefono.length == 0)
+    {
+        $("#bannermessage").html("Telefono vacio <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fctelefono').focus();
+        return false;
+    }
+    
+    
+    
+    
+    
+    
+
+    if (femail == null || femail.length == 0)
+    {
+        $("#bannermessage").html("Email vacia <br/>");
+        $("#mybanner").show();
+
+        returntop();
+        $('#fcemail').focus();
+        return false;
+    }
+    else
+    {
+        if (!isValidEmailAddress(femail)) {
+            $("#bannermessage").html("NO ES EMAIL <br/>");
+            $("#mybanner").show();
+
+            returntop();
+            $('#fuemail').focus();
+            return false;
+        }
+        ;
+
+    }
+    
+    
+
+    if (photo == null || photo.length == 0)
+    {
+        $("#bannermessage").html("Seleccione una Foto <br/>");
+        $("#mybanner").show();
+
+
+        returntop();
+        return false;
+    }
+
+
+
+    $("#bannermessage").html("Everythings looks ok <br/>");
+    var pic = $("#photoname").val();
+
+    var infouser = {
+        name: fnombre,
+        rfc: frfc,
+        address: fdireccion,
+        descripcion: fdescripcion,
+        phone: ftelefono,
+        email: femail,
+        password: fcon,
+        photo:pic
+        
+
+    };
+
+    $.post("/site/admin/insertempresas", infouser, function (response) {
+        $('#incompany').modal('hide');
 
     });
 
