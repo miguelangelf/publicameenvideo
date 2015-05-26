@@ -6,22 +6,29 @@ class admin_model {
 
 
         $qfields = implode(",", $fieldstoselect);
-        $qwhere = "";
-        for ($i = 0; $i < sizeof($fieldstosearch); $i++) {
-            $qwhere.=$fieldstosearch[$i];
-            $qwhere.=" like '%";
-            $qwhere.=$search;
-            $qwhere.="%'";
 
-            if ($i < sizeof($fieldstosearch) - 1) {
-                $qwhere.=" OR ";
+        $qwhere = "";
+        if ($fieldstosearch != NULL) {
+            $qwhere.="(";
+            for ($i = 0; $i < sizeof($fieldstosearch); $i++) {
+                $qwhere.=$fieldstosearch[$i];
+                $qwhere.=" like '%";
+                $qwhere.=$search;
+                $qwhere.="%'";
+
+                if ($i < sizeof($fieldstosearch) - 1) {
+                    $qwhere.=" OR ";
+                }
             }
+            $qwhere.=")";
         }
 
         $extra = "";
         if ($extracondition != NULL) {
 
-            $extra = "AND (" . $extracondition . " )";
+            if ($fieldstosearch != NULL)
+                $extra.=" AND ";
+            $extra.= " (" . $extracondition . " )";
         }
 
 
@@ -32,14 +39,13 @@ class admin_model {
         }
 
         $orderby = "";
-
         if ($order != NULL) {
             $orderby = "ORDER BY " . $order;
         }
 
 
 
-        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
+        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE " . $qwhere . "" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
 
 
         $pdo = Database::executeConn($query, "publicameenvideo");
@@ -49,30 +55,38 @@ class admin_model {
             $results[] = $row;
         }
 
-        // return array("query" => $query);
         return $results;
     }
 
-    public function select2($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition, $filterfield, $condition, $filterarg) {
+    public function showselect($table, $fieldstoselect, $fieldstosearch, $search, $page, $maxnumber, $order, $extracondition, $filterfield, $condition, $filterarg) {
 
 
-        $qfields = implode(",", $fieldstoselect);
+
+
+       $qfields = implode(",", $fieldstoselect);
+
         $qwhere = "";
-        for ($i = 0; $i < sizeof($fieldstosearch); $i++) {
-            $qwhere.=$fieldstosearch[$i];
-            $qwhere.=" like '%";
-            $qwhere.=$search;
-            $qwhere.="%'";
+        if ($fieldstosearch != NULL) {
+            $qwhere.="(";
+            for ($i = 0; $i < sizeof($fieldstosearch); $i++) {
+                $qwhere.=$fieldstosearch[$i];
+                $qwhere.=" like '%";
+                $qwhere.=$search;
+                $qwhere.="%'";
 
-            if ($i < sizeof($fieldstosearch) - 1) {
-                $qwhere.=" OR ";
+                if ($i < sizeof($fieldstosearch) - 1) {
+                    $qwhere.=" OR ";
+                }
             }
+            $qwhere.=")";
         }
 
         $extra = "";
         if ($extracondition != NULL) {
 
-            $extra = "AND (" . $extracondition . " )";
+            if ($fieldstosearch != NULL)
+                $extra.=" AND ";
+            $extra.= " (" . $extracondition . " )";
         }
 
 
@@ -83,24 +97,16 @@ class admin_model {
         }
 
         $orderby = "";
-
         if ($order != NULL) {
             $orderby = "ORDER BY " . $order;
         }
 
 
 
-        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE (" . $qwhere . ")" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
+        $query = "SELECT DISTINCT " . $qfields . " FROM " . $table . " WHERE " . $qwhere . "" . $extra . " " . $filter . " " . $orderby . " LIMIT " . ($page * $maxnumber) . " , " . $maxnumber;
 
-/*
-        $pdo = Database::executeConn($query, "publicameenvideo");
-        $results = array();
-        while ($row = Database::fetch_array($pdo)) {
 
-            $results[] = $row;
-        }
-*/
-        // return array("query" => $query);
+      
         return $query;
     }
 
@@ -113,12 +119,10 @@ class admin_model {
         return $lastid;
     }
 
-    public function insert2($table, $val) {
+    public function showinsert($table, $val) {
         $values = implode(",", $val);
         $query = "INSERT INTO " . $table . " VALUES (" . $values . ") ";
-        $lacon = Database::getExternalConnection("publicameenvideo");
-        ///  $elquery = $lacon->query($query);
-        // $lastid = $lacon->lastInsertId();
+
         return $query;
     }
 
@@ -129,15 +133,20 @@ class admin_model {
         return true;
     }
 
-    public function countusers($actual, $message) {
-        $aux = $message;
-        $sql = "SELECT COUNT(*) FROM us_users where name like '%" . $aux . "%' or email like '%" . $aux . "%' or last_name like '%" . $aux . "%'   LIMIT " . ($actual * 20) . " ,20";
-        $pdo = Database::executeConn($sql, "default");
-        $results = array();
-        $row = Database::fetch_array($pdo);
-        $results[] = $row;
+    public function showdelete($table, $idfield, $lista) {
+        $strlist = implode(",", $lista);
+        $sql = "Delete from " . $table . " where " . $idfield . " in(" . $strlist . ")";
+        return $sql;
+    }
 
-        return $results;
+    public function count($table, $where) {
+        $query = "SELECT COUNT(*) as cnt FROM $table where $where";
+        //return $query;
+        $pdo = Database::executeConn($query, "publicameenvideo");
+        
+        $row = Database::fetch_row($pdo);
+        return $row["cnt"];
+        
     }
 
     public function disable_users() {
@@ -159,26 +168,6 @@ class admin_model {
         $pdo = Database::executeConn($sql, "publicameenvideo");
         $row = Database::fetch_row($pdo);
         return $row["no"];
-    }
-
-    public function empresas() {
-        $sql = "SELECT name,email FROM us_users LIMIT 20";
-        $pdo = Database::executeConn($sql, "default");
-        $results = array();
-        while ($row = Database::fetch_array($pdo)) {
-            $results[] = $row;
-        }
-        return $results;
-    }
-
-    public function videos() {
-        $sql = "SELECT email FROM us_users LIMIT 20";
-        $pdo = Database::executeConn($sql, "default");
-        $results = array();
-        while ($row = Database::fetch_array($pdo)) {
-            $results[] = $row;
-        }
-        return $results;
     }
 
 }

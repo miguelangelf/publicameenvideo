@@ -1,130 +1,75 @@
+<style>
+    .ui-widget { 
+        z-index: 5000;
+    }
 
+</style>
 
 <script>
-    $(function () {
-        $("#expirationpicker").datepicker();
-    });
-</script>
-
-<script>
-
-
-    var idoflist;
 
     $(function () {
-        var availableTags = [
-            {"idselected": "1", "label": "Aragorn", "actor": "Viggo Mortensen"},
-            {"idselected": "2", "label": "Arwen", "actor": "Liv Tyler"},
-            {"idselected": "3", "label": "Bilbo Baggins", "actor": "Ian Holm"},
-            {"idselected": "5", "label": "Boromir", "actor": "Sean Bean"},
-            {"idselected": "4", "label": "Frodo Baggins", "actor": "Elijah Wood"},
-            {"idselected": "5", "label": "Gandalf", "actor": "Ian McKellen"},
-            {"idselected": "6", "label": "Gimli", "actor": "John Rhys-Davies"},
-            {"idselected": "100", "label": "Gollum", "actor": "Andy Serkis"},
-            {"idselected": "102", "label": "Legolas", "actor": "Orlando Bloom"},
-            {"idselected": "155", "label": "Meriadoc Merry Brandybuck", "actor": "Dominic Monaghan"},
-            {"idselected": "600", "label": "Peregrin Pippin Took", "actor": "Billy Boyd"},
-            {"idselected": "954", "label": "Samwise Gamgee", "actor": "Sean Astin", otro: "milindaex"}
-        ];
-
-
-
+        var availableTags = [];
         var MIN_LENGTH = 0;
-        $(document).ready(function () {
-            $("#tags").keyup(function () {
-                var keyword = $("#tags").val();
-                if (keyword.length >= MIN_LENGTH) {
-                    $.post("/site/admin/availablecompanies", {name: keyword})
-                            .done(function (data) {
-                                var opciones = jQuery.parseJSON(data);
-                                availableTags = opciones;
 
-                                // console.log(opciones);
-                                //   console.log(availableTags);
+        $("#tags").on("keyup", function () {
+            var keyword = $("#tags").val();
+            if (keyword.length >= MIN_LENGTH) {
+                $.post("/site/admin/availablecompanies", {name: keyword})
+                        .done(function (data) {
+                            var opciones = jQuery.parseJSON(data);
+                            availableTags = opciones;
 
-                                $(function () {
-
-                                    $("#tags").autocomplete(
-                                            {
-                                                source: availableTags,
-                                                select: function (event, ui) {
-                                                    $("#tags").val(ui.item.label + "  (" + ui.item.idselected + ") ");
-
-                                                    idoflist = ui.item.idselected;
-                                                    nameoflist = ui.item.label;
-                                                    $("#selecteduser").html(nameoflist);
-                                                    //alert(idoflist);
-
-                                                    return false;
-                                                }
-                                            });
+                            $("#tags").autocomplete(
+                                    {
+                                        source: availableTags,
+                                        select: function (event, ui) {
 
 
-                                });
+                                            var idofitem = ui.item.id;
+                                            var nameofitem = ui.item.label;
+
+                                            $("#tags").val(nameofitem);
+                                            $("#selecteduser").val(idofitem);
+                                            $("#selecteduser").html(nameofitem);
+                                            return false;
+                                        }
+                                    })
+                                    .data('ui-autocomplete')._renderItem = function (ul, item) {
+                                return $("<li></li>")
+                                        .data("item.tags", item)
+                                        .append("<span>" + item.label + " (" + item.id + ")</span>")
+                                        .appendTo(ul);
+                            };
 
 
-                            });
-                }
-            });
 
+                        });
+            }
         });
 
 
-
-
-
-
-
-
-
-
-        /*
-         $("#tags").autocomplete({
-         source: availableTags
-         
-         });
-         
-         */
     });
 </script>
-
-
-
 
 
 
 <form class="form-horizontal">
 
-
-
-
-
     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Apellido</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fuapellido" placeholder="Email">
+        <label for="inputEmail3" class="col-sm-2 control-label">Titulo</label>
+        <div class="col-sm-10 has-feedback">
+            <input type="text" name="titulo" outsidename="title" class="form-control frequired ftosend" id="fvtitulo" placeholder="Titulo">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
-
-
     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Repetir Contraseña</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="fucon2" placeholder="Email">
+        <label for="inputEmail3" class="col-sm-2 control-label">Descripción</label>
+        <div class="col-sm-10 has-feedback">
+            <input type="text" name="descripcion" outsidename="description" class="form-control frequired ftosend" id="fvdescripcion" placeholder="Descripción">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
-
-
-    <style>
-        .ui-widget { 
-            z-index: 5000;
-        }
-
-    </style>
-
-
-
 
 
     <div class="form-group">
@@ -136,33 +81,47 @@
 
 
     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Usuario Seleccionado</label>
-        <div class="col-sm-10">
-            <span class="form-control" id="selecteduser" disabled ></span>
-        </div>
-    </div>
-    
-     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Vigencia</label>
-        <div class="col-sm-10">
-            <input type="text" id="expirationpicker" readonly>
-        </div>
-    </div>
+        <label for="inputEmail3" class="col-sm-2 control-label">Compañia Seleccionada</label>
+        <div class="col-sm-10 has-feedback">
+            <span type="text" name="descripcion" outsidename="company_id" class="form-control frequired ftosend" id="selecteduser" disabled ></span>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 
+        </div>
+    </div>
 
 
 
 
 
     <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Fotografia</label>
+        <label for="inputEmail3" class="col-sm-2 control-label">Categoria</label>
+        <div class="col-sm-10 has-feedback">
+            <select outsidename="category_id" name="rol" class="frequired ftosend" id="furol">
+                {% for category in Data.categories %}
 
-        <span class="btn btn-success fileinput-button">
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+
+                {% endfor %}
+            </select> 
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Video</label>
+
+        <span class="btn btn-success fileinput-button col-sm-10 has-feedback">
             <i class="glyphicon glyphicon-plus"></i>
-            <span>Seleccionar Fotografia...</span>
+            <span>Seleccionar Video...</span>
             <!-- The file input field used as target for the file upload widget -->
             <input id="fileupload" type="file" name="files[]" multiple>
+
+            <input outsidename="file_name" name="foto" value="" class="frequired ftosend ffile" type="hidden" id="photoname" />
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </span>
+
         <br/><br/>
         <div id="progress" class="progress">
             <div class="progress-bar progress-bar-success"></div>
@@ -171,22 +130,10 @@
     </div>
 
 
-    <input value="" type="hidden" id="photoname" />
-
 </div>
 
 
 </form>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -213,10 +160,7 @@
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    // alert(file.name);
-
-                    // alert(file.error);
-                    // alert(file.lastModifiedDate);
+                    
                     $("#photoname").val(file.name);
                 });
             },

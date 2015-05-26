@@ -14,8 +14,9 @@
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Nombre</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fcnombre" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="nombre" outsidename="name" type="text" class="ftosend frequired form-control" id="fcnombre" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
@@ -24,38 +25,43 @@
 
     <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="fccon" placeholder="Password">
+        <div class="col-sm-10 has-feedback">
+            <input name="Contraseña" outsidename="password" type="password" class="ftosend fpass1 frequired form-control" id="fccon" placeholder="Password">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Repetir Contraseña</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="fccon2" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="Repetir" outsidename="name" type="password" class="frequired fpass2 form-control" id="fccon2" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">RFC</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fcrfc" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="RFC" outsidename="rfc" type="text" class="ftosend frequired form-control" id="fcrfc" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Direccion</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fcdireccion" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="Direccion" outsidename="address" type="text" class="ftosend frequired form-control" id="fcdireccion" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Descripcion</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fcdescripcion" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="Descripcion" outsidename="descripcion" type="text" class="ftosend frequired form-control" id="fcdescripcion" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
@@ -63,15 +69,17 @@
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Telefono</label>
-        <div class="col-sm-10">
-            <input type="email" class="form-control" id="fctelefono" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="Telefono" outsidename="phone" type="email" class="ftosend frequired form-control" id="fctelefono" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">E-mail</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="fcemail" placeholder="Email">
+        <div class="col-sm-10 has-feedback">
+            <input name="Email" outsidename="email" type="text" class="ftosend femail frequired form-control" id="fcemail" placeholder="Email">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
     </div>
 
@@ -82,20 +90,22 @@
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Fotografia</label>
 
-        <span class="btn btn-success fileinput-button">
+        <span class="btn btn-success fileinput-button col-sm-10 has-feedback">
             <i class="glyphicon glyphicon-plus"></i>
             <span>Seleccionar Fotografia...</span>
             <!-- The file input field used as target for the file upload widget -->
             <input id="fileupload" type="file" name="files[]" multiple>
+
+            <input outsidename="photo" name="photo" value="" class="frequired ftosend ffile" type="hidden" id="photoname" />
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </span>
+
         <br/><br/>
         <div id="progress" class="progress">
             <div class="progress-bar progress-bar-success"></div>
         </div>
 
     </div>
-    
-    <input value="" type="hidden" id="photoname" />
 
 
 </div>

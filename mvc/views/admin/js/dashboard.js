@@ -411,7 +411,7 @@ var CRUD = function ()
 
 
         $.post(pagetosend, datatosend, function (response) {
-           $(".emptyform").html(response);
+            $(".emptyform").html(response);
         });
 
 
@@ -544,16 +544,13 @@ function showvideo(id, dir)
 }
 
 
-function isValidEmailAddress(emailAddress) {
-    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-    return pattern.test(emailAddress);
-}
-;
+
+
 
 function returntop()
 {
     $('#inuser').animate({
-       // scrollTop: ($('#fcnombre').offset().top)
+        // scrollTop: ($('#fcnombre').offset().top)
     }, 500);
 
 
@@ -562,138 +559,38 @@ function returntop()
 
 function validateformuser()
 {
-    var unombre = $("#funombre").val();
-    var uapellido = $("#fuapellido").val();
-    var ucon = $("#fucon").val();
-    var ucon2 = $("#fucon2").val();
-    var uemail = $("#fuemail").val();
-    var usexo = $("#fusexo").val();
-    var ucumple = $("#birthpicker").val();
-    var uexpiration = $("#expirationpicker").val();
-    var urol = $("#furol").val();
-    var uplan = $("#fuplan").val();
-    var ustatus = $("#fustatus").val();
-    var photo = $("#photoname").val();
+    if (!validaterequired())
+        return;
+    if (!validateemail())
+        return;
+    validatepasswords();
+    var thedata = startSubmit();
+
+    $.post("/site/admin/insertusarios", thedata, function (response) {
+
+        var jsonResponse = $.parseJSON(response);
+
+        for (var i = 0; i < jsonResponse.length; i++)
+        {
+
+            switch (jsonResponse[i])
+            {
+                case "E1":
+                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
+                    break;
+                case "F1":
+                    notify($(".ffile").first(), "Archivo no soportado o dañado");
+                    break;
+                case "OK":
+                    $('#inuser').modal('hide');
+                    return false;
+                    break;
+            }
 
 
 
-    $("#bannermessage").empty();
-
-    if (unombre == null || unombre.length == 0)
-    {
-        $("#bannermessage").html("Nombre vacio <br/>");
-        $("#mybanner").show();
-        returntop();
-
-        $('#funombre').focus();
-        return false;
-    }
-
-    if (uapellido == null || uapellido.length == 0)
-    {
-        $("#bannermessage").html("Apellido vacio <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fuapellido').focus();
-        return false;
-    }
-    if (ucon == null || ucon.length == 0)
-    {
-        $("#bannermessage").html("Contraseña Vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fucon').focus();
-        return false;
-    }
-    if (ucon2 != ucon)
-    {
-        $("#bannermessage").html("Las contraseñas no coinciden <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fucon2').focus();
-        return false;
-    }
-
-    if (uemail == null || uemail.length == 0)
-    {
-        $("#bannermessage").html("Email vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fuemail').focus();
-        return false;
-    }
-    else
-    {
-        if (!isValidEmailAddress(uemail)) {
-            $("#bannermessage").html("NO ES EMAIL <br/>");
-            $("#mybanner").show();
-
-            returntop();
-            $('#fuemail').focus();
-            return false;
         }
-        ;
-
-    }
-    if (ucumple == null || ucumple.length == 0)
-    {
-        $("#bannermessage").html("Fecha de Cumpleaños Vacia <br/>");
-        $("#mybanner").show();
-
-        $('#birthpicker').focus();
-        returntop();
-        return false;
-    }
-    if (uexpiration == null || uexpiration.length == 0)
-    {
-        $("#bannermessage").html("Fecha de Expiracion vacia <br/>");
-        $("#mybanner").show();
-
-        $('#expirationpicker').focus();
-        returntop();
-        return false;
-    }
-
-    if (photo == null || photo.length == 0)
-    {
-        $("#bannermessage").html("Seleccione una Foto <br/>");
-        $("#mybanner").show();
-
-
-        returntop();
-        return false;
-    }
-
-
-
-    $("#bannermessage").html("Everythings looks ok <br/>");
-    var pic = $("#photoname").val();
-
-    var infouser = {
-        gender: usexo,
-        birthdate: ucumple,
-        name: unombre,
-        lastname: uapellido,
-        email: uemail,
-        role: urol,
-        plan: uplan,
-        expiration: uexpiration,
-        status: ustatus,
-        password: ucon,
-        photo: pic
-
-    };
-
-    $.post("/site/admin/insertusarios", infouser, function (response) {
-        $('#inuser').modal('hide');
-
     });
-
-
 
 
 }
@@ -704,162 +601,48 @@ function validateformuser()
 
 function validateformcompany()
 {
-    var fnombre = $("#fcnombre").val();
-    var fcon = $("#fccon").val();
-    var fcon2 = $("#fccon2").val();
-    var femail = $("#fcemail").val();
-    var frfc = $("#fcrfc").val();
-    var fdireccion = $("#fcdireccion").val();
-    var fdescripcion = $("#fcdescripcion").val();
-    var ftelefono = $("#fctelefono").val();
-    var photo = $("#photoname").val();
 
+    if (!validaterequired())
+        return;
+    if (!validaterequired())
+        return;
+    if (!validateemail())
+        return;
+    validatepasswords();
+    var thedata = startSubmit();
 
+    $.post("/site/admin/insertempresas", thedata, function (response) {
 
-    $("#bannermessage").empty();
+        alert(response);
 
-    if (fnombre == null || fnombre.length == 0)
-    {
-        $("#bannermessage").html("Nombre vacio <br/>");
-        $("#mybanner").show();
-        returntop();
-
-        $('#fcnombre').focus();
-        return false;
-    }
-
-    
-    if (fcon == null || fcon.length == 0)
-    {
-        $("#bannermessage").html("Contraseña Vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fccon').focus();
-        return false;
-    }
-    if (fcon != fcon2)
-    {
-        $("#bannermessage").html("Las contraseñas no coinciden <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fccon2').focus();
-        return false;
-    }
-    
-    
-    if (frfc == null || frfc.length == 0)
-    {
-        $("#bannermessage").html("RFC vacio <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fcrfc').focus();
-        return false;
-    }
-    
-    
-    
-    if (fdireccion == null || fdireccion.length == 0)
-    {
-        $("#bannermessage").html("Direccion vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fcdireccion').focus();
-        return false;
-    }
-    
-    
-    if (fdescripcion == null || fdescripcion.length == 0)
-    {
-        $("#bannermessage").html("Descripcion vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fcdescripcion').focus();
-        return false;
-    }
-    
-    
-    
-    
-    
-    if (ftelefono == null || ftelefono.length == 0)
-    {
-        $("#bannermessage").html("Telefono vacio <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fctelefono').focus();
-        return false;
-    }
-    
-    
-    
-    
-    
-    
-
-    if (femail == null || femail.length == 0)
-    {
-        $("#bannermessage").html("Email vacia <br/>");
-        $("#mybanner").show();
-
-        returntop();
-        $('#fcemail').focus();
-        return false;
-    }
-    else
-    {
-        if (!isValidEmailAddress(femail)) {
-            $("#bannermessage").html("NO ES EMAIL <br/>");
-            $("#mybanner").show();
-
-            returntop();
-            $('#fuemail').focus();
-            return false;
+        var jsonResponse = $.parseJSON(response);
+        if (jsonResponse.length === 0)
+        {
+            $('#incompany').modal('hide');
+            return;
         }
-        ;
+        for (var i = 0; i < jsonResponse.length; i++)
+        {
 
-    }
-    
-    
-
-    if (photo == null || photo.length == 0)
-    {
-        $("#bannermessage").html("Seleccione una Foto <br/>");
-        $("#mybanner").show();
-
-
-        returntop();
-        return false;
-    }
-
+            switch (jsonResponse[i])
+            {
+                case "E1":
+                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
+                    break;
+                case "F1":
+                    notify($(".ffile").first(), "Archivo no soportado o dañado");
+                    break;
+                case "OK":
+                    $('#inuser').modal('hide');
+                    break;
+            }
 
 
-    $("#bannermessage").html("Everythings looks ok <br/>");
-    var pic = $("#photoname").val();
 
-    var infouser = {
-        name: fnombre,
-        rfc: frfc,
-        address: fdireccion,
-        descripcion: fdescripcion,
-        phone: ftelefono,
-        email: femail,
-        password: fcon,
-        photo:pic
-        
+        }
 
-    };
-
-    $.post("/site/admin/insertempresas", infouser, function (response) {
-        $('#incompany').modal('hide');
 
     });
-
 
 
 
@@ -868,4 +651,51 @@ function validateformcompany()
 
 
 
+function validateformvideo()
+{
 
+    
+    if (!validaterequired())
+        return;
+    if (!validaterequired())
+        return;
+    if (!validateemail())
+        return;
+    validatepasswords();
+    var thedata = startSubmit();
+
+    $.post("/site/admin/insertvideo", thedata, function (response) {
+
+
+        var jsonResponse = $.parseJSON(response);
+        if (jsonResponse.length === 0)
+        {
+            $('#invideo').modal('hide');
+            return;
+        }
+        for (var i = 0; i < jsonResponse.length; i++)
+        {
+
+            switch (jsonResponse[i])
+            {
+                case "E1":
+                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
+                    break;
+                case "F1":
+                    notify($(".ffile").first(), "Archivo no soportado o dañado");
+                    break;
+                case "OK":
+                    $('#invideo').modal('hide');
+                    break;
+            }
+
+
+
+        }
+
+
+    });
+
+
+    
+}

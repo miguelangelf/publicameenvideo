@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 class admin extends _controller {
 
@@ -8,16 +8,19 @@ class admin extends _controller {
 
     public function getmoreofuser() {
 
-
+        /*
+         * A PARTIR DEL ID ($theid) SE BUSCA TODA LA INFORMACION
+         * DEL USUARIO, AL FINAL SE OBTIENE SU FOTO
+         * 
+         */
         $theid = $this->Post("id");
-
 
         $table = "users,roles,plans,status";
         $fieldstoselect = array("users.id", "birthdate", "users.gender as sexo", "users.name as nombre", "users.last_name as apellido", "users.email", "users.plan_expiration as expiration", "users.created as creado", "roles.name as rolename", "plans.name as planname", "status.name as statusname");
-        $fieldstosearch = array("users.id");
-        $search = "";
+        $fieldstosearch = NULL;
+        $search = NULL;
         $page = 0;
-        $maxitems = 20;
+        $maxitems = 1;
         $order = NULL;
         $tablerelation = "role_id=roles.id AND plan_id=plans.id AND status_id=status.id AND users.id=$theid";
         $filterfield = NULL;
@@ -35,7 +38,6 @@ class admin extends _controller {
 
         $data["infouser"] = $moreuser;
         $data["photo"] = $photo;
-        $data["infochannel"] = $moreuser;
 
         $this->view("UserData", $data);
     }
@@ -44,9 +46,9 @@ class admin extends _controller {
         $theid = $this->Post("id");
 
         $table = "videos,files,companies,status,categories";
-        $fieldstoselect = array("videos.id as id","videos.title as titulo" ,"videos.description as descripcion", "videos.likes as likes", "videos.views as vistas", "companies.name as companyname", "status.name as statusname", "categories.name as categoryname", "videos.location_id as locid", "videos.latitude as latitud", "videos.longitude as longitud", "videos.last_view as ultimavisita", "videos.created as creado", "videos.ranking as ranking", "videos.friendly_url as furl");
-        $fieldstosearch = array("videos.id");
-        $search = "";
+        $fieldstoselect = array("videos.id as id", "videos.title as titulo", "videos.description as descripcion", "videos.likes as likes", "videos.views as vistas", "companies.name as companyname", "status.name as statusname", "categories.name as categoryname", "videos.location_id as locid", "videos.latitude as latitud", "videos.longitude as longitud", "videos.last_view as ultimavisita", "videos.created as creado", "videos.ranking as ranking", "videos.friendly_url as furl");
+        $fieldstosearch = NULL;
+        $search = NULL;
         $page = 0;
         $maxitems = 1;
         $order = NULL;
@@ -60,7 +62,7 @@ class admin extends _controller {
         $data["infovideo"] = $morevideo;
         $data["infochannel"] = $morevideo;
 
-        
+
         $table = "files,videos";
         $fieldstoselect = array("name as nombre");
         $fieldstosearch = array("files.id");
@@ -83,10 +85,10 @@ class admin extends _controller {
 
         $table = "users,roles,plans,status,companies";
         $fieldstoselect = array("companies.id as id", "companies.name as nombre", "companies.RFC as rfc", "companies.address as direccion", "companies.description as descripcion", "companies.phone as telefono", "companies.email as email", "companies.location_id as ubicacion", "companies.latitude as latitud", "companies.longitude as longitud", "companies.created as fechacreacion");
-        $fieldstosearch = array("companies.id");
-        $search = "";
+        $fieldstosearch = NULL;
+        $search = NULL;
         $page = 0;
-        $maxitems = 20;
+        $maxitems = 1;
         $order = NULL;
         $tablerelation = "role_id=roles.id AND plan_id=plans.id AND status_id=status.id AND companies.id=$theid";
         $filterfield = NULL;
@@ -104,17 +106,40 @@ class admin extends _controller {
 
         $data["photo"] = $photo;
         $data["infochannel"] = $moreuser;
-        
-        
+
+
         $data["infocompany"] = $morecompany;
 
         $this->view("CompanyData", $data);
     }
 
-    public function insertusarios() 
-    {
-     
-        
+    public function storedemail($table, $where) {
+        $numofemails = $this->Model()->count($table, $where);
+        $intnum = intval($numofemails);
+        //echo $intnum;
+
+        if ($intnum != 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function insertusarios() {
+
+        $errores = array();
+
+        $email = $this->Post("email");
+        $table = "users";
+        $where = "email='$email'";
+
+        $res = $this->storedemail($table, $where);
+
+        if ($res == 1) {
+            $errores[sizeof($errores)] = "E1";
+        }
+
+
         //INSERTAR LA FOTO EN LA 
         $photo = $this->Post("photo");
         $id = "NULL";
@@ -122,17 +147,29 @@ class admin extends _controller {
         $fichero = $path . $photo;
         $filesize = filesize($fichero);
         $name = $photo;
-     //   $created = date("Y-m-d H:i:s", filectime($fichero));
+        //   $created = date("Y-m-d H:i:s", filectime($fichero));
         $created = "NOW()";
         $extension = pathinfo($fichero, PATHINFO_EXTENSION);
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $fichero);
+        if (strpos($mime, 'image') === false) {
+            $errores[sizeof($errores)] = "F1";
+        }
+
+        if (sizeof($errores) != 0) {
+            echo (json_encode($errores));
+            return;
+        }
+
+
+        //A partir de aqui no hay errores y se almcaena en la base de datos
+
         finfo_close($finfo);
         $table = "files";
         $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
         $idofphoto = $this->Model()->insert($table, $datosfile);
-        
-            
+
+
         //INSERTAR USUARIO 
         $id = "NULL";
         $gender = $this->Post("gender");
@@ -154,10 +191,10 @@ class admin extends _controller {
         $birthdate = "'" . $birthdate . "'";
         $expiration = "'" . $expiration . "'";
 
-        
+
         //Insertar contraseña
 
-        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status,$idofphoto);
+        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status, $idofphoto);
         $thelastid = $this->Model()->insert($table, $datos);
 
 
@@ -167,15 +204,29 @@ class admin extends _controller {
         $resp = $this->Model()->insert($table, $newdatos);
 
 
-        
 
+        $errores[sizeof($errores)] = "OK";
 
-        echo($resp);
+        echo (json_encode($errores));
     }
 
     public function insertempresas() {
 
-        
+        $errores = array();
+
+        $email = $this->Post("email");
+        $table = "companies";
+        $where = "email='$email'";
+
+
+        $res = $this->storedemail($table, $where);
+
+        if ($res == 1) {
+
+            $errores[sizeof($errores)] = "E1";
+        }
+
+
         $photo = $this->Post("photo");
         $path = Config::get("Core.Path.theme") . "data/tmp/";
         $fichero = $path . $photo;
@@ -186,13 +237,25 @@ class admin extends _controller {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $fichero);
         finfo_close($finfo);
+
+        if (strpos($mime, 'image') === false) {
+            $errores[sizeof($errores)] = "F1";
+        }
+
+        if (sizeof($errores) != 0) {
+            echo (json_encode($errores));
+            return;
+        }
+
+
+
         $table = "files";
 
         $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
         $idofphoto = $this->Model()->insert($table, $datosfile);
-        
-        
-        
+
+
+
         $id = "NULL";
         $name = "'" . $this->Post("name") . "'";
         $rfc = "'" . $this->Post("rfc") . "'";
@@ -208,7 +271,7 @@ class admin extends _controller {
 
 
 
-        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created,$idofphoto);
+        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created, $idofphoto);
         $thelastid = $this->Model()->insert($table, $datos);
 
 
@@ -216,34 +279,102 @@ class admin extends _controller {
         $password = "'" . $this->Post("password") . "'";
         $newdatos = array($thelastid, $password);
         $resp = $this->Model()->insert($table, $newdatos);
-         
-    echo($resp);
 
-
+        echo("OK");
     }
 
-    public function insertvideos() {
+    public function insertfile($filename) {
+
+        $directory = Config::get("Core.Path.theme") . "data/tmp/";
+        $path = $directory . $filename;
+
+        $id = "NULL";
+        $name = "'$filename'";
+        $location = "''";
+        $created = "NOW()";
+        $size = filesize($path);
+        $extension = "'" . pathinfo($path, PATHINFO_EXTENSION) . "'";
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = "'" . finfo_file($finfo, $path) . "'";
+        finfo_close($finfo);
+
+        $fileinfo = array($id, $name, $location, $created, $size, $extension, $mime);
+
+        return $fileinfo;
+    }
+
+    public function checkmime($filename, $expected) {
+        $directory = Config::get("Core.Path.theme") . "data/tmp/";
+        $path = $directory . $filename;
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $path);
+        finfo_close($finfo);
+
+        if (strpos($mime, $expected) === false)
+            return false;
+        else
+            return true;
+    }
+
+    public function insertvideo() {
 
         /*
-          $id = "NULL";
-          $name = "'" . $this->Post("name") . "'";
-          $rfc = "'" . $this->Post("rfc") . "'";
-          $address = "'" . $this->Post("adress") . "'";
-          $description = "'" . $this->Post("lastname") . "'";
-          $phone = "'" . $this->Post("email") . "'";
-          $email = "'" . $this->Post("role") . "'";
-          $location_id = 0;
-          $latitude = 0;
-          $longitude = 0;
-          $created = "NOW()";
-          $table = "companies";
-
-
-
-          $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created);
-          $thelastid = $this->Model()->insert($table, $datos);
          * 
+         * ACTUALMENTE ESTE METODO RECIBE LA INFORMACION DE UN VIDEO
+         * GUARDA EL ARCHIVO DE VIDEO EN LA TABLA "FILES"
+         * ESPERA EL ID QUE SE ASIGNO AL ARCHIVO Y SE GUARDA EN LA TABLA "VIDEOS"
          */
+
+        $errores = array();
+
+        //campos para la tabla videos
+        $id = "NULL";
+        $title = $this->Post("title");
+        $description = $this->Post("description");
+        $likes = 0;
+        $file_id;
+        $views = 0;
+        $company_id = $this->Post("company_id");
+        $status_id = $this->Post("company_id");
+        $category_id = $this->Post("category_id");
+        $location_id = 0;
+        $latitude = 0;
+        $longitude = 0;
+        $lastview = "NOW()";
+        $created = "NOW()";
+        $ranking = 0;
+        $keywords_search="";
+        $friendly_url="";
+
+
+
+
+        //campos para la tabla files
+        $filename = $this->Post("file_name");
+        $fileinfo = $this->insertfile($filename);
+        $table = "files";
+
+        $validmime = "video/webm";
+        $isvalidfile = $this->checkmime($filename, $validmime);
+
+        if (!$isvalidfile)
+            $errores[sizeof($errores)] = "F1";
+
+        if (sizeof($errores) > 0) {
+            echo(json_encode($errores));
+            return;
+        }
+
+        $file_id = $this->Model()->insert($table, $fileinfo);
+
+
+        $table = "videos";
+        $datos = array($id, "'$title'", "'$description'", $likes, $file_id, $views, $company_id, $status_id, $category_id, $location_id, $latitude, $longitude, $lastview, $created, $ranking, "'$keywords_search'","'$friendly_url'");
+        $thelastid = $this->Model()->insert($table, $datos);
+        
+       
+        $errores[sizeof($errores)]="OK";
+        echo(json_encode($errores));
     }
 
     //SELECCIONA USUARIOS EMPRESAS VIDEOS
@@ -500,6 +631,7 @@ class admin extends _controller {
 
         $fieldstoselect = array("*");
         $fieldstosearch = array("id");
+
         $search = "";
         $page = 0;
         $maxitems = 20;
@@ -513,11 +645,15 @@ class admin extends _controller {
         $plan = $this->Model()->select("plans", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
         $status = $this->Model()->select("status", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
 
+        //$fieldstosearch = NULL;
+        //$role2 = $this->Model()->showselect("roles", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
 
 
         $data["role"] = $role;
         $data["plan"] = $plan;
         $data["status"] = $status;
+        $data["auxiliarinfo"] = $role2;
 
         $this->view("FormInsertUser", $data);
     }
@@ -528,6 +664,23 @@ class admin extends _controller {
 
     public function getitemstoinsertvideo() {
 
+
+        $fieldstoselect = array("*");
+        $fieldstosearch = array("id");
+
+        $search = "";
+        $page = 0;
+        $maxitems = 20;
+        $order = NULL;
+        $tablerelation = NULL;
+        $filterfield = NULL;
+        $condition = NULL;
+        $filterarg = NULL;
+
+        $categories = $this->Model()->select("categories", $fieldstoselect, $fieldstosearch, $search, $page, $maxitems, $order, $tablerelation, $filterfield, $condition, $filterarg);
+
+
+        $data["categories"] = $categories;
         $this->view("FormInsertVideo", $data);
     }
 
@@ -535,7 +688,7 @@ class admin extends _controller {
 
         $name = $this->Post("name");
         $table = "companies";
-        $fieldstoselect = array("companies.name as label", "companies.id as idselected");
+        $fieldstoselect = array("companies.name as label", "companies.id as id", "companies.email as email");
         $fieldstosearch = array("companies.name");
         $search = $name;
         $page = 0;
