@@ -10,6 +10,7 @@ function nofeedback(container, icon)
     container.removeClass("has-error");
     container.removeClass("has-success");
     container.removeClass("has-warning");
+    container.removeClass("focusable");
     icon.removeClass("glyphicon-remove");
     icon.removeClass("glyphicon-ok");
     icon.removeClass("glyphicon-warning-sign")
@@ -78,6 +79,7 @@ function startSubmit()
 function showMessage(toolt, message)
 {
 
+
     toolt.attr("title", message);
     toolt.attr("data-placement", "left");
     toolt.tooltip('show');
@@ -96,6 +98,7 @@ function showok(container, icon)
 function showerror(container, icon)
 {
     container.addClass("has-error");
+    container.addClass("focusable");
     icon.addClass("glyphicon-remove");
 
 }
@@ -103,6 +106,7 @@ function showerror(container, icon)
 function showwarning(container, icon)
 {
     container.addClass("has-warning");
+    container.addClass("focusable");
     icon.addClass("glyphicon-warning-sign");
 }
 
@@ -150,6 +154,7 @@ function validatepasswords()
         showok(containerparent2, nextglyphicon2);
 
     }
+    return success;
 
 }
 
@@ -198,6 +203,41 @@ function validateemail()
 
     });
     return success;
+}
+
+function standardvalidation()
+{
+    var passed = true;
+    if (!validaterequired())
+        passed = false;
+    if (!validateemail())
+        passed = false;
+    if (!validatepasswords())
+        passed = false;
+
+    if(!passed)returntop();
+
+    return passed;
+
+
+}
+
+function returntop()
+{
+    var firstcontainererror= $(".focusable").first();
+    var firstinputerror=firstcontainererror.children("input");
+    
+    
+    $('.mastercontainer').first().animate({    
+        
+        
+         scrollTop: (firstinputerror.offset().top)
+    }, 500,function(){
+        firstinputerror.focus()
+        
+    });
+
+
 }
 
 function validaterequired()

@@ -14,7 +14,7 @@
 <!-- BUSCADO Y FILTRADO-->
 <div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="SelectAll.search(this);" class="form-control" placeholder="Buscar">
     </span>
     <span class="pull-right a20">
         {% include('opcionesuser.twig') %}
@@ -65,12 +65,12 @@
 <div class="a100 ">
 
     {{Data.path}}
-    <button type="button" onclick="Change.insertuser();" class="btn btn-primary pull-right" >
+    <button type="button" onclick="Insert.modaluser();" class="btn btn-primary pull-right" >
         Agregar Usuario
     </button>
 
 
-    <button type="button"  onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+    <button type="button"  onclick="Change.usuario(1);" class="btn btn-primary pull-right" >
         Eliminar Usuarios
     </button>
 
@@ -91,13 +91,8 @@
     {
         $('#showmoreuser').modal('show');
         var theid = $(this).attr('value');
-        var thepage = "/site/admin/getmoreofuser";
-        var datatosend = {
-            id: theid
-        };
-        $.post(thepage, datatosend, function (response) {
-            $("#allofmyuser").html(response);
-        });
+        SelectSpecific.usuario(theid);
+        
     });
 
 

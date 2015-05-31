@@ -9,7 +9,7 @@
 
 <div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="SelectAll.search(this);" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
@@ -62,23 +62,21 @@
 <div class="a100 ">
 
 
-    <button type="button" onclick="Change.insertvideo();" class="btn btn-primary pull-right" >
+    <button type="button" onclick="Insert.modalvideo()" class="btn btn-primary pull-right" >
         Agregar Video
     </button>
 
-    <button type="button" onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+    <button type="button" onclick="Change.video(1);" class="btn btn-primary pull-right" >
         Eliminar Video
     </button>
 
 
 </div>
 
-
 <script>
 
     $('.mycheckbox').click(function (e)
     {
-        //alert("AHAY");
 
         e.stopPropagation();
 
@@ -88,27 +86,9 @@
     {
         $('#showmoreuser').modal('show');
         var theid = $(this).attr('value');
+        SelectSpecific.video(theid);
 
-        //alert("tontonuel");
-
-        var thepage = "/site/admin/getmoreofvideo";
-
-        var datatosend = {
-            id: theid
-        };
-
-
-        $.post(thepage, datatosend, function (response) {
-            $("#allofmyuser").html(response);
-
-        });
     });
 
 
-
-    $('#showmoreuser').on('hidden.bs.modal', function () {
-        $("#vidid").trigger("pause");
-    })
-
 </script>
-

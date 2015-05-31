@@ -1,403 +1,162 @@
-var url;
-var data;
-var urlaux;
 
-
-
-//SOLICITAR PAGINA------------------
-
-var pagename;
-var maxitems;
-var searchdata;
-var category;
-var actualpage;
-
-var file;
-
-
-var path;
-
-
-//ELIMINAR-BLOQUEAR-APROBAR
-var listofitems = [];
-var action;
-var origin;
-
-var modaloption;
-
-
-
-function createdatapage()
+var selectSpecificService = function ()
 {
-    data = {
-        pagename: pagename,
-        maxitems: maxitems,
-        search: searchdata,
-        category: category,
-        actualpage: actualpage
+    var url;
+    var id;
 
-
-    };
-
-}
-
-function createdatamanage()
-{
-    data = {
-        elements: JSON.stringify(listofitems),
-        action: action
-
-    };
-}
-
-
-function GetChecked()
-{
-
-    listofitems.length = 0;
-    $('.modallist').empty();
-    $('.modalsend').show();
-
-    var vacio = true;
-
-    $('.checkbox').each(function (index, value) {
-        if ($(this).is(':checked')) {
-            var theid = $(this).attr("mainid");
-            listofitems.push(theid);
-
-            var info = $(this).val();
-
-
-            $('.modallist').append(info);
-            $('.modallist').append("<br>");
-            vacio = false;
-
-        } else {
-        }
-    });
-
-
-    if (vacio)
+    this.send = function ()
     {
-        $('.modallist').append("No hay elementos seleccionados");
-        $('.modalsend').hide();
+        var iddata = {
+            id: this.id
 
-    }
-    else
-    {
-
-
-    }
-}
-
-
-
-function SetPageNumber()
-{
-    var mypagenumber = actualpage;
-    mypagenumber++;
-    $('.numpage').html("Página " + mypagenumber);
-
-
-}
-
-
-function JustSend()
-{
-
-
-    $.post(urlaux, data, function (response) {
-        // createdatapage();
-        Notify.refresh();
-        //SendData();
-        hidelist();
-    });
-}
-
-function SendData()
-{
-
-
-    $.post(url, data, function (response) {
-
-        $("#content-panel").html(response);
-        SetPageNumber();
-        Notify.refresh();
-        $("#buscador").focus();
-        $("#buscador").val(searchdata);
-
-    });
-
-}
-
-//CORRECTO
-
-function hidelist()
-{
-    for (var i = 0; i < listofitems.length; i++)
-    {
-
-        var nameelement = "#tr" + listofitems[i];
-
-        $(nameelement).remove();
-
-    }
-
-
-}
-
-
-var Notifications = function () {
-    // this.no_users;
-
-    this.refresh = function () {
-        var parent = this;
-        $.post("/site/admin/notificaciones/usuarios", null, function (response) {
-            var jsonResponse = $.parseJSON(response);
-            parent.no_users = jsonResponse.no_users;
-            parent.no_unapproved = jsonResponse.no_unapproved;
-            parent.no_companies = jsonResponse.no_companies;
-            $("#user-notifications-number").html(parent.no_users);
-            $("#video-notifications-number").html(parent.no_unapproved);
-            $("#companies-notifications-number").html(parent.no_companies);
+        };
+        var context = this;
+        $.post(url, iddata, function (response) {
+            context.loadinfo(response);
         });
 
     };
-};
 
-
-
-
-var Communicator = function () {
-
-    this.load = function (page) {
-
-        searchdata = "";
-        category = 0;
-        actualpage = 0;
-        maxitems = 0;
-
-
-        switch (page) {
-            case "usuarios":
-                $(".menuitem").attr('class', 'menuitem');
-                $("#usuarios").attr('class', 'menuitem active');
-                url = "/site/admin/usuarios";
-                pagename = 'Usuarios';
-                createdatapage();
-                SendData();
-                break;
-
-
-            case "empresas":
-                $(".menuitem").attr('class', 'menuitem');
-                $("#empresas").attr('class', 'menuitem active');
-                url = "/site/admin/empresas";
-                pagename = 'Empresas';
-                createdatapage();
-                SendData();
-                break;
-
-            case "videos":
-                $(".menuitem").attr('class', 'menuitem');
-                $("#videos").attr('class', 'menuitem active');
-                url = "/site/admin/videos";
-                pagename = 'Videos';
-                createdatapage();
-                SendData();
-                break;
-        }
-    };
-
-
-
-    this.changepage = function (numberpage)
+    this.loadinfo = function (response)
     {
+        $(".containerinfo").html(response);
 
-        switch (numberpage)
-        {
-            case "menos":
-                actualpage -= 1;
-                break;
-            case "mas":
-                actualpage += 1;
-                break;
+    }
 
-        }
-
-        createdatapage();
-        SendData();
+    this.usuario = function (id)
+    {
+        url = "/site/admin/getmoreofuser";
+        this.id = id;
+        this.send();
 
     };
 
-
-    this.changecategory = function (categoria)
+    this.empresa = function (id)
     {
-        category = categoria;
-        actualpage = 0;
-        searchdata = "";
-        createdatapage();
-        SendData();
-
+        url = "/site/admin/getmoreofcompany";
+        this.id = id;
+        this.send();
     };
 
-    this.search = function (valor)
+    this.video = function (id)
     {
-        actualpage = 0;
-        searchdata = valor.value;
-        createdatapage();
-        SendData();
+        url = "/site/admin/getmoreofvideo";
+        this.id = id;
+        this.send();
 
     };
 
 };
 
-var CRUD = function ()
+var insertService = function ()
 {
+    var url;
+    var formdata;
 
 
-    this.preparemodal = function (picked)
+    this.dictionary = function (response)
     {
 
-        GetChecked();
+        var context = this;
+        //  alert(response);
+        var criticalerror = "Error critico, La operación no logro terminarse exitosamente";
+        var jsonResponse;
 
-        modaloption = picked;
 
-
-        switch (pagename)
+        try
         {
-
-            case "Usuarios":
-                //  alert("usuarios");
-
-                switch (modaloption)
-                {
-                    case 1:
-                        $('#modallabel').html("Eliminar Usuario");
-                        $('#modalmessage').html("¿Esta seguro que desa ELIMINAR los siguientes usuarios?");
-                        break;
-                    case 2:
-                        $('#modallabel').html("Eliminar Usuario");
-                        $('#modalmessage').html("¿Esta seguro que desa eliminar este usuario?");
-                        break;
-                    case 3:
-                        $('#modallabel').html("Suspender Usuario");
-                        $('#modalmessage').html("¿Esta seguro que desa suspender este usuario?");
-                        break;
-
-
-                }
-                break;
-
-            case "Empresas":
-                // alert("empresas"); 
-                switch (modaloption)
-                {
-                    case 1:
-                        // alert("jodertio");
-                        $('#modallabel').html("Eliminar Empresa");
-                        $('#modalmessage').html("¿Esta seguro que desea ELIMINAR las siguientes empresas?");
-                        break;
-                    case 2:
-                        $('#modallabel').html("Bloquear Empresa");
-                        $('#modalmessage').html("¿Esta seguro que desa bloquear esta empresa?");
-                        break;
-                    case 3:
-                        $('#modallabel').html("Eliminar Empresa");
-                        $('#modalmessage').html("¿Esta seguro que desa eliminar esta empresa?");
-                        break;
-
-
-                }
-                break;
-
-            case "Videos":
-                // alert("empresas"); 
-                switch (modaloption)
-                {
-                    case 1:
-                        //  alert("entro a eliminar video");
-                        $('#modallabel').html("Eliminar VID");
-                        $('#modalmessage').html("¿Esta seguro que desea ELIMINAR los siguientes videos?");
-                        break;
-                    case 2:
-                        $('#modallabel').html("Bloquear VID");
-                        $('#modalmessage').html("¿Esta seguro que desa bloquear esta empresa?");
-                        break;
-                    case 3:
-                        $('#modallabel').html("Eliminar VID que desa eliminar esta empresa?");
-                        break;
-
-
-                }
-                break;
-
-
+            jsonResponse = $.parseJSON(response);
+        }
+        catch (e)
+        {
+            alert(criticalerror);
+            return false;
         }
 
 
-        $('#genericmodal').modal('show');
+        if (jsonResponse.length === 0)
+        {
+            alert(criticalerror);
+            return false;
+        }
 
 
-
-    };
-
-    this.shvideo = function (id, src)
-    {
-
-        path = src;
-        path += "como.mp4";
-
-        //alert(path);
-
-        $('#ModalVid').modal('show');
-
-        // $("#videospace").attr("src", path)
-
-
-    };
-
-    this.upload = function ()
-    {
-        $('#upvideo').modal('show');
-
-    };
-
-    this.makechange = function ()
-    {
-        //1 Elimina
-        //2 Bloquea
-        action = modaloption;
-
-        $('#genericmodal').modal('hide');
-
-
-
-        switch (pagename)
+        for (var i = 0; i < jsonResponse.length; i++)
         {
 
-            case "Usuarios":
-                urlaux = "/site/admin/delusuarios";
-                break;
+            switch (jsonResponse[i])
+            {
+                case "E1":
+                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
+                    break;
+                case "F1":
+                    notify($(".ffile").first(), "Archivo no soportado o dañado");
+                    break;
+                case "OK":
 
-            case "Empresas":
-                urlaux = "/site/admin/delempresas";
-                break;
+                    return true;
 
-            case "Videos":
-                urlaux = "/site/admin/delvideos";
-                break;
+
+                    break;
+            }
         }
-        // hidelist();
-        createdatamanage();
-        JustSend();
+
+        return false;
+
+
+    };
+
+    this.send = function (url, formdata)
+    {
+        var context = this;
+        $.post(url, formdata, function (response) {
+            var r = context.dictionary(response);
+            if (r)
+            {
+                context.refreshpage();
+                $('.mastercontainer').modal('hide');
+                
+            }
+
+        });
+
+    };
+
+    this.refreshpage = function ()
+    {
+        SelectAll.send();
+        Notify.refresh();
+
     };
 
 
-    this.insertuser = function ()
+    this.insertusuarios = function () {
+
+        url = "/site/admin/insertusarios";
+        if (!standardvalidation())
+            return false;
+        formdata = startSubmit();
+        this.send(url, formdata);
+    };
+
+    this.insertempresas = function () {
+        url = "/site/admin/insertempresas";
+        if (!standardvalidation())
+            return false;
+        formdata = startSubmit();
+        this.send(url, formdata);
+    };
+
+    this.insertvideo = function () {
+        url = "/site/admin/insertvideo";
+        if (!standardvalidation())
+            return false;
+        formdata = startSubmit();
+        this.send(url, formdata);
+    };
+
+    this.modaluser = function ()
     {
-
-
         var namemodal = "#inuser";
         $(namemodal).modal('show');
         $("#mybanner").hide();
@@ -414,14 +173,10 @@ var CRUD = function ()
             $(".emptyform").html(response);
         });
 
-
-
-
     };
 
 
-
-    this.insertcompany = function ()
+    this.modalempresa = function ()
     {
         var namemodal = "#incompany";
         $(namemodal).modal('show');
@@ -446,7 +201,7 @@ var CRUD = function ()
     };
 
 
-    this.insertvideo = function ()
+    this.modalvideo = function ()
     {
 
         var namemodal = "#invideo";
@@ -471,16 +226,348 @@ var CRUD = function ()
     };
 
 
+
+};
+
+var selectAllService = function ()
+{
+    var url;
+    var pagename;
+    var maxitems;
+    var searchdata;
+    var category;
+    var actualpage;
+    var submitdata;
+
+    this.preparedata = function ()
+    {
+        this.submitdata = {
+            pagename: this.pagename,
+            maxitems: this.maxitems,
+            search: this.searchdata,
+            category: this.category,
+            actualpage: this.actualpage
+
+        };
+
+    };
+
+
+
+
+    this.send = function () {
+
+        this.preparedata();
+        var context = this;
+        $.post(this.url, this.submitdata, function (response) {
+            context.loadinfo(response);
+        });
+    };
+
+
+    this.loadinfo = function (response)
+    {
+        $("#content-panel").html(response);
+
+        $("#buscador").focus();
+        $("#buscador").val(this.searchdata);
+        Notify.refresh();
+        this.updatepagenumber();
+
+
+
+    };
+
+
+    this.categoria = function (category)
+    {
+        this.category = category;
+        this.actualpage = 0;
+        this.searchdata = "";
+        this.send();
+
+
+    };
+
+    this.updatepagenumber = function ()
+    {
+        $(".numpage").html(this.actualpage + 1);
+    }
+
+
+    this.changepage = function (option)
+    {
+        switch (option)
+        {
+            case "+":
+                this.actualpage += 1;
+                break;
+            case "-":
+                this.actualpage -= 1;
+                break;
+
+        }
+        this.send();
+
+    };
+
+
+    this.usuarios = function ()
+    {
+        this.url = "/site/admin/usuarios";
+        this.pagename = "Usuarios";
+        this.searchdata = "";
+        this.category = 0;
+        this.actualpage = 0;
+        this.maxitems = 20;
+        $(".menuitem").removeClass('active');
+        $("#usuarios").addClass('active');
+        this.send();
+    };
+
+    this.empresas = function ()
+    {
+        this.pagename = "Empresas";
+        this.url = "/site/admin/empresas";
+        this.searchdata = "";
+        this.category = 0;
+        this.actualpage = 0;
+        this.maxitems = 20;
+        $(".menuitem").removeClass('active');
+        $("#empresas").addClass('active');
+        this.send();
+    };
+
+    this.videos = function ()
+    {
+
+        this.url = "/site/admin/videos";
+        this.pagename = "Videos";
+        this.searchdata = "";
+        this.category = 0;
+        this.actualpage = 0;
+        this.maxitems = 20;
+        $(".menuitem").removeClass('active');
+        $("#videos").addClass('active');
+        this.send();
+    };
+
+    this.search = function (valor)
+    {
+        this.actualpage = 0;
+        this.searchdata = valor.value;
+        this.send();
+
+    };
+
+
+};
+
+var Notifications = function ()
+{
+
+    this.refresh = function () {
+        var noti = this;
+
+        $.post("/site/admin/notificaciones", null, function (response) {
+
+            var jsonResponse = $.parseJSON(response);
+
+            noti.no_users = jsonResponse.no_users;
+            noti.no_unapproved = jsonResponse.no_unapproved;
+            noti.no_companies = jsonResponse.no_companies;
+            $("#user-notifications-number").html(noti.no_users);
+            $("#video-notifications-number").html(noti.no_unapproved);
+            $("#companies-notifications-number").html(noti.no_companies);
+        });
+
+    };
+
+
+};
+
+var ChangeService = function ()
+{
+
+    var url;
+    var list;
+    var option;
+
+    this.initializelist = function ()
+    {
+        list = [];
+    };
+
+    this.send = function ()
+    {
+        var context = this;
+        var data = {
+            elements: JSON.stringify(list),
+            action: this.option
+        };
+
+        $.post(this.url, data, function (response) {
+            context.refreshpage();
+            $('#genericmodal').modal('hide');
+
+        });
+
+    };
+
+    this.refreshpage = function ()
+    {
+        SelectAll.send();
+        Notify.refresh();
+
+    };
+
+    this.getchecked = function ()
+    {
+
+        list.length = 0;
+        $('.modallist').empty();
+        $('.modalsend').show();
+
+        var vacio = true;
+
+        $('.checkbox').each(function (index, value) {
+            if ($(this).is(':checked')) {
+                var theid = $(this).attr("mainid");
+                list.push(theid);
+
+                var info = $(this).val();
+
+
+                $('.modallist').append(info);
+                $('.modallist').append("<br>");
+                vacio = false;
+
+            } else {
+            }
+        });
+
+
+        if (vacio)
+        {
+            $('.modallist').append("No hay elementos seleccionados");
+            $('.modalsend').hide();
+
+        }
+        else
+        {
+
+
+        }
+
+    };
+
+    this.usuario = function (option)
+    {
+        this.option = option;
+        this.getchecked();
+        $('#genericmodal').modal('show');
+        this.url = "/site/admin/delusuarios";
+        //Bloquear, eliminar, activar, etc... se relizan enviando la misma listas al mismo metodo
+        //se diferencia mediante la variable option
+        switch (option)
+        {
+            case 1:
+                $('#modallabel').html("Eliminar Usuario");
+                $('#modalmessage').html("¿Esta seguro que desa eliminar los siguientes usuarios?");
+
+                break;
+            case 2:
+                $('#modallabel').html("*** Usuario");
+                $('#modalmessage').html("¿Esta seguro que desa *** los siguientes usuarios?");
+
+                break;
+            case 3:
+                $('#modallabel').html("*** Usuario");
+                $('#modalmessage').html("¿Esta seguro que desa *** los siguientes usuarios?");
+
+                break;
+        }
+    };
+
+    this.empresa = function (option)
+    {
+        this.option = option;
+        this.getchecked();
+        $('#genericmodal').modal('show');
+
+        this.url = "/site/admin/delempresas";
+        switch (option)
+        {
+            case 1:
+                // alert("jodertio");
+                $('#modallabel').html("Eliminar Empresa");
+                $('#modalmessage').html("¿Esta seguro que desea eliminar las siguientes empresas?");
+                break;
+            case 2:
+                $('#modallabel').html("*** Empresa");
+                $('#modalmessage').html("¿Esta seguro que desa bloquear *** las siguientes empresas?");
+                break;
+            case 3:
+                $('#modallabel').html("*** Empresa");
+                $('#modalmessage').html("¿Esta seguro que desa *** las siguientes empresas?");
+                break;
+
+
+        }
+
+    };
+
+    this.video = function (option)
+    {
+        this.option = option;
+        this.getchecked();
+        $('#genericmodal').modal('show');
+
+        this.url = "/site/admin/delvideos";
+        switch (option)
+        {
+            case 1:
+                //  alert("entro a eliminar video");
+                $('#modallabel').html("Eliminar Video");
+                $('#modalmessage').html("¿Esta seguro que desea eliminar los siguientes videos?");
+                break;
+            case 2:
+                $('#modallabel').html("*** video");
+                $('#modalmessage').html("¿Esta seguro que desa *** los siguientes videos?");
+                break;
+            case 3:
+                $('#modallabel').html("*** video");
+                $('#modalmessage').html("¿Esta seguro que desa *** los siguientes videos?");
+                break;
+
+
+        }
+
+    };
+
+
+
+
+
+
+
+
+    this.makechange = function ()
+    {
+        this.send();
+    };
+
+
+
 };
 
 
 
-
-
-
-var Comm;
-var Change;
 var Notify;
+var Insert;
+var SelectSpecific;
+var SelectAll;
+var Change;
 
 $(document).ready(function () {
     console.log("Loaded");
@@ -488,214 +575,14 @@ $(document).ready(function () {
         $('.row-offcanvas').toggleClass('active');
     });
 
-
-    Comm = new Communicator();
     Notify = new Notifications();
-    Change = new CRUD();
-
-    Comm.load('usuarios');
-    Notify.refresh();
-    search = "";
-
-
-
+    Change = new ChangeService();
+    Change.initializelist();
+    Insert = new insertService();
+    SelectSpecific = new selectSpecificService();
+    SelectAll = new selectAllService();
+    SelectAll.usuarios();
 
 });
 
 
-
-
-/*jslint unparam: true */
-/*global window, $ */
-
-
-
-
-
-function redirect()
-{
-    document.getElementById('my_form').target = 'my_iframe';
-    document.getElementById('my_form').submit();
-
-
-}
-
-
-
-function SubirFile()
-{
-
-    var selectedFile = $('#input').get(0).files[0];
-    var numFiles = files.selectedFile;
-    echo(numFiles);
-}
-
-function showvideo(id, dir)
-{
-    //alert("WOLOLO");
-    path = dir;
-    path += "como.mp4";
-
-    alert(path);
-
-    $('#ModalVid').modal('show');
-    $('#videospace').attr('src', path);
-
-}
-
-
-
-
-
-function returntop()
-{
-    $('#inuser').animate({
-        // scrollTop: ($('#fcnombre').offset().top)
-    }, 500);
-
-
-}
-
-
-function validateformuser()
-{
-    if (!validaterequired())
-        return;
-    if (!validateemail())
-        return;
-    validatepasswords();
-    var thedata = startSubmit();
-
-    $.post("/site/admin/insertusarios", thedata, function (response) {
-
-        var jsonResponse = $.parseJSON(response);
-
-        for (var i = 0; i < jsonResponse.length; i++)
-        {
-
-            switch (jsonResponse[i])
-            {
-                case "E1":
-                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
-                    break;
-                case "F1":
-                    notify($(".ffile").first(), "Archivo no soportado o dañado");
-                    break;
-                case "OK":
-                    $('#inuser').modal('hide');
-                    return false;
-                    break;
-            }
-
-
-
-        }
-    });
-
-
-}
-
-
-
-
-
-function validateformcompany()
-{
-
-    if (!validaterequired())
-        return;
-    if (!validaterequired())
-        return;
-    if (!validateemail())
-        return;
-    validatepasswords();
-    var thedata = startSubmit();
-
-    $.post("/site/admin/insertempresas", thedata, function (response) {
-
-        alert(response);
-
-        var jsonResponse = $.parseJSON(response);
-        if (jsonResponse.length === 0)
-        {
-            $('#incompany').modal('hide');
-            return;
-        }
-        for (var i = 0; i < jsonResponse.length; i++)
-        {
-
-            switch (jsonResponse[i])
-            {
-                case "E1":
-                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
-                    break;
-                case "F1":
-                    notify($(".ffile").first(), "Archivo no soportado o dañado");
-                    break;
-                case "OK":
-                    $('#inuser').modal('hide');
-                    break;
-            }
-
-
-
-        }
-
-
-    });
-
-
-
-}
-
-
-
-
-function validateformvideo()
-{
-
-    
-    if (!validaterequired())
-        return;
-    if (!validaterequired())
-        return;
-    if (!validateemail())
-        return;
-    validatepasswords();
-    var thedata = startSubmit();
-
-    $.post("/site/admin/insertvideo", thedata, function (response) {
-
-
-        var jsonResponse = $.parseJSON(response);
-        if (jsonResponse.length === 0)
-        {
-            $('#invideo').modal('hide');
-            return;
-        }
-        for (var i = 0; i < jsonResponse.length; i++)
-        {
-
-            switch (jsonResponse[i])
-            {
-                case "E1":
-                    notify($(".femail").first(), "Este correo ya ha sido previamente registrado");
-                    break;
-                case "F1":
-                    notify($(".ffile").first(), "Archivo no soportado o dañado");
-                    break;
-                case "OK":
-                    $('#invideo').modal('hide');
-                    break;
-            }
-
-
-
-        }
-
-
-    });
-
-
-    
-}

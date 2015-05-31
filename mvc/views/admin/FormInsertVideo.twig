@@ -75,7 +75,7 @@
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Compañia</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="tags" placeholder="Email">
+            <input type="text" class="form-control" id="tags" placeholder="Compañia">
         </div>
     </div>
 
@@ -83,7 +83,7 @@
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Compañia Seleccionada</label>
         <div class="col-sm-10 has-feedback">
-            <span type="text" name="descripcion" outsidename="company_id" class="form-control frequired ftosend" id="selecteduser" disabled ></span>
+            <span type="text" name="Compañia Seleccionada" outsidename="company_id" class="form-control frequired ftosend" id="selecteduser" disabled ></span>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 
         </div>
@@ -96,7 +96,7 @@
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Categoria</label>
         <div class="col-sm-10 has-feedback">
-            <select outsidename="category_id" name="rol" class="frequired ftosend" id="furol">
+            <select outsidename="category_id" name="Categoria" class="frequired ftosend" id="furol">
                 {% for category in Data.categories %}
 
                     <option value="{{ category.id }}">{{ category.name }}</option>
@@ -116,9 +116,9 @@
             <i class="glyphicon glyphicon-plus"></i>
             <span>Seleccionar Video...</span>
             <!-- The file input field used as target for the file upload widget -->
-            <input id="fileupload" type="file" name="files[]" multiple>
+            <input id="fileupload" class="fileupload" type="file" name="files[]" multiple>
 
-            <input outsidename="file_name" name="foto" value="" class="frequired ftosend ffile" type="hidden" id="photoname" />
+            <input outsidename="file_name" name="video" value="" class="frequired ftosend ffile" type="hidden" id="photoname" />
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </span>
 
@@ -136,44 +136,4 @@
 </form>
 
 
-
-
-<script>
-
-    $(function () {
-        // alert("HOLA");
-        'use strict';
-        // Change this to the location of your server-side upload handler:
-        var url = "/site/admin/subirarchivo";
-
-        $('#fileupload').on('click', function ()
-        {
-            var progress = parseInt(0 / 1 * 100, 10);
-            $('#progress .progress-bar').css(
-                    'width',
-                    progress + '%'
-                    );
-        });
-
-        $('#fileupload').fileupload({
-            url: url,
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    
-                    $("#photoname").val(file.name);
-                });
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .progress-bar').css(
-                        'width',
-                        progress + '%'
-                        );
-            }
-        }).prop('disabled', !$.support.fileInput)
-                .parent().addClass($.support.fileInput ? undefined : 'disabled');
-    });
-
-
-</script>
+<script src="{{ Core.Domains.theme }}mvc/views/admin/js/uploadfile.js"></script>

@@ -1,31 +1,31 @@
 <div class="sidebar-offcanvas" id="sidebar" role="navigation">
     <ul class="nav nav-sidebar list-group">
-        
+
         <span id="user">
 
             <div class="row">
                 <div class="col-md-5">
                     <a href="#" class="thumbnail">
-                      
+
                         <img class="my_bg" src="{{Core.Domains.theme}}images/ulisote.jpg"alt="...">
                     </a>
                 </div>
-                    
-                    <div class="col-md-7">
-                        SCRUM MASTER Ulisote
-                    </div>
+
+                <div class="col-md-7">
+                    Ulises Omar Mora
+                </div>
             </div>
 
 
 
         </span>
-        <li class=" menuitem" id="usuarios"><a href="#" onclick="Comm.load('usuarios')"><span id="push_left">Usuarios</span> 
+        <li class=" menuitem" id="usuarios"><a href="#" onclick="SelectAll.usuarios();"><span id="push_left">Usuarios</span> 
                 <span class="push_right badge counter" id="user-notifications-number"></span></a></li>
-        <li class=" menuitem" id="empresas"><a href="#" onclick="Comm.load('empresas')" ><span id="push_left">Empresas</span> 
+        <li class=" menuitem" id="empresas"><a href="#" onclick="SelectAll.empresas();" ><span id="push_left">Empresas</span> 
                 <span class="push_right badge counter" id="companies-notifications-number"></span></a><li>
-        <li class=" menuitem" id="videos"><a href="#" onclick="Comm.load('videos')"><span id="push_left">Videos</span> 
+        <li class=" menuitem" id="videos"><a href="#" onclick="SelectAll.videos();"><span id="push_left">Videos</span> 
                 <span class="push_right badge  counter" id="video-notifications-number" ></span></a></li>
-       
+
     </ul>
 
 

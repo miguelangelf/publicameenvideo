@@ -1,3 +1,9 @@
+.modal {
+    overflow-y: auto;
+}
+
+
+
 body {
     padding-top: 50px;
 }
@@ -23,7 +29,7 @@ footer {
 
 input[text]
 {
-    
+
     color:#000;
 }
 
@@ -31,13 +37,13 @@ input[text]
 select
 {
     color: #000;
-    
+
 }
 
 option
 {
     color: #000;
-    
+
 }
 
 .center {
@@ -72,6 +78,10 @@ option
     width: 100%;
 }
 
+
+.modal-open {
+    overflow: scroll;
+}
 
 
 

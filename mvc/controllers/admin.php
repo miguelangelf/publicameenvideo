@@ -125,164 +125,6 @@ class admin extends _controller {
         }
     }
 
-    public function insertusarios() {
-
-        $errores = array();
-
-        $email = $this->Post("email");
-        $table = "users";
-        $where = "email='$email'";
-
-        $res = $this->storedemail($table, $where);
-
-        if ($res == 1) {
-            $errores[sizeof($errores)] = "E1";
-        }
-
-
-        //INSERTAR LA FOTO EN LA 
-        $photo = $this->Post("photo");
-        $id = "NULL";
-        $path = Config::get("Core.Path.theme") . "data/tmp/";
-        $fichero = $path . $photo;
-        $filesize = filesize($fichero);
-        $name = $photo;
-        //   $created = date("Y-m-d H:i:s", filectime($fichero));
-        $created = "NOW()";
-        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $fichero);
-        if (strpos($mime, 'image') === false) {
-            $errores[sizeof($errores)] = "F1";
-        }
-
-        if (sizeof($errores) != 0) {
-            echo (json_encode($errores));
-            return;
-        }
-
-
-        //A partir de aqui no hay errores y se almcaena en la base de datos
-
-        finfo_close($finfo);
-        $table = "files";
-        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
-        $idofphoto = $this->Model()->insert($table, $datosfile);
-
-
-        //INSERTAR USUARIO 
-        $id = "NULL";
-        $gender = $this->Post("gender");
-        $birthdate = $this->Post("birthdate");
-        $name = "'" . $this->Post("name") . "'";
-        $lastname = "'" . $this->Post("lastname") . "'";
-        $email = "'" . $this->Post("email") . "'";
-        $role = $this->Post("role");
-        $created = "NOW()";
-        $lastaccess = "NOW()";
-        $plan = $this->Post("plan");
-        $expiration = $this->Post("expiration");
-        $status = $this->Post("status");
-        $token = "''";
-        $table = "users";
-
-        $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $birthdate)));
-        $expiration = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $expiration)));
-        $birthdate = "'" . $birthdate . "'";
-        $expiration = "'" . $expiration . "'";
-
-
-        //Insertar contraseña
-
-        $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status, $idofphoto);
-        $thelastid = $this->Model()->insert($table, $datos);
-
-
-        $table = "users_paswd";
-        $password = "'" . $this->Post("password") . "'";
-        $newdatos = array($thelastid, $password);
-        $resp = $this->Model()->insert($table, $newdatos);
-
-
-
-        $errores[sizeof($errores)] = "OK";
-
-        echo (json_encode($errores));
-    }
-
-    public function insertempresas() {
-
-        $errores = array();
-
-        $email = $this->Post("email");
-        $table = "companies";
-        $where = "email='$email'";
-
-
-        $res = $this->storedemail($table, $where);
-
-        if ($res == 1) {
-
-            $errores[sizeof($errores)] = "E1";
-        }
-
-
-        $photo = $this->Post("photo");
-        $path = Config::get("Core.Path.theme") . "data/tmp/";
-        $fichero = $path . $photo;
-        $filesize = filesize($fichero);
-        $name = $photo;
-        $created = "NOW()";
-        $extension = pathinfo($fichero, PATHINFO_EXTENSION);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $fichero);
-        finfo_close($finfo);
-
-        if (strpos($mime, 'image') === false) {
-            $errores[sizeof($errores)] = "F1";
-        }
-
-        if (sizeof($errores) != 0) {
-            echo (json_encode($errores));
-            return;
-        }
-
-
-
-        $table = "files";
-
-        $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
-        $idofphoto = $this->Model()->insert($table, $datosfile);
-
-
-
-        $id = "NULL";
-        $name = "'" . $this->Post("name") . "'";
-        $rfc = "'" . $this->Post("rfc") . "'";
-        $address = "'" . $this->Post("address") . "'";
-        $description = "'" . $this->Post("descripcion") . "'";
-        $phone = "'" . $this->Post("phone") . "'";
-        $email = "'" . $this->Post("email") . "'";
-        $location_id = 0;
-        $latitude = 0;
-        $longitude = 0;
-        $created = "NOW()";
-        $table = "companies";
-
-
-
-        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created, $idofphoto);
-        $thelastid = $this->Model()->insert($table, $datos);
-
-
-        $table = "company_passwd";
-        $password = "'" . $this->Post("password") . "'";
-        $newdatos = array($thelastid, $password);
-        $resp = $this->Model()->insert($table, $newdatos);
-
-        echo("OK");
-    }
-
     public function insertfile($filename) {
 
         $directory = Config::get("Core.Path.theme") . "data/tmp/";
@@ -316,6 +158,166 @@ class admin extends _controller {
             return true;
     }
 
+    public function insertusarios() {
+
+        try {
+            $errores = array();
+
+            $email = $this->Post("email");
+            $table = "users";
+            $where = "email='$email'";
+
+            $res = $this->storedemail($table, $where);
+
+            if ($res == 1) {
+                $errores[sizeof($errores)] = "E1";
+            }
+
+
+            //INSERTAR LA FOTO EN LA 
+            $photo = $this->Post("photo");
+            $id = "NULL";
+            $path = Config::get("Core.Path.theme") . "data/tmp/";
+            $fichero = $path . $photo;
+            $filesize = filesize($fichero);
+            $name = $photo;
+            //   $created = date("Y-m-d H:i:s", filectime($fichero));
+            $created = "NOW()";
+            $extension = pathinfo($fichero, PATHINFO_EXTENSION);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $fichero);
+            if (strpos($mime, 'image') === false) {
+                $errores[sizeof($errores)] = "F1";
+            }
+
+            if (sizeof($errores) != 0) {
+                echo (json_encode($errores));
+                return;
+            }
+
+
+            //A partir de aqui no hay errores y se almcaena en la base de datos
+
+            finfo_close($finfo);
+            $table = "files";
+            $datosfile = array("NULL", "'$photo'", "''", "'$created'", $filesize, "'$extension'", "'$mime'");
+            $idofphoto = $this->Model()->insert($table, $datosfile);
+
+
+            //INSERTAR USUARIO 
+            $id = "NULL";
+            $gender = $this->Post("gender");
+            $birthdate = $this->Post("birthdate");
+            $name = "'" . $this->Post("name") . "'";
+            $lastname = "'" . $this->Post("lastname") . "'";
+            $email = "'" . $this->Post("email") . "'";
+            $role = $this->Post("role");
+            $created = "NOW()";
+            $lastaccess = "NOW()";
+            $plan = $this->Post("plan");
+            $expiration = $this->Post("expiration");
+            $status = $this->Post("status");
+            $token = "''";
+            $table = "users";
+
+            $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $birthdate)));
+            $expiration = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $expiration)));
+            $birthdate = "'" . $birthdate . "'";
+            $expiration = "'" . $expiration . "'";
+
+
+            //Insertar contraseña
+
+            $datos = array($id, $gender, $birthdate, $name, $lastname, $email, $role, $created, $lastaccess, $token, $plan, $expiration, $status, $idofphoto);
+            $thelastid = $this->Model()->insert($table, $datos);
+
+
+            $table = "users_paswd";
+            $password = "'" . $this->Post("password") . "'";
+            $newdatos = array($thelastid, $password);
+            $resp = $this->Model()->insert($table, $newdatos);
+
+
+
+            $errores[sizeof($errores)] = "OK";
+
+            echo (json_encode($errores));
+        } catch (Exception $e) {
+            $errores = "FATAL ERROR";
+        }
+    }
+
+    public function insertempresas() {
+
+
+        $errores = array();
+
+        $id = "NULL";
+        $name = "'" . $this->Post("name") . "'";
+        $rfc = "'" . $this->Post("rfc") . "'";
+        $address = "'" . $this->Post("address") . "'";
+        $description = "'" . $this->Post("descripcion") . "'";
+        $phone = "'" . $this->Post("phone") . "'";
+        $email = "'" . $this->Post("email") . "'";
+        $location_id = 0;
+        $latitude = 0;
+        $longitude = 0;
+        $created = "NOW()";
+        $file_id;
+
+
+        //Se valida el email
+
+        $table = "companies";
+        $where = "email=$email";
+
+        $res = $this->storedemail($table, $where);
+
+        if ($res == 1) {
+
+            $errores[sizeof($errores)] = "E1";
+        }
+
+
+
+        //Se valida la foto
+
+        $filename = $this->Post("photo");
+        $validmime = "image";
+        $isvalidfile = $this->checkmime($filename, $validmime);
+
+        if (!$isvalidfile) {
+            $errores[sizeof($errores)] = "F1";
+        }
+
+        if (sizeof($errores) > 0) {
+            echo(json_encode($errores));
+            return;
+        }
+
+        
+
+        $fileinfo = $this->insertfile($filename);
+        $table = "files";
+
+        $datosfile = $fileinfo;
+        $file_id = $this->Model()->insert($table, $datosfile);
+
+        
+        $table="companies";
+        $datos = array($id, $name, $rfc, $address, $description, $phone, $email, $location_id, $latitude, $longitude, $created, $file_id);
+        $thelastid = $this->Model()->insert($table, $datos);
+ 
+        $table = "company_passwd";
+        $password = "'" . $this->Post("password") . "'";
+        $newdatos = array($thelastid, $password);
+        $resp = $this->Model()->insert($table, $newdatos);
+
+        $errores[sizeof($errores)] = "OK";
+
+        echo (json_encode($errores));
+    }
+
     public function insertvideo() {
 
         /*
@@ -343,8 +345,8 @@ class admin extends _controller {
         $lastview = "NOW()";
         $created = "NOW()";
         $ranking = 0;
-        $keywords_search="";
-        $friendly_url="";
+        $keywords_search = "";
+        $friendly_url = "";
 
 
 
@@ -369,11 +371,11 @@ class admin extends _controller {
 
 
         $table = "videos";
-        $datos = array($id, "'$title'", "'$description'", $likes, $file_id, $views, $company_id, $status_id, $category_id, $location_id, $latitude, $longitude, $lastview, $created, $ranking, "'$keywords_search'","'$friendly_url'");
+        $datos = array($id, "'$title'", "'$description'", $likes, $file_id, $views, $company_id, $status_id, $category_id, $location_id, $latitude, $longitude, $lastview, $created, $ranking, "'$keywords_search'", "'$friendly_url'");
         $thelastid = $this->Model()->insert($table, $datos);
-        
-       
-        $errores[sizeof($errores)]="OK";
+
+
+        $errores[sizeof($errores)] = "OK";
         echo(json_encode($errores));
     }
 
@@ -553,10 +555,10 @@ class admin extends _controller {
                 break;
 
             case 4:
-                $nameofcat = "Inactivos";
-                $filterfield = "Bloqueados";
+                $nameofcat = "Bloqueados";
+                $filterfield = "videos.status_id";
                 $condition = "=";
-                $filterarg = "3";
+                $filterarg = "4";
 
 
                 break;

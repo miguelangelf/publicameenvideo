@@ -11,7 +11,7 @@
 <!-- BUSCADO Y FILTRADO-->
 <div class="fullw">    
     <span class="pull-left a80">
-        <input type="text" id="buscador" onchange="Comm.search(this);" class="form-control" placeholder="Buscar">
+        <input type="text" id="buscador" onchange="SelectAll.search(this);" class="form-control" placeholder="Buscar">
     </span>
 
     <span class="pull-right a20">
@@ -64,53 +64,34 @@
 <!--BOTONES-->
 <div class="a100 ">
     {{Data.path}}
-    <button type="button" onclick="Change.insertcompany();
-            ;" class="btn btn-primary pull-right" >
+    <button type="button" onclick="Insert.modalempresa();" class="btn btn-primary pull-right" >
         Agregar Empresa
     </button>
 
 
-    <button type="button"  onclick="Change.preparemodal(1);" class="btn btn-primary pull-right" >
+    <button type="button"  onclick="Change.empresa(1);" class="btn btn-primary pull-right" >
         Eliminar Empresa
     </button>
 
 </div>
 
-    
-<!--SCRIPTS-->    
+
+<!--SCRIPTS-->  
+<!--SCRIPTS-->
 <script>
 
     $('.mycheckbox').click(function (e)
     {
 
-          e.stopPropagation();
-        // alert("bananero");
+        e.stopPropagation();
 
     });
 
     $('.myrow').on('click', function ()
     {
-
-        //  alert("sabe");
-
         $('#showmoreuser').modal('show');
         var theid = $(this).attr('value');
-
-
-
-        var thepage = "/site/admin/getmoreofcompany";
-
-        var datatosend = {
-            id: theid
-        };
-
-
-        $.post(thepage, datatosend, function (response) {
-            $("#allofmyuser").html(response);
-        });
-
-
-
+        SelectSpecific.empresa(theid);
 
     });
 
@@ -118,4 +99,6 @@
 
 
 </script>
+
+
 

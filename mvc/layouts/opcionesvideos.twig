@@ -1,13 +1,12 @@
 <div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    Filtrar <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-      <li><a  onclick="Comm.changecategory('0')" href="#">Sin Filtro</a></li>
-    <li><a href="#" onclick="Comm.changecategory('1')">En espera de Aprobacion</a></li>
-    <li><a href="#" onclick="Comm.changecategory('2')">Activo</a></li>
-    <li><a href="#" onclick="Comm.changecategory('3')">Inactivo</a></li>
-    <li><a href="#" onclick="Comm.changecategory('4')">Bloqueado</a></li>
-  </ul>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Filtrar <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a onclick="SelectAll.categoria('0');">Sin Filtro</a></li>
+        <li><a onclick="SelectAll.categoria('1');" >En espera de Aprobacion</a></li>
+        <li><a onclick="SelectAll.categoria('2');" >Activo</a></li>
+        <li><a onclick="SelectAll.categoria('3');" >Inactivo</a></li>
+        <li><a onclick="SelectAll.categoria('4');" >Bloqueado</a></li>
+    </ul>
 </div>
-            
